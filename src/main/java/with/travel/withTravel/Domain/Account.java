@@ -1,16 +1,18 @@
 package with.travel.withTravel.Domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Getter @Setter
-public class Member {
+@EqualsAndHashCode(of = "id")
+@Builder@AllArgsConstructor@NoArgsConstructor
+public class Account {
 
 
     @Id @GeneratedValue
@@ -44,4 +46,8 @@ public class Member {
     @ManyToMany
     private Set<Place> VisitedPlaces;
 
+    public void generateEmailCheckToken() {
+        this.emailCheckToken = UUID.randomUUID().toString();
+
+    }
 }
