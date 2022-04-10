@@ -1,9 +1,14 @@
 package com.travelwithme.withtravel.Account;
 
+import com.travelwithme.withtravel.Place.Place;
+import com.travelwithme.withtravel.Tag.Tag;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @Entity@Builder
 @Getter@Setter
@@ -35,8 +40,25 @@ public class Account {
 
     private String occupation;
 
+    private boolean travelCreatedByWeb;
+
+    private boolean travelEnrollmentResultByWeb;
+
+    private boolean travelUpdatedByWeb;
+
     @Embedded
     private Address address;
 
+    @Lob@Basic(fetch = FetchType.EAGER)
     private String profileImage;
+
+    @ManyToMany
+    private Set<Tag> tags = new HashSet<>();
+
+    @ManyToMany
+    private Set<Place> Places = new HashSet<>();
+
+    public void generateEmailCheckToken(){
+        this.emailCheckToken = UUID.randomUUID().toString();
+    }
 }
