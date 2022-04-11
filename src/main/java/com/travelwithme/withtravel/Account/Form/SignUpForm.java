@@ -2,6 +2,7 @@ package com.travelwithme.withtravel.Account.Form;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
