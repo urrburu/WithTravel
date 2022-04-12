@@ -54,6 +54,10 @@ public class AccountController {
                 model.addAttribute("error", "wrong.email");
                 return "account/checkedEmail";
             }
+            if(account.getEmailCheckToken().equals(token)){
+                model.addAttribute("error", "wrong.token");
+                return "account/checkedEmail";
+            }
             return "/";
         }
 
