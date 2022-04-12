@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final JavaMailSender javaMailSender;
+    private final PasswordEncoder passwordEncoder;
 
 
     public void processNewAccount(SignUpForm signUpForm) {
@@ -26,10 +29,11 @@ public class AccountService {
         sendSignUpConfirmEmail(newAccount);
     }
     private Account saveNewAccount(@Valid SignUpForm signUpForm) {
+
         Account account = Account.builder()
                 .email(signUpForm.getEmail())
                 .nickname(signUpForm.getNickname())
-                .password(signUpForm.getPassword()) // TODO encoding 해야함
+                .password(passwordEncoder.encode(signUpForm.getPassword()))
                 .travelCreatedByWeb(true)
                 .travelEnrollmentResultByWeb(true)
                 .travelUpdatedByWeb(true)
