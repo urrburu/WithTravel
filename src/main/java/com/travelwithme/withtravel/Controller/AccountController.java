@@ -56,14 +56,13 @@ public class AccountController {
                 model.addAttribute("error", "wrong.email");
                 return checkedEmail;
             }
-            if(account.getEmailCheckToken().equals(token)){
+            if(!account.getEmailCheckToken().equals(token)){
                 model.addAttribute("error", "wrong.token");
                 return checkedEmail;
             }
 
             account.setEmailVerified(true);
             account.setJoinedAt(LocalDateTime.now());
-            model.addAttribute("numberOfUser", accountRepository.count());
             model.addAttribute("nickname", account.getNickname());
             return checkedEmail;
         }

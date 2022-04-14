@@ -23,6 +23,7 @@ public class AccountService {
     private final PasswordEncoder passwordEncoder;
 
 
+    @Transactional
     public void processNewAccount(SignUpForm signUpForm) {
         Account newAccount = saveNewAccount(signUpForm);
         newAccount.generateEmailCheckToken();
@@ -38,6 +39,7 @@ public class AccountService {
                 .travelEnrollmentResultByWeb(true)
                 .travelUpdatedByWeb(true)
                 .build();
+        //account.generateEmailCheckToken();
         return accountRepository.save(account);
     }
 
