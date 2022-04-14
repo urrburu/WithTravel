@@ -18,8 +18,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.then;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @SpringBootTest
@@ -50,4 +50,61 @@ public class AccountServiceTest {
 
     }
 
+    @DisplayName("이메일 확인 처리 - 입력값 정상")
+    @Test
+    void CheckEmailOKPattern() throws Exception{
+        /*mockMvc.perform(post("/sign-up")
+                        .param("nickname", "chanhwi")
+                        .param("email", "chanhwi@email.com")
+                        .param("password", "123123123")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/"));*/
+        Account account = accountRepository.findByEmail("chanhwi@email.com");
+        mockMvc.perform(get("/check-email-token")
+                .param("token",account.getEmailCheckToken())
+                .param("email", "chanhwi@email.com"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeDoesNotExist("error"))
+                .andExpect(model().attributeExists("nickname"))
+                .andExpect(view().name("account/checkedEmail"));
+    }
+    @DisplayName("이메일 확인 처리 - 입력값 비정상 토큰이 잘못됨")
+    @Test
+    void CheckTokenFailPattern() throws Exception{
+        /*mockMvc.perform(post("/sign-up")
+                        .param("nickname", "chanhwi")
+                        .param("email", "chanhwi@email.com")
+                        .param("password", "123123123")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/"));*/
+        Account account = accountRepository.findByEmail("chanhwi@email.com");
+        mockMvc.perform(get("/check-email-token")
+                        .param("token","wrenoikweropikjnj")
+                        .param("email", "chanhwi@email.com"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeDoesNotExist("nickname"))
+                .andExpect(model().attributeExists("error"))
+                .andExpect(view().name("account/checkedEmail"));
+    }
+    @DisplayName("이메일 확인 처리 - 입력값 비정상 토큰이 잘못됨")
+    @Test
+    void CheckEmailFailPattern() throws Exception{
+        /*mockMvc.perform(post("/sign-up")
+                        .param("nickname", "chanhwi")
+                        .param("email", "chanhwi@email.com")
+                        .param("password", "123123123")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/"));*/
+        Account account = accountRepository.findByEmail("chanhwi@email.com");
+        mockMvc.perform(get("/check-email-token")
+                        .param("token",account.getEmailCheckToken())
+                        .param("email", "WrongEmail@email.com"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeDoesNotExist("nickname"))
+                .andExpect(model().attributeExists("error"))
+                .andExpect(view().name("account/checkedEmail"));
+    }
 }
