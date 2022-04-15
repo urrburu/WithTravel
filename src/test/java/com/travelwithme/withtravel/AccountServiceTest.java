@@ -17,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.then;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -67,7 +69,8 @@ public class AccountServiceTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeDoesNotExist("error"))
                 .andExpect(model().attributeExists("nickname"))
-                .andExpect(view().name("account/checkedEmail"));
+                .andExpect(view().name("account/checkedEmail"))
+                .andExpect(authenticated());
     }
     @DisplayName("이메일 확인 처리 - 입력값 비정상 토큰이 잘못됨")
     @Test
@@ -86,9 +89,10 @@ public class AccountServiceTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeDoesNotExist("nickname"))
                 .andExpect(model().attributeExists("error"))
-                .andExpect(view().name("account/checkedEmail"));
+                .andExpect(view().name("account/checkedEmail"))
+                .andExpect(unauthenticated());
     }
-    @DisplayName("이메일 확인 처리 - 입력값 비정상 토큰이 잘못됨")
+    @DisplayName("이메일 확인 처리 - 입력값 비정상 이메일이 잘못됨")
     @Test
     void CheckEmailFailPattern() throws Exception{
         /*mockMvc.perform(post("/sign-up")
@@ -105,6 +109,7 @@ public class AccountServiceTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeDoesNotExist("nickname"))
                 .andExpect(model().attributeExists("error"))
-                .andExpect(view().name("account/checkedEmail"));
+                .andExpect(view().name("account/checkedEmail"))
+                .andExpect(unauthenticated());
     }
 }
