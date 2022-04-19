@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <title>With Travel</title>
     <link rel="stylesheet" href ="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css"/>
+    <script src="/node_modules/jdenticon/dist/jdenticon.min.js"></script>
     <style>
         .container {
             max-width: 100%;
@@ -55,11 +57,15 @@
             <a class="nav-link" href="#" th:href="@{/sign-up}">가입</a>
         </li>
         <li class="nav-item" sec:authorize="isAuthenticated()">
-            <a class="nav-link"th:href="@{/notifications}">알림</a>
+            <a class="nav-link"th:href="@{/notifications}">
+                <i class="fa fa-bell-o"></i>
+            </a>
         </li>
 
         <li class="nav-item" sec:authorize="isAuthenticated()">
-            <a class="nav-link" href="#" th:href="@{/account/settings}">설정</a>
+            <a class="nav-link" href="#" th:href="@{/account/settings}">
+                <svg data-jenticon-value="user127" th:data-jdenticon-value="${#authentication.name}" width="24" height="24" class="rounded border bg-light"></svg>
+            </a>
         </li>
         <li class="nav-item" sec:authorize="isAuthenticated()">
             <a class="nav-link" href="#" th:href="@{/logout}">로그아웃</a>
