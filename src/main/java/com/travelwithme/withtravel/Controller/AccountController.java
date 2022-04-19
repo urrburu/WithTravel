@@ -73,11 +73,7 @@ public class AccountController {
 
 
 
-    @GetMapping("/email-login")
-        public String loginByEmail(){
 
-            return "account/emailLogin";
-        }
 
 
 

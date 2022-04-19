@@ -2,6 +2,7 @@ package com.travelwithme.withtravel.Service;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.Form.SignUpForm;
+import com.travelwithme.withtravel.Account.UserAccount;
 import com.travelwithme.withtravel.Config.SecurityConfig;
 import com.travelwithme.withtravel.Repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final JavaMailSender javaMailSender;
     private final PasswordEncoder passwordEncoder;
-    //private final AuthenticationManager authenticationManager;
+
 
     @Transactional
     public Account processNewAccount(SignUpForm signUpForm) {
@@ -66,7 +67,7 @@ public class AccountService {
 
     public void login(Account account) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                account.getNickname(),
+                new UserAccount(account),
                 account.getPassword(),
                 List.of(new SimpleGrantedAuthority("ROLE_USER")));
         //Authentication authentication = authenticationManager.authenticate(token);

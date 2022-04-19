@@ -14,9 +14,9 @@
             max-width: 100%;
         }
     </style>
-    <script src="../static/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
-<body class="bg-light">
+
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark" th:fragment="mainNavbar">
     <a class="navbar-brand" href="/" th:href="@{/}">
         <h2>With Travel</h2>
@@ -41,9 +41,9 @@
                 여행보기!
             </button>
             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="userDropdownMenu">
-                <h6 class="dropdown-header">
-                    <span sec:authentication="name">Username</span>
-                </h6>
+                <h5 class="dropdown-header">
+                    <span sec:authentication="name">Username</span>, 당신의 여행!
+                </h5>
                 <li><a class="dropdown-item" >지난 여행들</a></li>
                 <li><a class="dropdown-item" >예정된 여행</a></li>
                 <li><a class="dropdown-item" >팀원을 기다리는 여행들</a></li>
@@ -71,16 +71,11 @@
             <a class="nav-link" href="#" th:href="@{/logout}">로그아웃</a>
         </li>
     </ul>
-
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" ></script>
 </nav>
 
-
-
-<script src="/node_modules/jquery/dist/jquery.min.js"></script>
-<script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" ></script>
-
-
-<script type="application/javascript">
+<script type="application/javascript" th:fragment="submitcheck">
     (function () {
         'use strict';
 
@@ -101,5 +96,3 @@
         }, false)
     }())
 </script>
-</body>
-</html>
