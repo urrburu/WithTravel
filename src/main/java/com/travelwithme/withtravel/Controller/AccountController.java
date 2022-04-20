@@ -79,10 +79,12 @@ public class AccountController {
         }
         @GetMapping("/resend-email")
         public String ResendEmail(@CurrentAccount Account account, Model model){
-        model.addAttribute(account);
-        accountService.sendSignUpConfirmEmail(account);
-        return "account/ReCheckEmail";
-    }
+            model.addAttribute(account);
+            accountService.sendSignUpConfirmEmail(account);
+            return "account/ReCheckEmail";
+        }
+
+
 
 
 
