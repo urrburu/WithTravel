@@ -2,6 +2,7 @@ package com.travelwithme.withtravel.Controller;
 
 
 import com.travelwithme.withtravel.Account.Account;
+import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Account.Form.SignUpForm;
 import com.travelwithme.withtravel.Account.Validator.SignUpFormValidator;
 
@@ -70,8 +71,18 @@ public class AccountController {
             model.addAttribute("nickname", account.getNickname());
             return checkedEmail;
         }
+        @GetMapping("/check-email")
+        public String checkEmail(@CurrentAccount Account account, Model model){
+            model.addAttribute(account);
 
-
+            return "account/ReCheckEmail";
+        }
+        @GetMapping("/resend-email")
+        public String ResendEmail(@CurrentAccount Account account, Model model){
+        model.addAttribute(account);
+        accountService.sendSignUpConfirmEmail(account);
+        return "account/ReCheckEmail";
+    }
 
 
 
