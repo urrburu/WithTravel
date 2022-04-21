@@ -1,7 +1,9 @@
 package com.travelwithme.withtravel;
 
 import com.travelwithme.withtravel.Account.Account;
+import com.travelwithme.withtravel.Account.Form.SignUpForm;
 import com.travelwithme.withtravel.Repository.AccountRepository;
+import com.travelwithme.withtravel.Service.AccountService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class AccountServiceTest {
 
     @Autowired MockMvc mockMvc;
     @Autowired AccountRepository accountRepository;
+    @Autowired
+    AccountService accountService;
     @MockBean JavaMailSender javaMailSender;
 
     @DisplayName("회원가입 처리 - 입력값 정상")
@@ -115,7 +119,39 @@ public class AccountServiceTest {
     @DisplayName("로그아웃 구현")
     @Test
     void LogoutCheck() throws Exception{
-
-
+        mockMvc.perform(post("/logout")
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"))
+                .andExpect(unauthenticated());
+    }
+    @DisplayName("이메일 로그인 구현")
+    @Test
+    void LoginCheck() throws Exception{
+        SignUpForm signUpForm= new SignUpForm();
+        signUpForm.setNickname("chanhwi");
+        signUpForm.setEmail("chanhwi@email.com");
+        signUpForm.setPassword("123123123");
+        accountService.processNewAccount(signUpForm);
+        mockMvc.perform(post("/login")
+                .param("email", "chanhwi@email.com")
+                .param("password", "123123123")
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"))
+                .andExpect(authenticated().withUsername("chanhwi"));
+    }
+    @DisplayName("닉네임 로그인 구현")
+    @Test
+    void LoginNicknameCheck() throws Exception{
+        mockMvc.perform(post("/logout")
+                .with(csrf()));
+        mockMvc.perform(post("/login")
+                        .param("nickname", "chanhwi")
+                        .param("password", "123123123")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"))
+                .andExpect(authenticated());
     }
 }
