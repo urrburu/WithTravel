@@ -112,4 +112,10 @@ public class AccountServiceTest {
                 .andExpect(view().name("account/checkedEmail"))
                 .andExpect(unauthenticated());
     }
+    @DisplayName("로그아웃 구현")
+    @Test
+    void LogoutCheck() throws Exception{
+
+
+    }
 }
