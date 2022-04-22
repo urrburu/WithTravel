@@ -83,7 +83,7 @@ public class AccountController {
             accountService.sendSignUpConfirmEmail(account);
             return "account/ReCheckEmail";
         }
-        @GetMapping("/findpassword")
+        @GetMapping("/findPassword")
         public String FindPassword(Model model){
             return "redirect:/";
         }
