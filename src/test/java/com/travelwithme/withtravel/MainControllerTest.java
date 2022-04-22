@@ -3,6 +3,8 @@ package com.travelwithme.withtravel;
 import com.travelwithme.withtravel.Account.Form.SignUpForm;
 import com.travelwithme.withtravel.Repository.AccountRepository;
 import com.travelwithme.withtravel.Service.AccountService;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +26,25 @@ public class MainControllerTest {
     @Autowired    AccountRepository accountRepository;
     @Autowired    AccountService accountService;
 
-
-    @DisplayName("이메일 로그인 구현")
-    @Test
-    void LoginCheck() throws Exception{
+    @BeforeEach
+    void beforeEach() {
         SignUpForm signUpForm= new SignUpForm();
         signUpForm.setNickname("chanhwi");
         signUpForm.setEmail("chanhwi@email.com");
         signUpForm.setPassword("123123123");
         accountService.processNewAccount(signUpForm);
+    }
+    @AfterEach
+    void afterEach() {
+        accountRepository.deleteAll();
+    }
+    //AOP 개념을 사용하는 동작
+    @DisplayName("이메일 로그인 구현")
+    @Test
+    void LoginCheck() throws Exception{
+
         mockMvc.perform(post("/login")
-                        .param("email", "chanhwi@email.com")
+                        .param("username", "chanhwi@email.com")
                         .param("password", "123123123")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
@@ -56,7 +66,7 @@ public class MainControllerTest {
         mockMvc.perform(post("/logout")
                 .with(csrf()));
         mockMvc.perform(post("/login")
-                        .param("nickname", "chanhwi")
+                        .param("username", "chanhwi")
                         .param("password", "123123123")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
