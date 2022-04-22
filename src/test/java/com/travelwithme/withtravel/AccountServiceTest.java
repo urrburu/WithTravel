@@ -116,42 +116,5 @@ public class AccountServiceTest {
                 .andExpect(view().name("account/checkedEmail"))
                 .andExpect(unauthenticated());
     }
-    @DisplayName("로그아웃 구현")
-    @Test
-    void LogoutCheck() throws Exception{
-        mockMvc.perform(post("/logout")
-                .with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"))
-                .andExpect(unauthenticated());
-    }
-    @DisplayName("이메일 로그인 구현")
-    @Test
-    void LoginCheck() throws Exception{
-        SignUpForm signUpForm= new SignUpForm();
-        signUpForm.setNickname("chanhwi");
-        signUpForm.setEmail("chanhwi@email.com");
-        signUpForm.setPassword("123123123");
-        accountService.processNewAccount(signUpForm);
-        mockMvc.perform(post("/login")
-                .param("email", "chanhwi@email.com")
-                .param("password", "123123123")
-                .with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"))
-                .andExpect(authenticated().withUsername("chanhwi"));
-    }
-    @DisplayName("닉네임 로그인 구현")
-    @Test
-    void LoginNicknameCheck() throws Exception{
-        mockMvc.perform(post("/logout")
-                .with(csrf()));
-        mockMvc.perform(post("/login")
-                        .param("nickname", "chanhwi")
-                        .param("password", "123123123")
-                        .with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"))
-                .andExpect(authenticated());
-    }
+
 }
