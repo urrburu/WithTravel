@@ -48,7 +48,7 @@ public class Account {
 
     @Embedded
     private Address address;
-
+    //엔티티의 값일 뿐.
     @Lob@Basic(fetch = FetchType.EAGER)
     private String profileImage;
 

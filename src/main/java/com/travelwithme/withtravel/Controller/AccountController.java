@@ -67,8 +67,7 @@ public class AccountController {
                 return checkedEmail;
             }
 
-            account.completeSignUp();
-            accountService.login(account);
+            accountService.completeSignUp(account);
             model.addAttribute("nickname", account.getNickname());
             return checkedEmail;
         }
