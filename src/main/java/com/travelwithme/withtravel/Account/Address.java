@@ -1,6 +1,7 @@
 package com.travelwithme.withtravel.Account;
 
 import lombok.Getter;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -8,6 +9,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 @Getter
 public class Address {
+
 
     private String city;
 
