@@ -30,7 +30,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-@Transactional
+@Transactional//전체적으로 트랜젝션을 적용하되 읽기전용 트랜젝션은 별도로 적용한다.
 @RequiredArgsConstructor
 public class AccountService implements UserDetailsService {
 

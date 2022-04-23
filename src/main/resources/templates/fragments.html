@@ -8,9 +8,7 @@
     <title>With Travel</title>
     <link rel="stylesheet" href ="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css"/>
-    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" ></script>
-    <script src="/node_modules/jdenticon/dist/jdenticon.min.js"></script>
+
     <style>
         .container {
             max-width: 100%;
@@ -75,8 +73,19 @@
             </form>
         </li>
     </ul>
-
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" ></script>
+    <script src="/node_modules/jdenticon/dist/jdenticon.min.js"></script>
 </nav>
+
+<div th:fragment="setting-menu (CurrentMenu)" class="list-group">
+    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu =='profile'}? active" href="#" th:href="@{/settings/profile}">프로필</a>
+    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu =='password'}? active" href="#" th:href="@{/settings/password}">패스워드</a>
+    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu =='notifications'}? active" href="#" th:href="@{/settings/notifications}">알림 설정</a>
+    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu =='places'}? active" href="#" th:href="@{/settings/places}">관심 지역</a>
+    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu =='tags'}? active" href="#" th:href="@{/settings/tags}">관심 주제</a>
+    <a class="list-group-item list-group-item-action list-group-item-danger" th:classappend="${currentMenu =='account'}? active" href="#" th:href="@{/settings/account}">계정관리</a>
+</div>
 
 <script type="application/javascript" th:fragment="FormValidation">
     (function () {

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments.html :: head"/>
+
+<body class="bg-light">
+<nav th:replace="fragments.html :: mainNavbar"/>
+<div class="alert alert-warning" role="alert" th:if="${account != null && !account.emailVerified}">
+    이메일 인증이 되지 않으면 위드 트래블의 서비스를 이용할 수 없습니다! <a href="#" th:href="@{/check-email}"class = "alert-lint">계정인증 이메일</a>을 확인하세요!
+</div>
+
+
+</body>
+</html>
