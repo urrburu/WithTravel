@@ -21,6 +21,7 @@ public class SettingService {
         account.setUrl(profile.getUrl());
         account.setOccupation(profile.getOccupation());
         account.setAddress(new Address(profile.getCity(), profile.getLocalNameOfCity(), profile.getProvince()));
+        account.setProfileImage(profile.getProfileImage());
         accountRepository.save(account);
     }
 
