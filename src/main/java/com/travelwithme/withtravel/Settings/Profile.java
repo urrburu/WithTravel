@@ -13,15 +13,22 @@ public class Profile {
     @Length(max = 35)
     private String bio;
 
+    @Length(max=50)
     private String url;
 
+    @Length(max = 50)
     private String occupation;
 
+    @Length(max = 10)
     private String city;
 
+    @Length(max = 10)
     private String localNameOfCity;
 
+    @Length(max = 10)
     private String province;
+
+    private String profileImage;
 
     public Profile(Account account){
         this.bio = account.getBio();

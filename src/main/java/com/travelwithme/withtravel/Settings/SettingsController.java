@@ -17,15 +17,17 @@ import javax.validation.Valid;
 public class SettingsController {
 
     private final SettingService settingService;
+    private static final String SETTING_PROFILE_URL = "/settings/profile";
 
-    @GetMapping("/settings/profile")
+
+    @GetMapping(SETTING_PROFILE_URL)
     public String modifyProfile(@CurrentAccount Account account, Model model){
         model.addAttribute(account);
         model.addAttribute(new Profile(account));
         return "Profile/modifyProfile";
     }
 
-    @PostMapping("/settings/profile")
+    @PostMapping(SETTING_PROFILE_URL)
     public String submitProfile(@CurrentAccount Account account, @Valid Profile profile, Errors errors, Model model
     , RedirectAttributes redirectAttributes){
         if(errors.hasErrors()){

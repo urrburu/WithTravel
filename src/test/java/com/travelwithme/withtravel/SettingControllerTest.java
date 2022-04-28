@@ -44,16 +44,16 @@ public class SettingControllerTest {
     @Test
     @DisplayName("프로필 수정하기 - 입력값 정상")
     public void modifyProfileTestNormal() throws Exception{
-
+        Account account = accountRepository.findByNickname("chanhwi");
         mockMvc.perform(post("/settings/profile")
                 .param("bio", "안녕하세요")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/profile/chanhwi"))
+                .andExpect(redirectedUrl("/profile/"+account.getNickname()))
                 .andExpect(flash().attributeExists("message"));
 
-        Account account = accountRepository.findByNickname("chanhwi");
-        assertEquals("안녕하세요", account.getBio());
+        Account Nickaccount = accountRepository.findByNickname("chanhwi");
+        assertEquals("안녕하세요", Nickaccount.getBio());
 
 
 
