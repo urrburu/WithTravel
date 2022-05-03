@@ -18,7 +18,8 @@ public class SettingsController {
 
     private final SettingService settingService;
     private static final String SETTING_PROFILE_URL = "/settings/profile";
-
+    private static final String SETTING_NOTIFICATIONS_URL = "/settings/notifications";
+    private static final String SETTING_NOTIFICATIONS_Location = "/Profile/modifyNotification";
 
     @GetMapping(SETTING_PROFILE_URL)
     public String modifyProfile(@CurrentAccount Account account, Model model){
