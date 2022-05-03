@@ -1,6 +1,7 @@
 package com.travelwithme.withtravel.Settings;
 
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 public class Notification {

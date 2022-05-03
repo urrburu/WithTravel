@@ -29,4 +29,12 @@ public class SettingService {
         account.setPassword(passwordEncoder.encode(password.getPassword()));
         accountRepository.save(account);
     }
+
+    @Transactional
+    public void modifyNotification(Account account, Notification notification) {
+        account = accountRepository.findByNickname(account.getNickname());
+        account.setTravelCreatedByWeb(notification.isTravelCreatedByWeb());
+        account.setTravelEnrollmentResultByWeb(notification.isTravelEnrollmentResultByWeb());
+        account.setTravelUpdatedByWeb(notification.isTravelUpdatedByWeb());
+    }
 }
