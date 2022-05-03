@@ -18,8 +18,8 @@ public class SettingsController {
 
     private final SettingService settingService;
     private static final String SETTING_PROFILE_URL = "/settings/profile";
-    private static final String SETTING_NOTIFICATIONS_URL = "/settings/notifications";
-    private static final String SETTING_NOTIFICATIONS_Location = "/Profile/modifyNotification";
+    private static final String SETTING_NOTIFICATIONS_URL = "/settings/notification";
+    private static final String SETTING_NOTIFICATIONS_Location = "Profile/modifyNotification";
 
     @GetMapping(SETTING_PROFILE_URL)
     public String modifyProfile(@CurrentAccount Account account, Model model){
@@ -78,6 +78,6 @@ public class SettingsController {
         }
         settingService.modifyNotification(account, notification);
         attributes.addFlashAttribute("message", "알림설정이 변경되었습니다.");
-        return "redirect:/"+SETTING_NOTIFICATIONS_URL;
+        return "redirect:/settings/notification";
     }
 }
