@@ -2,6 +2,7 @@ package com.travelwithme.withtravel.Settings;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
+import com.travelwithme.withtravel.Tag.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,8 @@ public class SettingsController {
     private static final String SETTING_PROFILE_URL = "/settings/profile";
     private static final String SETTING_NOTIFICATIONS_URL = "/settings/notification";
     private static final String SETTING_NOTIFICATIONS_Location = "Profile/modifyNotification";
+    private static final String SETTING_TAGS_URL = "/settings/tags";
+    private static final String SETTING_TAGS_Location = "Profile/tag";
 
     @GetMapping(SETTING_PROFILE_URL)
     public String modifyProfile(@CurrentAccount Account account, Model model){
@@ -70,8 +73,8 @@ public class SettingsController {
         return SETTING_NOTIFICATIONS_Location;
     }
     @PostMapping(SETTING_NOTIFICATIONS_URL)
-    public String notificationSummit(@CurrentAccount Account account,Model model,@Valid Notification notification,
-                                     Errors errors, RedirectAttributes attributes){
+    public String notificationSummit(@CurrentAccount Account account,Model model,
+                                     @Valid Notification notification, Errors errors, RedirectAttributes attributes){
         if(errors.hasErrors()){
             model.addAttribute(account);
             return "redirect:"+"/profile/"+account.getNickname();
@@ -79,5 +82,19 @@ public class SettingsController {
         settingService.modifyNotification(account, notification);
         attributes.addFlashAttribute("message", "알림설정이 변경되었습니다.");
         return "redirect:/settings/notification";
+    }
+
+    @GetMapping(SETTING_TAGS_URL)
+    public String tagSetting(@CurrentAccount Account account, Model model){
+        model.addAttribute(account);
+        return SETTING_TAGS_Location;
+    }
+
+    @PostMapping(SETTING_TAGS_URL)
+    public String tagSummit(@CurrentAccount Account account, @Valid TagForm tagForm,
+                            Errors errors, RedirectAttributes attributes){
+
+
+        return "redirect:/"+SETTING_TAGS_URL;
     }
 }
