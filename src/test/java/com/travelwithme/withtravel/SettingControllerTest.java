@@ -15,13 +15,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithSecurityContext;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -34,6 +34,7 @@ public class SettingControllerTest {
     @Autowired AccountRepository accountRepository;
     @Autowired AccountService accountService;
     @Autowired SettingService settingService;
+    @Autowired PasswordEncoder passwordEncoder;
 
     @AfterEach
     void afterEach() {
@@ -61,7 +62,7 @@ public class SettingControllerTest {
 
     @WithAccount(value = "chanhwi")
     @Test
-    @DisplayName("프로필 수정하기 - 입력값 비정상적으로 긴 바이오")
+    @DisplayName("프로필 수정하기 - 고봉밥 바이오")
     public void modifyProfileTestTooLong() throws Exception{
 
         mockMvc.perform(post("/settings/profile")
@@ -81,6 +82,21 @@ public class SettingControllerTest {
 
 
     }
+    @WithAccount(value = "chanhwi")
+    @Test
+    @DisplayName("비밀번호 수정하기 - 정상")
+    public void modifyPassword() throws Exception{
 
+        mockMvc.perform(post("/settings/password")
+                        .param("password", "123456789")
+                        .param("passwordCheck", "123456789")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/settings/password"))
+                .andExpect(flash().attributeExists("message"));
+
+        Account account = accountRepository.findByNickname("chanhwi");
+        assertTrue(passwordEncoder.matches("123456789", account.getPassword()));
+    }
 
 }
