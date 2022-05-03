@@ -99,4 +99,22 @@ public class SettingControllerTest {
         assertTrue(passwordEncoder.matches("123456789", account.getPassword()));
     }
 
+    @WithAccount(value = "chanhwi")
+    @Test
+    @DisplayName("알림 설정 변경하기  - 정상")
+    public void NotificationModifyNormal() throws Exception{
+        boolean T = true;
+        mockMvc.perform(post("/settings/notification")
+                        .param("travelCreatedByWeb", "true")
+                        .param("travelEnrollmentResultByWeb", "true")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/settings/notification"))
+                .andExpect(flash().attributeExists("message"));
+
+        Account account = accountRepository.findByNickname("chanhwi");
+        assertEquals(true, account.isTravelCreatedByWeb());
+    }
+
+
 }
