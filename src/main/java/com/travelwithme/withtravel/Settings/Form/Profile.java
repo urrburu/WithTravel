@@ -1,4 +1,4 @@
-package com.travelwithme.withtravel.Settings;
+package com.travelwithme.withtravel.Settings.Form;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.Address;

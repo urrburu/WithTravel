@@ -2,7 +2,13 @@ package com.travelwithme.withtravel.Settings;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
-import com.travelwithme.withtravel.Tag.Tag;
+import com.travelwithme.withtravel.Settings.Form.NicknameForm;
+import com.travelwithme.withtravel.Settings.Form.Notification;
+import com.travelwithme.withtravel.Settings.Form.Password;
+import com.travelwithme.withtravel.Settings.Form.Profile;
+import com.travelwithme.withtravel.Settings.Validator.NicknameValidator;
+import com.travelwithme.withtravel.Settings.Validator.PasswordFormValidator;
+import com.travelwithme.withtravel.Tag.TagForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -126,8 +132,12 @@ public class SettingsController {
 
     @PostMapping(SETTING_TAGS_URL)
     public String tagSummit(@CurrentAccount Account account, @Valid TagForm tagForm,
-                            Errors errors, RedirectAttributes attributes){
-
+                            Errors errors, RedirectAttributes attributes, Model model){
+        if(errors.hasErrors()){
+            model.addAttribute(account);
+            attributes.addFlashAttribute("message", "잘못된 태그입니다.");
+            return SETTING_TAGS_URL;
+        }
 
         return "redirect:/"+SETTING_TAGS_URL;
     }

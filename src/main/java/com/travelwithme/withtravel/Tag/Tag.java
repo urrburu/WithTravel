@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Entity@Getter@Setter
 @Builder @AllArgsConstructor@NoArgsConstructor
-@EqualsAndHashCode(of="ic")
+@EqualsAndHashCode(of="id")
 public class Tag {
     @Id
     @GeneratedValue

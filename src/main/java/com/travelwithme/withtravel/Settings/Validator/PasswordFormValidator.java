@@ -1,6 +1,7 @@
-package com.travelwithme.withtravel.Settings;
+package com.travelwithme.withtravel.Settings.Validator;
 
 
+import com.travelwithme.withtravel.Settings.Form.Password;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

@@ -1,4 +1,4 @@
-package com.travelwithme.withtravel.Settings;
+package com.travelwithme.withtravel.Settings.Form;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

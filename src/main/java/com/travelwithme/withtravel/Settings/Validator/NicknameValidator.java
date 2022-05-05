@@ -1,7 +1,8 @@
-package com.travelwithme.withtravel.Settings;
+package com.travelwithme.withtravel.Settings.Validator;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Repository.AccountRepository;
+import com.travelwithme.withtravel.Settings.Form.NicknameForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
