@@ -3,10 +3,12 @@ package com.travelwithme.withtravel.Settings;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.Address;
 import com.travelwithme.withtravel.Repository.AccountRepository;
+import com.travelwithme.withtravel.Repository.TagRepository;
 import com.travelwithme.withtravel.Settings.Form.NicknameForm;
 import com.travelwithme.withtravel.Settings.Form.Notification;
 import com.travelwithme.withtravel.Settings.Form.Password;
 import com.travelwithme.withtravel.Settings.Form.Profile;
+import com.travelwithme.withtravel.Tag.TagForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ public class SettingService {
     private final PasswordEncoder passwordEncoder;
     private final AccountRepository accountRepository;
     private final EntityManager entityManager;
+    private final TagRepository tagRepository;
 
     public void modifyProfile(Account account, Profile profile) {
         account.setBio(profile.getBio());
@@ -56,9 +59,12 @@ public class SettingService {
 
     }
 
-    public void modifyNickname(String email, NicknameForm nicknameForm){
-        Account account = accountRepository.findByEmail(email);
+    public void modifyNickname(Account account, NicknameForm nicknameForm){
         account.setNickname(nicknameForm.getNewNickname());
+        accountRepository.save(account);
+    }
+
+    public void addTag(Account account, TagForm tagForm) {
 
     }
 }

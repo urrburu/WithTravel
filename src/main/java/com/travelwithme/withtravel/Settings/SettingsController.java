@@ -107,7 +107,7 @@ public class SettingsController {
     @GetMapping(SETTING_NICKNAME_URL)
     public String NicknameSetting(@CurrentAccount Account account, Model model){
         model.addAttribute(account);
-        model.addAttribute(new NicknameForm());
+        model.addAttribute(new NicknameForm(account));
         return SETTING_NICKNAME_LOCATION;
     }
 
@@ -116,11 +116,13 @@ public class SettingsController {
                                  Model model, Errors errors, RedirectAttributes attributes){
         if(errors.hasErrors()){
             model.addAttribute(account);
-            model.addAttribute(new NicknameForm());
+            model.addAttribute(new NicknameForm(account));
+            model.addAttribute(errors);
             return SETTING_NICKNAME_LOCATION;
         }
-        settingService.modifyNickname(account.getNickname(), nicknameForm);
+        settingService.modifyNickname(account, nicknameForm);
         attributes.addFlashAttribute("message", "닉네임이 성공적으로 변경되었습니다.");
+        //Todo 이러고 로그아웃 처리 해줘야 다음 처리에 유용함
         return "redirect:"+SETTING_NICKNAME_URL;
     }
 
@@ -136,8 +138,9 @@ public class SettingsController {
         if(errors.hasErrors()){
             model.addAttribute(account);
             attributes.addFlashAttribute("message", "잘못된 태그입니다.");
-            return SETTING_TAGS_URL;
+            return SETTING_TAGS_Location;
         }
+        settingService.addTag(account, tagForm);
 
         return "redirect:/"+SETTING_TAGS_URL;
     }
