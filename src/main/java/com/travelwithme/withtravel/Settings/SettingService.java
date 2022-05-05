@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -15,6 +17,7 @@ public class SettingService {
 
     private final PasswordEncoder passwordEncoder;
     private final AccountRepository accountRepository;
+    private final EntityManager entityManager;
 
     public void modifyProfile(Account account, Profile profile) {
         account.setBio(profile.getBio());
@@ -31,8 +34,8 @@ public class SettingService {
     }
 
 
+    @Transactional(readOnly = false)
     public void modifyNotification(Account account, Notification notification) {
-        //account = accountRepository.findByNickname(account.getNickname());
         account.setTravelCreatedByWeb(notification.isTravelCreatedByWeb());
         account.setTravelEnrollmentResultByWeb(notification.isTravelEnrollmentResultByWeb());
         account.setTravelUpdatedByWeb(notification.isTravelUpdatedByWeb());
@@ -42,6 +45,7 @@ public class SettingService {
         * 위의 코드를 보면 merge로 구현할 수도 있다. 하지만 set 함수를 막고 변경감지로 이를 구현하는게 더
         * 안전한 설계가 될 것 같아 변경감지로 이를 바꿀 예정이다.
         * */
+
     }
 
     public void modifyNickname(String email, NicknameForm nicknameForm){

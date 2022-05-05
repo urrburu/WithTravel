@@ -25,7 +25,7 @@ public class SettingsController {
     private static final String SETTING_NOTIFICATIONS_Location = "Profile/modifyNotification";
     private static final String SETTING_TAGS_URL = "/settings/tags";
     private static final String SETTING_TAGS_Location = "Profile/tag";
-    private static final String SETTING_NICKNAME_URL = "/settings/nickname";
+    private static final String SETTING_NICKNAME_URL = "/settings/account";
     private static final String SETTING_NICKNAME_LOCATION = "Profile/modifyNickname";
 
 
