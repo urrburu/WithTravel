@@ -43,4 +43,10 @@ public class SettingService {
         * 안전한 설계가 될 것 같아 변경감지로 이를 바꿀 예정이다.
         * */
     }
+
+    public void modifyNickname(String email, NicknameForm nicknameForm){
+        Account account = accountRepository.findByEmail(email);
+        account.setNickname(nicknameForm.getNewNickname());
+
+    }
 }

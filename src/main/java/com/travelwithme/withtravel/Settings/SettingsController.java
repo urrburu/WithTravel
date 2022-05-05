@@ -25,12 +25,21 @@ public class SettingsController {
     private static final String SETTING_NOTIFICATIONS_Location = "Profile/modifyNotification";
     private static final String SETTING_TAGS_URL = "/settings/tags";
     private static final String SETTING_TAGS_Location = "Profile/tag";
+    private static final String SETTING_NICKNAME_URL = "/settings/nickname";
+    private static final String SETTING_NICKNAME_LOCATION = "Profile/modifyNickname";
+
+
+    private final NicknameValidator nicknameValidator;
 
     @InitBinder("password")
     public void initBinder(WebDataBinder webDataBinder){
         webDataBinder.addValidators(new PasswordFormValidator());
     }
 
+    @InitBinder("nicknameForm")
+    public void nicknameFormInitBinder(WebDataBinder webDataBinder){
+        webDataBinder.addValidators(nicknameValidator);
+    }
 
     @GetMapping(SETTING_PROFILE_URL)
     public String modifyProfile(@CurrentAccount Account account, Model model){
@@ -81,11 +90,32 @@ public class SettingsController {
                                      @Valid Notification notification, Errors errors, RedirectAttributes attributes){
         if(errors.hasErrors()){
             model.addAttribute(account);
+            model.addAttribute(new Notification());
             return SETTING_NOTIFICATIONS_Location;
         }
         settingService.modifyNotification(account, notification);
         attributes.addFlashAttribute("message", "알림설정이 변경되었습니다.");
         return "redirect:/settings/notification";
+    }
+
+    @GetMapping(SETTING_NICKNAME_URL)
+    public String NicknameSetting(@CurrentAccount Account account, Model model){
+        model.addAttribute(account);
+        model.addAttribute(new NicknameForm());
+        return SETTING_NICKNAME_LOCATION;
+    }
+
+    @PostMapping(SETTING_NICKNAME_URL)
+    public String NicknameSummit(@CurrentAccount Account account, @Valid NicknameForm nicknameForm,
+                                 Model model, Errors errors, RedirectAttributes attributes){
+        if(errors.hasErrors()){
+            model.addAttribute(account);
+            model.addAttribute(new NicknameForm());
+            return SETTING_NICKNAME_LOCATION;
+        }
+        settingService.modifyNickname(account.getNickname(), nicknameForm);
+        attributes.addFlashAttribute("message", "닉네임이 성공적으로 변경되었습니다.");
+        return "redirect:"+SETTING_NICKNAME_URL;
     }
 
     @GetMapping(SETTING_TAGS_URL)
