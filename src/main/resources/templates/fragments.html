@@ -73,11 +73,15 @@
             </form>
         </li>
     </ul>
+
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" ></script>
     <script src="/node_modules/jdenticon/dist/jdenticon.min.js"></script>
 </nav>
 
+<div th:fragment="authenticate" class="alert alert-warning" role="alert" th:if="${account != null && !account.emailVerified}">
+    이메일 인증이 되지 않으면 위드 트래블의 서비스를 이용할 수 없습니다! <a href="#" th:href="@{/check-email}"class = "alert-lint">계정인증 이메일</a>을 확인하세요!
+</div>
 <div th:fragment="setting-menu (CurrentMenu)" class="list-group">
     <a class="list-group-item list-group-item-action" th:classappend="${currentMenu =='profile'}? active" href="#" th:href="@{/settings/profile}">프로필</a>
     <a class="list-group-item list-group-item-action" th:classappend="${currentMenu =='password'}? active" href="#" th:href="@{/settings/password}">패스워드</a>

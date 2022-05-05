@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +25,12 @@ public class SettingsController {
     private static final String SETTING_NOTIFICATIONS_Location = "Profile/modifyNotification";
     private static final String SETTING_TAGS_URL = "/settings/tags";
     private static final String SETTING_TAGS_Location = "Profile/tag";
+
+    @InitBinder("password")
+    public void initBinder(WebDataBinder webDataBinder){
+        webDataBinder.addValidators(new PasswordFormValidator());
+    }
+
 
     @GetMapping(SETTING_PROFILE_URL)
     public String modifyProfile(@CurrentAccount Account account, Model model){
@@ -54,11 +62,7 @@ public class SettingsController {
     public String submitPassword(@CurrentAccount Account account, Model model, @Valid Password password, Errors errors, RedirectAttributes attributes){
         if(errors.hasErrors()){
             model.addAttribute(account);
-            return "redirect:"+"/profile/"+account.getNickname();
-        }
-        if(!password.getPassword().equals(password.getPasswordCheck())){
-            attributes.addFlashAttribute("error", "비밀번호가 서로 다릅니다 비밀번호를 확인해주세요.");
-            return "redirect:/settings/password";
+            return "Profile/modifyPassword";
         }
         settingService.modifyPassword(account, password);
         attributes.addFlashAttribute("message", "비밀번호가 바뀌었습니다.");
@@ -68,7 +72,7 @@ public class SettingsController {
     @GetMapping(SETTING_NOTIFICATIONS_URL)
     public String notificationSetting (@CurrentAccount Account account, Model model){
         model.addAttribute(account);
-        model.addAttribute(new Notification());
+        model.addAttribute(new Notification(account));
 
         return SETTING_NOTIFICATIONS_Location;
     }
@@ -77,7 +81,7 @@ public class SettingsController {
                                      @Valid Notification notification, Errors errors, RedirectAttributes attributes){
         if(errors.hasErrors()){
             model.addAttribute(account);
-            return "redirect:"+"/profile/"+account.getNickname();
+            return SETTING_NOTIFICATIONS_Location;
         }
         settingService.modifyNotification(account, notification);
         attributes.addFlashAttribute("message", "알림설정이 변경되었습니다.");

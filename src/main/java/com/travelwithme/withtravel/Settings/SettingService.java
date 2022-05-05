@@ -30,12 +30,13 @@ public class SettingService {
         accountRepository.save(account);
     }
 
-    @Transactional
+
     public void modifyNotification(Account account, Notification notification) {
-        account = accountRepository.findByNickname(account.getNickname());
+        //account = accountRepository.findByNickname(account.getNickname());
         account.setTravelCreatedByWeb(notification.isTravelCreatedByWeb());
         account.setTravelEnrollmentResultByWeb(notification.isTravelEnrollmentResultByWeb());
         account.setTravelUpdatedByWeb(notification.isTravelUpdatedByWeb());
+        accountRepository.save(account);
         /*
         * 유의점 : 변경감지가 더 유리한 측면이 있어서 변경감지로 이를 구현했다.
         * 위의 코드를 보면 merge로 구현할 수도 있다. 하지만 set 함수를 막고 변경감지로 이를 구현하는게 더

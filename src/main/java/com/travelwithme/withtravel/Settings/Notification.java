@@ -1,9 +1,12 @@
 package com.travelwithme.withtravel.Settings;
 
+import com.travelwithme.withtravel.Account.Account;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 
 @Data
+@NoArgsConstructor
 public class Notification {
 
     private boolean travelCreatedByWeb;
@@ -11,4 +14,10 @@ public class Notification {
     private boolean travelEnrollmentResultByWeb;
 
     private boolean travelUpdatedByWeb;
+
+    public Notification(Account account){
+        this.travelCreatedByWeb = account.isTravelCreatedByWeb();
+        this.travelEnrollmentResultByWeb = account.isTravelEnrollmentResultByWeb();
+        this.travelUpdatedByWeb = account.isTravelUpdatedByWeb();
+    }
 }
