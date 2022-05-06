@@ -99,7 +99,16 @@ public class AccountController {
             return "Profile/profile";
         }
 
+        @GetMapping("/emailLogin")
+        public String emailLogin(){
 
+            return "account/emailLogin";
+        }
+        @PostMapping("/emailLogin")
+        public String emailLoginSummit(){
+
+            return "redirect:/";
+        }
 
 
 
