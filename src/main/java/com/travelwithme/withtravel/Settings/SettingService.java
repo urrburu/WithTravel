@@ -4,12 +4,14 @@ import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.Address;
 import com.travelwithme.withtravel.Repository.AccountRepository;
 import com.travelwithme.withtravel.Repository.TagRepository;
+import com.travelwithme.withtravel.Service.AccountService;
 import com.travelwithme.withtravel.Settings.Form.NicknameForm;
 import com.travelwithme.withtravel.Settings.Form.Notification;
 import com.travelwithme.withtravel.Settings.Form.Password;
 import com.travelwithme.withtravel.Settings.Form.Profile;
 import com.travelwithme.withtravel.Tag.TagForm;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,15 +25,17 @@ public class SettingService {
 
     private final PasswordEncoder passwordEncoder;
     private final AccountRepository accountRepository;
+    private final AccountService accountService;
     private final EntityManager entityManager;
     private final TagRepository tagRepository;
+    private final ModelMapper modelMapper;
 
     public void modifyProfile(Account account, Profile profile) {
-        account.setBio(profile.getBio());
-        account.setUrl(profile.getUrl());
-        account.setOccupation(profile.getOccupation());
-        account.setAddress(new Address(profile.getCity(), profile.getLocalNameOfCity(), profile.getProvince()));
-        account.setProfileImage(profile.getProfileImage());
+
+        Address address = new Address(profile.getCity(), profile.getLocalNameOfCity(), profile.getProvince());
+        modelMapper.map(profile, account);
+        account.setAddress(address);
+
         accountRepository.save(account);
     }
 
@@ -42,10 +46,12 @@ public class SettingService {
 
 
     public void modifyNotification(Account account, Notification notification) {
-        //Account account1 = entityManager.find(Account.class, account.getId());
-        account.setTravelCreatedByWeb(notification.isTravelCreatedByWeb());
+        /*account.setTravelCreatedByWeb(notification.isTravelCreatedByWeb());
         account.setTravelEnrollmentResultByWeb(notification.isTravelEnrollmentResultByWeb());
-        account.setTravelUpdatedByWeb(notification.isTravelUpdatedByWeb());
+        account.setTravelUpdatedByWeb(notification.isTravelUpdatedByWeb());*
+
+         */
+        modelMapper.map(notification, account);
         accountRepository.save(account);
         /*
         * 유의점 : 변경감지가 더 유리한 측면이 있어서 변경감지로 이를 구현했다.
@@ -62,6 +68,7 @@ public class SettingService {
     public void modifyNickname(Account account, NicknameForm nicknameForm){
         account.setNickname(nicknameForm.getNewNickname());
         accountRepository.save(account);
+        accountService.login(account);
     }
 
     public void addTag(Account account, TagForm tagForm) {
