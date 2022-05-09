@@ -3,7 +3,6 @@ package com.travelwithme.withtravel.Settings;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.Address;
 import com.travelwithme.withtravel.Repository.AccountRepository;
-import com.travelwithme.withtravel.Repository.TagRepository;
 import com.travelwithme.withtravel.Service.AccountService;
 import com.travelwithme.withtravel.Settings.Form.NicknameForm;
 import com.travelwithme.withtravel.Settings.Form.Notification;
@@ -16,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 
 @Service
 @Transactional
@@ -26,8 +24,6 @@ public class SettingService {
     private final PasswordEncoder passwordEncoder;
     private final AccountRepository accountRepository;
     private final AccountService accountService;
-    private final EntityManager entityManager;
-    private final TagRepository tagRepository;
     private final ModelMapper modelMapper;
 
     public void modifyProfile(Account account, Profile profile) {
@@ -46,11 +42,6 @@ public class SettingService {
 
 
     public void modifyNotification(Account account, Notification notification) {
-        /*account.setTravelCreatedByWeb(notification.isTravelCreatedByWeb());
-        account.setTravelEnrollmentResultByWeb(notification.isTravelEnrollmentResultByWeb());
-        account.setTravelUpdatedByWeb(notification.isTravelUpdatedByWeb());*
-
-         */
         modelMapper.map(notification, account);
         accountRepository.save(account);
         /*

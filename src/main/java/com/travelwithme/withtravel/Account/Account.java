@@ -32,6 +32,8 @@ public class Account {
 
     private String emailCheckToken;
 
+    private String loginCheckToken;
+
     private LocalDateTime joinedAt;
 
     private String bio;
@@ -58,6 +60,8 @@ public class Account {
     @ManyToMany
     private Set<Place> Places = new HashSet<>();
 
+    private LocalDateTime lastSendDateTime;
+
     public void generateEmailCheckToken(){
         this.emailCheckToken = UUID.randomUUID().toString();
     }
@@ -65,5 +69,18 @@ public class Account {
     public void completeSignUp() {
         this.setEmailVerified(true);
         this.setJoinedAt(LocalDateTime.now());
+    }
+    public boolean canSendConfirmEmail(){
+        if(LocalDateTime.now().isAfter(lastSendDateTime.plusHours(1)))return true;
+        return false;
+    }
+
+    public boolean isValidToken(String token) {
+        if(token.equals(loginCheckToken))return true;
+        return false;
+    }
+
+    public void generateLoginEmailToken() {
+        this.loginCheckToken = UUID.randomUUID().toString();
     }
 }

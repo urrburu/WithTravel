@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -29,7 +30,7 @@ public class AccountController {
         private final SignUpFormValidator signUpFormValidator;
         private final AccountService accountService;
         private final AccountRepository accountRepository;
-
+        private final String emailLoginLocation = "account/emailLogin";
         @InitBinder("signUpForm")
         public void initBinder(WebDataBinder webDataBinder) {
             webDataBinder.addValidators(signUpFormValidator);
@@ -100,16 +101,34 @@ public class AccountController {
         }
 
         @GetMapping("/emailLogin")
-        public String emailLogin(){
+        public String emailLogin(){            return emailLoginLocation;        }
 
-            return "account/emailLogin";
-        }
         @PostMapping("/emailLogin")
-        public String emailLoginSummit(){
-
+        public String emailLoginSummit(String email, Model model, RedirectAttributes attributes){
+            Account account = accountRepository.findByEmail(email);
+            if(account==null){
+                model.addAttribute("error", "유효한 이메일 주소가 아닙니다.");
+                return emailLoginLocation;
+            }
+            if(!account.canSendConfirmEmail()){
+                model.addAttribute("error", "이메일 로그인은 1시간 뒤에 다시 사용할 수 있습니다.");
+                return emailLoginLocation;
+            }
+            accountService.sendLoginLink(account);
+            attributes.addFlashAttribute("message", "이메일 인증메일을 발송 했습니다.");
+            return "redirect:/emailLogin";
+        }
+        @GetMapping("/login-by-email")
+        public String loginByEmail(String token, String email, Model model){
+            Account account = accountRepository.findByEmail(email);
+            String view = emailLoginLocation;
+            if(account==null ||!account.isValidToken(token)){
+                model.addAttribute("error", "로그인 할 수 없습니다.");
+                return view;
+            }
+            accountService.login(account);
             return "redirect:/";
         }
-
 
 
 

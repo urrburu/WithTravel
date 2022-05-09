@@ -76,7 +76,7 @@ public class AccountService implements UserDetailsService {
                 account.getPassword(),
                 List.of(new SimpleGrantedAuthority("ROLE_USER")));
         //Authentication authentication = authenticationManager.authenticate(token);
-        //authenticationManager에 대해서 추가로 공부하고 내용울 추가할 것 이 부분은 정석적이지 않은 방법이다.
+        //authentication Manager에 대해서 추가로 공부하고 내용울 추가할 것 이 부분은 정석적이지 않은 방법이다.
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(token);
     }
@@ -97,5 +97,15 @@ public class AccountService implements UserDetailsService {
     public void completeSignUp(Account account){
         account.completeSignUp();
         login(account);
+    }
+
+    public void sendLoginLink(Account account) {
+        account.generateLoginEmailToken();
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(account.getEmail());
+        mailMessage.setSubject("로그인용 이메일 링크 ");
+        mailMessage.setText("/login-by-email?token=" + account.getLoginCheckToken() +
+                "&email=" + account.getEmail());
+        javaMailSender.send(mailMessage);
     }
 }
