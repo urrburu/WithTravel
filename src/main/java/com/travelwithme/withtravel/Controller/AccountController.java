@@ -31,6 +31,7 @@ public class AccountController {
         private final AccountService accountService;
         private final AccountRepository accountRepository;
         private final String emailLoginLocation = "account/emailLogin";
+        private final String emailLoginURL = "/email-login";
         @InitBinder("signUpForm")
         public void initBinder(WebDataBinder webDataBinder) {
             webDataBinder.addValidators(signUpFormValidator);
@@ -100,10 +101,10 @@ public class AccountController {
             return "Profile/profile";
         }
 
-        @GetMapping("/emailLogin")
+        @GetMapping(emailLoginURL)
         public String emailLogin(){            return emailLoginLocation;        }
 
-        @PostMapping("/emailLogin")
+        @PostMapping(emailLoginURL)
         public String emailLoginSummit(String email, Model model, RedirectAttributes attributes){
             Account account = accountRepository.findByEmail(email);
             if(account==null){
@@ -116,7 +117,7 @@ public class AccountController {
             }
             accountService.sendLoginLink(account);
             attributes.addFlashAttribute("message", "이메일 인증메일을 발송 했습니다.");
-            return "redirect:/emailLogin";
+            return "redirect:/email-login";
         }
         @GetMapping("/login-by-email")
         public String loginByEmail(String token, String email, Model model){

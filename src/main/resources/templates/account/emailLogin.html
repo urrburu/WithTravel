@@ -5,9 +5,12 @@
 <body>
 <nav th:replace="fragments.html :: mainNavbar"/>
 <div class="container">
-    <form class="needs-validation col-sm-6" action="#" th:action="@{/emailLogin}" method="post" novalidate>
+    <form class="needs-validation col-sm-6" action="#" th:action="@{ /email-login}" method="post" novalidate>
         <div th:if="${error}" class="alert alert-danger" role="alert">
             <span th:text="${error}"></span>
+        </div>
+        <div th:if="${message}" class="alert alert-danger" role="alert">
+            <span th:text="${message}"></span>
         </div>
         <div class="form-group">
             <label for="email">이메일 </label>

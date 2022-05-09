@@ -122,7 +122,7 @@ public class SettingsController {
         }
         settingService.modifyNickname(account, nicknameForm);
         attributes.addFlashAttribute("message", "닉네임이 성공적으로 변경되었습니다.");
-        //Todo 이러고 로그아웃 처리 해줘야 다음 처리에 유용함
+        //로그아웃 보다 로그인 처리를 다시 해주면 되는 일이었다.
 
         return "redirect:"+SETTING_NICKNAME_URL;
     }
