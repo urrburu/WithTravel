@@ -29,7 +29,7 @@ public class SettingsController {
     private static final String SETTING_NOTIFICATIONS_URL = "/settings/notification";
     private static final String SETTING_NOTIFICATIONS_Location = "Profile/modifyNotification";
     private static final String SETTING_TAGS_URL = "/settings/tags";
-    private static final String SETTING_TAGS_Location = "Profile/tag";
+    private static final String SETTING_TAGS_Location = "Profile/tags";
     private static final String SETTING_NICKNAME_URL = "/settings/account";
     private static final String SETTING_NICKNAME_LOCATION = "Profile/modifyNickname";
 
@@ -132,14 +132,5 @@ public class SettingsController {
         return SETTING_TAGS_Location;
     }
 
-    @PostMapping(SETTING_TAGS_URL)
-    public String tagSummit(@CurrentAccount Account account, Errors errors, RedirectAttributes attributes, Model model){
-        if(errors.hasErrors()){
-            model.addAttribute(account);
-            attributes.addFlashAttribute("message", "잘못된 태그입니다.");
-            return SETTING_TAGS_Location;
-        }
-        attributes.addFlashAttribute("message", "새로운 태그가 추가되었습니다.");
-        return "redirect:/"+SETTING_TAGS_URL;
-    }
+
 }

@@ -24,14 +24,13 @@
                     <div class="alert alert-info" role="alert">
                         참여하고 싶은 여행 테마를 입력해주세요. 해당 테마의 여행이 생기면 알림을 받을 수 있습니다. 태그를 입력하고 콤마(,)나 엔터를 입력하세요.
                     </div>
-                    <input id="tags" type="text" name="tags"
-                           class="tagify-outside" aria-describedby="tagHelp"/>
+                    <input id="tags" type="text" name="tags" class="tagify-outside" aria-describedby="tagHelp"/>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="/node_modules/@yaireo/tagify/dist/tagify.min.js"></script>
+<script src="/node_modules/@yaireo/tagify/dist/tagify.js"></script>
 <script type="application/javascript" th:inline="javascript">
     $(function() {
         var csrfToken = /*[[${_csrf.token}]]*/ null;
