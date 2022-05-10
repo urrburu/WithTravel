@@ -130,6 +130,7 @@ public class SettingsController {
     @GetMapping(SETTING_TAGS_URL)
     public String tagSetting(@CurrentAccount Account account, Model model){
         model.addAttribute(account);
+        model.addAttribute(new TagForm());
         return SETTING_TAGS_Location;
     }
 
@@ -138,11 +139,12 @@ public class SettingsController {
                             Errors errors, RedirectAttributes attributes, Model model){
         if(errors.hasErrors()){
             model.addAttribute(account);
+            model.addAttribute(new TagForm());
             attributes.addFlashAttribute("message", "잘못된 태그입니다.");
             return SETTING_TAGS_Location;
         }
         settingService.addTag(account, tagForm);
-
+        attributes.addFlashAttribute("message", "새로운 태그가 추가되었습니다.");
         return "redirect:/"+SETTING_TAGS_URL;
     }
 }

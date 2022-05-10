@@ -71,8 +71,14 @@ public class Account {
         this.setJoinedAt(LocalDateTime.now());
     }
     public boolean canSendConfirmEmail(){
-        if(lastSendDateTime==null)return true;
-        if(LocalDateTime.now().isAfter(lastSendDateTime.plusHours(1)))return true;
+        if(lastSendDateTime==null){
+            lastSendDateTime = LocalDateTime.now();
+            return true;
+        }
+        if(LocalDateTime.now().isAfter(lastSendDateTime.plusHours(1))){
+            lastSendDateTime = LocalDateTime.now();
+            return true;
+        }
         return false;
     }
 

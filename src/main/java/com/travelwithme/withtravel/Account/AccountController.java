@@ -1,4 +1,4 @@
-package com.travelwithme.withtravel.Controller;
+package com.travelwithme.withtravel.Account;
 
 
 import com.travelwithme.withtravel.Account.Account;
@@ -81,6 +81,11 @@ public class AccountController {
         }
         @GetMapping("/resend-email")
         public String ResendEmail(@CurrentAccount Account account, Model model){
+            if(account.canSendConfirmEmail()==false){
+                model.addAttribute("error", "이메일 로그인은 1시간 뒤에 다시 사용할 수 있습니다.");
+                model.addAttribute(account);
+                return "account/ReCheckEmail";
+            }
             model.addAttribute(account);
             accountService.sendSignUpConfirmEmail(account);
             return "account/ReCheckEmail";
@@ -102,7 +107,9 @@ public class AccountController {
         }
 
         @GetMapping(emailLoginURL)
-        public String emailLogin(){            return emailLoginLocation;        }
+        public String emailLogin(){
+            return emailLoginLocation;
+        }
 
         @PostMapping(emailLoginURL)
         public String emailLoginSummit(String email, Model model, RedirectAttributes attributes){
