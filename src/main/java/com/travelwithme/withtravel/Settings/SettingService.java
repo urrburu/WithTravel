@@ -8,7 +8,6 @@ import com.travelwithme.withtravel.Settings.Form.NicknameForm;
 import com.travelwithme.withtravel.Settings.Form.Notification;
 import com.travelwithme.withtravel.Settings.Form.Password;
 import com.travelwithme.withtravel.Settings.Form.Profile;
-import com.travelwithme.withtravel.Tag.TagForm;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -62,7 +61,5 @@ public class SettingService {
         accountService.login(account);
     }
 
-    public void addTag(Account account, TagForm tagForm) {
 
-    }
 }
