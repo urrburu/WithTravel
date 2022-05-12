@@ -3,29 +3,30 @@ package com.travelwithme.withtravel.Service;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.Form.SignUpForm;
 import com.travelwithme.withtravel.Account.UserAccount;
-import com.travelwithme.withtravel.Config.SecurityConfig;
+
 import com.travelwithme.withtravel.Repository.AccountRepository;
+import com.travelwithme.withtravel.Tag.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.authentication.AuthenticationManager;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
+
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 @Slf4j
@@ -107,5 +108,11 @@ public class AccountService implements UserDetailsService {
         mailMessage.setText("/login-by-email?token=" + account.getLoginCheckToken() +
                 "&email=" + account.getEmail());
         javaMailSender.send(mailMessage);
+    }
+
+    public void addTag(Account account, Tag tag) {
+        account = accountRepository.findByNickname(account.getNickname());
+        account.getTags().add(tag);
+        accountRepository.save(account);
     }
 }

@@ -8,6 +8,7 @@ import com.travelwithme.withtravel.Settings.Form.Password;
 import com.travelwithme.withtravel.Settings.Form.Profile;
 import com.travelwithme.withtravel.Settings.Validator.NicknameValidator;
 import com.travelwithme.withtravel.Settings.Validator.PasswordFormValidator;
+import com.travelwithme.withtravel.Tag.TagForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -129,6 +131,15 @@ public class SettingsController {
     @GetMapping(SETTING_TAGS_URL)
     public String tagSetting(@CurrentAccount Account account, Model model){
         model.addAttribute(account);
+        return SETTING_TAGS_Location;
+    }
+
+    @PostMapping("/settings/tags/add")
+    public String tagSubmit(@CurrentAccount Account account, @RequestBody TagForm tagForm, Model model){
+        String title = tagForm.getTagTitle();
+        settingService.appendTag(account, title);
+
+
         return SETTING_TAGS_Location;
     }
 

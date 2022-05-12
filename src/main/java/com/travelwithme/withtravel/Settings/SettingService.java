@@ -3,11 +3,13 @@ package com.travelwithme.withtravel.Settings;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.Address;
 import com.travelwithme.withtravel.Repository.AccountRepository;
+import com.travelwithme.withtravel.Repository.TagRepository;
 import com.travelwithme.withtravel.Service.AccountService;
 import com.travelwithme.withtravel.Settings.Form.NicknameForm;
 import com.travelwithme.withtravel.Settings.Form.Notification;
 import com.travelwithme.withtravel.Settings.Form.Password;
 import com.travelwithme.withtravel.Settings.Form.Profile;
+import com.travelwithme.withtravel.Tag.Tag;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +26,7 @@ public class SettingService {
     private final AccountRepository accountRepository;
     private final AccountService accountService;
     private final ModelMapper modelMapper;
+    private final TagRepository tagRepository;
 
     public void modifyProfile(Account account, Profile profile) {
 
@@ -62,4 +65,17 @@ public class SettingService {
     }
 
 
+    public void appendTag(Account account, String title) {
+        Tag tag = tagRepository.findByTagTitle(title);
+        if(tag==null){
+            tagRepository.save(Tag.builder()
+                            .tagTitle(title)
+                            .build());
+            Tag newTag = tagRepository.findByTagTitle(title);
+            accountService.addTag(account, newTag);
+        }
+        else{
+            accountService.addTag(account, tag);
+        }
+    }
 }
