@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 
 @Service
 @Transactional
@@ -77,5 +79,10 @@ public class SettingService {
         else{
             accountService.addTag(account, tag);
         }
+    }
+
+    public Set<Tag> getTags(Account account){
+        Set<Tag> tags = accountRepository.findByNickname(account.getNickname()).getTags();
+        return tags;
     }
 }
