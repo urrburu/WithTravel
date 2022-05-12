@@ -23,7 +23,8 @@
                         참여하고 싶은 여행의 테마를 입력해 주세요. 관련 여행이 생기면 알림을 받을 수 있습니다. 태그를 입력하고 콤마(,)
                         또는 엔터를 입력하세요.
                     </div>
-                    <input id="tags" type="text" name="basic" class="tagify-outside" aria-describedby="tagHelp"/>
+                    <input type="text" name="tags-outside" id="tags" class="tagify-outside" th:value="${#strings.listJoin(tags,',')}"
+                           aria-describedby="tagHelp"/>
                 </div>
             </div>
         </div>
@@ -65,12 +66,12 @@
             tagRequest("/remove", e.detail.data.value);
         }
 
-        var tagInput = document.querySelector('input[name=basic]');
+        var tagInput = document.querySelector('input[name=tags-outside]')
 
         var tagify = new Tagify(tagInput, {
-            pattern: /^.{0,20}$/,
+            position:"input",
             dropdown : {
-                enabled: 1, // suggest tags after a single character input
+                enabled: 0, // suggest tags after a single character input
             } // map tags
         });
 
@@ -81,7 +82,7 @@
         tagify.DOM.input.classList.add('form-control');
         // re-place Tagify's input element outside of the  element (tagify.DOM.scope), just before it
 
-        tagify.DOM.scope.parentNode.insertBefore(tagify.DOM.input, tagify.DOM.scope);
+        tagify.DOM.scope.parentNode.insertAfter(tagify.DOM.input, tagify.DOM.scope);
 
     });
 </script>
