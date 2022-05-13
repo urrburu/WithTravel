@@ -108,6 +108,20 @@ public class SettingControllerTest {
         Account account = accountRepository.findByNickname("chanhwi");
         assertEquals(true, account.isTravelCreatedByWeb());
     }
+    @WithAccount(value = "chanhwi")
+    @Test
+    @DisplayName("닉네임 변경하기  - 정상")
+    public void nicknameNormal() throws Exception{
+        String newNickname = "chanchan";
+        mockMvc.perform(post("/settings/account")
+                        .param("newNickname", newNickname)
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/settings/account"))
+                .andExpect(flash().attributeExists("message"));
 
+        Account account = accountRepository.findByEmail("chanhwi@email.com");
+        assertEquals(account.getNickname(), newNickname);
+    }
 
 }
