@@ -148,6 +148,7 @@ public class SettingsController {
     public String tagRemove(@CurrentAccount Account account, @RequestBody TagForm tagForm, Model model){
         String title = tagForm.getTagTitle();
         settingService.removeTag(account, title);
+        return "redirect:/"+SETTING_TAGS_URL;
     }
 
 }

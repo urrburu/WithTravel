@@ -115,4 +115,10 @@ public class AccountService implements UserDetailsService {
         account.getTags().add(tag);
         accountRepository.save(account);
     }
+
+    public void removeTag(Account account, Tag tag) {
+        account = accountRepository.findByNickname(account.getNickname());
+        account.getTags().remove(tag);
+        accountRepository.save(account);
+    }
 }

@@ -87,5 +87,10 @@ public class SettingService {
     }
 
     public void removeTag(Account account, String title) {
+        Tag tag = tagRepository.findByTagTitle(title);
+        if(tag==null){return;}
+        accountService.removeTag(account, tag);
+
+
     }
 }
