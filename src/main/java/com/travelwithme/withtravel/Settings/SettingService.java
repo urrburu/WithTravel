@@ -85,4 +85,7 @@ public class SettingService {
         Set<Tag> tags = accountRepository.findByNickname(account.getNickname()).getTags();
         return tags;
     }
+
+    public void removeTag(Account account, String title) {
+    }
 }
