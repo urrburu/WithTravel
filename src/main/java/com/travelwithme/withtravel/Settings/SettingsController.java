@@ -144,7 +144,7 @@ public class SettingsController {
 
         return "redirect:/"+SETTING_TAGS_URL;
     }
-    @DeleteMapping("/settings/tags/remove")
+    @PostMapping("/settings/tags/remove")
     public String tagRemove(@CurrentAccount Account account, @RequestBody TagForm tagForm, Model model){
         String title = tagForm.getTagTitle();
         settingService.removeTag(account, title);
