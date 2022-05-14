@@ -2,6 +2,7 @@ package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Place.Place;
 import com.travelwithme.withtravel.Spot.Spot;
+import com.travelwithme.withtravel.Tag.Tag;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -27,6 +28,9 @@ public class Travel {
 
     @ManyToMany
     private List<Spot> spots = new ArrayList<Spot>();
+
+    @ManyToMany
+    private Set<Tag> tags = new HashSet<>();
 
     private LocalDateTime startTime;
 

@@ -1,5 +1,7 @@
 package com.travelwithme.withtravel.Settings;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Settings.Form.NicknameForm;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,9 +38,8 @@ public class SettingsController {
     private static final String SETTING_NICKNAME_URL = "/settings/account";
     private static final String SETTING_NICKNAME_LOCATION = "Profile/modifyNickname";
 
-
     private final NicknameValidator nicknameValidator;
-
+    private final ObjectMapper objectMapper;
     @InitBinder("password")
     public void initBinder(WebDataBinder webDataBinder){
         webDataBinder.addValidators(new PasswordFormValidator());
@@ -129,10 +131,12 @@ public class SettingsController {
     }
 
     @GetMapping(SETTING_TAGS_URL)
-    public String tagSetting(@CurrentAccount Account account, Model model){
+    public String tagSetting(@CurrentAccount Account account, Model model) throws JsonProcessingException {
         model.addAttribute(account);
         Set<Tag> tags = settingService.getTags(account);
         model.addAttribute("tags", tags.stream().map(Tag::getTagTitle).collect(Collectors.toList()));
+        List<String> allTag = settingService.getWhiteList(account);
+        model.addAttribute("whitelist", objectMapper.writeValueAsString(allTag));
         return SETTING_TAGS_Location;
     }
 

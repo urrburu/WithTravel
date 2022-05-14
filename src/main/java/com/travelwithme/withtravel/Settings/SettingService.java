@@ -16,7 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -92,5 +94,10 @@ public class SettingService {
         accountService.removeTag(account, tag);
 
 
+    }
+
+    public List<String> getWhiteList(Account account) {
+        List<String> allTags = tagRepository.findAll().stream().map(Tag::getTagTitle).collect(Collectors.toList());
+        return allTags;
     }
 }
