@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+
 @Entity@Setter@Getter
 @NoArgsConstructor@AllArgsConstructor
 @EqualsAndHashCode(of="id")
