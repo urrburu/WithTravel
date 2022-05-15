@@ -9,6 +9,8 @@ public class travelForm {
 
     private String travelName;
 
-    private String description;
+    private String shortDescription;
+
+    private String fullDescription;
 
 }

@@ -24,4 +24,8 @@ public class Spot {
 
     private LocalDateTime endTime;
 
+    public Spot(String spotName, LocalDateTime startTime, LocalDateTime endTime){
+        this.spotName = spotName;this.startTime = startTime; this.endTime = endTime;
+
+    }
 }

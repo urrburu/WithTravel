@@ -26,6 +26,9 @@ public class Travel {
     @Lob@Basic(fetch = FetchType.EAGER)
     private String fullDescription;
 
+    @Lob@Basic(fetch = FetchType.EAGER)
+    private String image;
+
     @ManyToMany
     private Set<Account> managers;
 
@@ -44,6 +47,12 @@ public class Travel {
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
+
+    private LocalDateTime publishedDateTime;
+
+    private LocalDateTime recruitingUpdatedDate;
+
+    private LocalDateTime closedDateTime;
 
     public void timeSetting(){
         startTime = spots.get(0).getStartTime();

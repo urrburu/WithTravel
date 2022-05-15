@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-public class spotForm {
+public class SpotForm {
 
     private String spotName;
 
