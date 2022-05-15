@@ -1,6 +1,6 @@
 package com.travelwithme.withtravel.Account;
 
-import com.travelwithme.withtravel.Place.Place;
+
 import com.travelwithme.withtravel.Tag.Tag;
 import lombok.*;
 
@@ -57,8 +57,6 @@ public class Account {
     @ManyToMany
     private Set<Tag> tags = new HashSet<>();
 
-    @ManyToMany
-    private Set<Place> Places = new HashSet<>();
 
     private LocalDateTime lastSendDateTime;
 

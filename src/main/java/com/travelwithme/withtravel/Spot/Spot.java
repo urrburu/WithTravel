@@ -18,6 +18,8 @@ public class Spot {
     @Id @GeneratedValue
     private Long id;
 
+    private String spotName;
+
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;

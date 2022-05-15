@@ -1,14 +1,11 @@
 package com.travelwithme.withtravel.Travel;
 
-import com.travelwithme.withtravel.Place.Place;
+import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Tag.Tag;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -24,13 +21,25 @@ public class Travel {
 
     private String travelName;
 
-    private String description;
+    private String shortDescription;
+
+    @Lob@Basic(fetch = FetchType.EAGER)
+    private String fullDescription;
+
+    @ManyToMany
+    private Set<Account> managers;
+
+    @ManyToMany
+    private Set<Account> members;
 
     @ManyToMany
     private List<Spot> spots = new ArrayList<Spot>();
 
     @ManyToMany
     private Set<Tag> tags = new HashSet<>();
+
+    @Column(unique = true)
+    private String path;
 
     private LocalDateTime startTime;
 
