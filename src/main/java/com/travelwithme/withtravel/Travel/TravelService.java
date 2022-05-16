@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -32,8 +31,12 @@ public class TravelService {
     }
 
     public void addSpot(Travel travel, SpotForm spotForm) {
-        Optional<Travel> travelTarget = travelRepository.findById(travel.getId());
-        List<Spot> spots = travelTarget.orElseThrow().getSpots();
-        spots.add(new Spot(spotForm.getSpotName(), spotForm.getStartTime(), spotForm.getEndTime()));
+        travel = travelRepository.findByTravelName(travel.getTravelName());
+        if(travel != null){
+            List<Spot> spots = travel.getSpots();
+            spots.add(new Spot(spotForm.getSpotName(), spotForm.getStartTime(), spotForm.getEndTime()));
+            travel.setSpots(spots);
+            travelRepository.save(travel);
+        }
     }
 }

@@ -13,4 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface TravelRepository extends JpaRepository<Travel, Long> {
 
     Travel findByMembers(Account account);
+
+    Travel findByTravelName(String travelName);
 }
