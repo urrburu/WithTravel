@@ -14,4 +14,6 @@ public class SpotForm {
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
+
+
 }

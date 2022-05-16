@@ -23,7 +23,7 @@ public class travelController {
     private String travelLocation = "/travel/allTravel";
     private final static String spotUrl = "/travel/spot";
     //Todo add 콜과 remove 콜을 별도로 만들어줄 예정
-    private String spotLocation = "/travel/spot";
+    private String spotLocation = "/travel/modifySpot";
 
     private static TravelService travelService;
 
@@ -51,8 +51,9 @@ public class travelController {
     }
 
     @GetMapping(spotUrl)
-    public String spotsView(@CurrentAccount Account account){
-
+    public String spotsView(@CurrentAccount Account account, Model model){
+        model.addAttribute(account);
+        model.addAttribute(new SpotForm());
         return spotLocation;
     }
     @PostMapping(spotUrl+"/add")
