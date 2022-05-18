@@ -54,6 +54,16 @@ public class Travel {
 
     private LocalDateTime closedDateTime;
 
+    private boolean recruiting;
+
+    private boolean published;
+
+    private boolean closed;
+
+    private boolean useBanner;
+
+
+
     public void timeSetting(){
         startTime = spots.get(0).getStartTime();
         endTime = spots.get(spots.size()-1).getEndTime();

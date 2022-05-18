@@ -21,6 +21,8 @@ public class travelController {
 
     private final static String travelUrl = "/travel/";
     private String travelLocation = "/travel/allTravel";
+    private final static String travelMakeUrl = "/travel/make";
+    private String travelMakeLocation = "/travel/makeTravel";
     private final static String spotUrl = "/travel/spot";
     //Todo add 콜과 remove 콜을 별도로 만들어줄 예정
     private String spotLocation = "/travel/modifySpot";
@@ -30,6 +32,7 @@ public class travelController {
 
     @GetMapping(travelUrl)
     public String travelView(@CurrentAccount Account account, Model model){
+        //모든 여행들을 보여주는 뷰화면
         if(account==null){
         //Todo 만약 account가 없을 경우, 지금 마감에 가까운 9개의 여행을 보여줄 것
             List<Travel> travels = travelService.findNineTravel(LocalDateTime.now());
@@ -42,13 +45,15 @@ public class travelController {
         return travelLocation;
     }
 
-    @PostMapping(travelUrl)
-    public String travelSubmit(@CurrentAccount Account account, Model model, @Valid travelForm travelform){
 
-
-
-        return "redirect:/"+travelUrl;
+    @GetMapping(travelMakeUrl)
+    public String travelMakeView(@CurrentAccount Account account, Model model){
+        //새로운 여행을 만드는 뷰화면을 보여주는 Get call
+        model.addAttribute(account);
+        model.addAttribute(new travelForm());
+        return travelMakeLocation;
     }
+
 
     @GetMapping(spotUrl)
     public String spotsView(@CurrentAccount Account account, Model model){
