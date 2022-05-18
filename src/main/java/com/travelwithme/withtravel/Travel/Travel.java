@@ -14,6 +14,7 @@ import java.util.*;
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Travel {
 
     @Id @GeneratedValue

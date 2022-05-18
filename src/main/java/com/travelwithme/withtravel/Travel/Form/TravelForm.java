@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Data
 @NoArgsConstructor
-public class travelForm {
+public class TravelForm {
 
     private String travelName;
 
@@ -18,6 +18,6 @@ public class travelForm {
 
     private String fullDescription;
 
-    private Set<Account> managers = new HashSet<Account>();
+    private Set<Account> managers = new HashSet<>();
 
 }

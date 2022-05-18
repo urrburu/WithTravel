@@ -15,7 +15,7 @@
 
             <div class="row mt-3">
                 <form class="col-sm-6" action="#"
-                      th:action="@{/travel/spot/add}" th:object="${SpotForm}" method="post" novalidate>
+                      th:action="@{/travel/spot}" th:object="${SpotForm}" method="post" novalidate>
                     <div class="form-group">
                         <label for="spotName">장소 이름</label>
                         <input id="spotName" type="text" th:field="*{SpotName}" class="form-control"

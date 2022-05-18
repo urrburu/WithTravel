@@ -4,12 +4,14 @@ import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
 
 import com.travelwithme.withtravel.Spot.SpotForm;
-import com.travelwithme.withtravel.Travel.Form.travelForm;
+import com.travelwithme.withtravel.Travel.Form.TravelForm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -17,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class travelController {
+public class TravelController {
 
     private final static String travelUrl = "/travel/";
     private String travelLocation = "/travel/allTravel";
@@ -50,29 +52,16 @@ public class travelController {
     public String travelMakeView(@CurrentAccount Account account, Model model){
         //새로운 여행을 만드는 뷰화면을 보여주는 Get call
         model.addAttribute(account);
-        model.addAttribute(new travelForm());
+        model.addAttribute(new TravelForm());
         return travelMakeLocation;
     }
-
-
-    @GetMapping(spotUrl)
-    public String spotsView(@CurrentAccount Account account, Model model){
-        model.addAttribute(account);
-        model.addAttribute(new SpotForm());
-        return spotLocation;
+    @PostMapping(travelMakeUrl)
+    public String travelMakeSubmit(@CurrentAccount Account account, Model model, @Valid TravelForm travelForm, RedirectAttributes attributes){
+        travelService.newTravelMake(travelForm, account);
+        return "redirect:/"+travelUrl;
     }
-    @PostMapping(spotUrl+"/add")
-    public String spotAdd(@CurrentAccount Account account, Travel travel, SpotForm spotForm){
-        travelService.addSpot(travel, spotForm);
-
-        return "redirect:/"+spotLocation;
-    }
-    @PostMapping(spotUrl+"/remove")
-    public String spotRemove(@CurrentAccount Account account, Travel travel){
 
 
-        return "redirect:/"+spotLocation;
-    }
 
 
 }

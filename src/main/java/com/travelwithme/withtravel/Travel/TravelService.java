@@ -1,16 +1,20 @@
 package com.travelwithme.withtravel.Travel;
 
+import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Repository.TravelRepository;
 import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Spot.SpotForm;
 import com.travelwithme.withtravel.Spot.SpotRepository;
+import com.travelwithme.withtravel.Travel.Form.TravelForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -31,6 +35,20 @@ public class TravelService {
             if(travelList.size()==9)break;
         }
         return travelList;
+    }
+
+    public void newTravelMake(TravelForm travelForm, Account account){
+        Travel travel = new Travel().builder().build();
+        Set<Account> accounts = new HashSet<>();
+        accounts.add(account);
+        travel.setManagers(accounts);
+        travel.setTravelName(travelForm.getTravelName());
+        travel.setShortDescription(travelForm.getShortDescription());
+        travel.setFullDescription(travelForm.getFullDescription());
+        travel.setPublishedDateTime(LocalDateTime.now());
+        travel.setClosedDateTime(LocalDateTime.now().plusDays(7));
+
+        travelRepository.save(travel);
     }
 
     public void addSpot(Travel travel, SpotForm spotForm) {
