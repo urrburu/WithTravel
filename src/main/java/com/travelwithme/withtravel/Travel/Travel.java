@@ -37,7 +37,7 @@ public class Travel {
     private Set<Account> members;
 
     @ManyToMany
-    private List<Spot> spots = new ArrayList<Spot>();
+    private List<Spot> spots = new ArrayList<>();
 
     @ManyToMany
     private Set<Tag> tags = new HashSet<>();
@@ -69,4 +69,7 @@ public class Travel {
         startTime = spots.get(0).getStartTime();
         endTime = spots.get(spots.size()-1).getEndTime();
     }
+
+
 }
+
