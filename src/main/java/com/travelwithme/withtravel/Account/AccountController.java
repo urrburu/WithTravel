@@ -1,13 +1,10 @@
 package com.travelwithme.withtravel.Account;
 
 
-import com.travelwithme.withtravel.Account.Account;
-import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Account.Form.SignUpForm;
 import com.travelwithme.withtravel.Account.Validator.SignUpFormValidator;
 
 import com.travelwithme.withtravel.Repository.AccountRepository;
-import com.travelwithme.withtravel.Service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 
 @Controller
 @RequiredArgsConstructor

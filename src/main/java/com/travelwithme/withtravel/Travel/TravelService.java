@@ -31,23 +31,23 @@ public class TravelService {
         for(int i=0;i<travels.size();++i){
             if(now.isAfter(travels.get(i).getStartTime()))travelList.add(travels.get(i));
             //Todo 이거 정렬하는 로직을 좀 생각해 봐야함 현재는 travelList에서 아직 출발하지 않은
-            // TOdo 출발하지 않은 여행 9개를 리스트 순서에 따라서 갖고 오는건데
+            // Todo 출발하지 않은 여행 9개를 리스트 순서에 따라서 갖고 오는건데
             if(travelList.size()==9)break;
         }
         return travelList;
     }
 
     public void newTravelMake(TravelForm travelForm, Account account){
-        Travel travel = new Travel().builder().build();
         Set<Account> accounts = new HashSet<>();
         accounts.add(account);
-        travel.setManagers(accounts);
-        travel.setTravelName(travelForm.getTravelName());
-        travel.setShortDescription(travelForm.getShortDescription());
-        travel.setFullDescription(travelForm.getFullDescription());
-        travel.setPublishedDateTime(LocalDateTime.now());
-        travel.setClosedDateTime(LocalDateTime.now().plusDays(7));
-
+        Travel travel = new Travel().builder()
+                .managers(accounts)
+                .travelName(travelForm.getTravelName())
+                .shortDescription(travelForm.getShortDescription())
+                .fullDescription(travelForm.getFullDescription())
+                .publishedDateTime(LocalDateTime.now())
+                .closedDateTime(LocalDateTime.now().plusDays(7))
+                .build();
         travelRepository.save(travel);
     }
 

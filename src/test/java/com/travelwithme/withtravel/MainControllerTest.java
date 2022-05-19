@@ -2,7 +2,7 @@ package com.travelwithme.withtravel;
 
 import com.travelwithme.withtravel.Account.Form.SignUpForm;
 import com.travelwithme.withtravel.Repository.AccountRepository;
-import com.travelwithme.withtravel.Service.AccountService;
+import com.travelwithme.withtravel.Account.AccountService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -52,8 +52,10 @@ public class TravelController {
         model.addAttribute(new TravelForm());
         return travelMakeLocation;
     }
+
     @PostMapping(travelMakeUrl)
     public String travelMakeSubmit(@CurrentAccount Account account, Model model, @Valid TravelForm travelForm, RedirectAttributes attributes){
+        /*
         if(account.isEmailVerified()==false){
             //이메일이 확인되지 않은 이용자에게는 서비스를 제공할 수 없음을 명시
             model.addAttribute(account);
@@ -61,6 +63,7 @@ public class TravelController {
             attributes.addFlashAttribute("message", "이메일 인증이 되지 않은 유저에게는 위드 트래블의 서비스를 제공할 수 없습니다.");
             return "redirect:/"+travelMakeUrl;
         }
+         */
         travelService.newTravelMake(travelForm, account);
         return "redirect:/"+travelUrl;
     }

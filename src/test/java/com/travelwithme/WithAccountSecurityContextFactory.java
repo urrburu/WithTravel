@@ -1,7 +1,7 @@
 package com.travelwithme;
 
 import com.travelwithme.withtravel.Account.Form.SignUpForm;
-import com.travelwithme.withtravel.Service.AccountService;
+import com.travelwithme.withtravel.Account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
