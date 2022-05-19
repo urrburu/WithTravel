@@ -2,6 +2,7 @@ package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
+import com.travelwithme.withtravel.Repository.TravelRepository;
 import com.travelwithme.withtravel.Travel.Form.TravelForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class TravelController {
     private String spotLocation = "/travel/modifySpot";
 
     private static TravelService travelService;
-
+    private static TravelRepository travelRepository;
 
     @GetMapping(travelUrl)
     public String travelView(@CurrentAccount Account account, Model model){
@@ -52,8 +53,10 @@ public class TravelController {
         model.addAttribute(new TravelForm());
         return travelMakeLocation;
     }
+
     @PostMapping(travelMakeUrl)
     public String travelMakeSubmit(@CurrentAccount Account account, Model model, @Valid TravelForm travelForm, RedirectAttributes attributes){
+        /*
         if(account.isEmailVerified()==false){
             //이메일이 확인되지 않은 이용자에게는 서비스를 제공할 수 없음을 명시
             model.addAttribute(account);
@@ -61,11 +64,19 @@ public class TravelController {
             attributes.addFlashAttribute("message", "이메일 인증이 되지 않은 유저에게는 위드 트래블의 서비스를 제공할 수 없습니다.");
             return "redirect:/"+travelMakeUrl;
         }
+         */
         travelService.newTravelMake(travelForm, account);
         return "redirect:/"+travelUrl;
     }
 
-
+    @GetMapping(spotUrl)
+    public String Spotmodify(@CurrentAccount Account account, String travelName, Model model){
+        //Todo manager가 아니라면 수정할 권한이 없기 때문에 버튼을 만들어 주지 않아야함 + 해당 포스트 입력이 들어왔을때 안된다고 확인
+        Travel travel = travelRepository.findByTravelName(travelName);
+        model.addAttribute(account);
+        model.addAttribute(travel);
+        return spotLocation;
+    }
 
 
 }

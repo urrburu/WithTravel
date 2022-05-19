@@ -4,10 +4,9 @@ import com.travelwithme.withtravel.Account.Account;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.lang.Nullable;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +23,8 @@ public class TravelForm {
 
     private String fullDescription;
 
-    private Set<Account> managers = new HashSet<>();
+    private LocalDateTime startTime;
+
+    private LocalDateTime endTime;
 
 }

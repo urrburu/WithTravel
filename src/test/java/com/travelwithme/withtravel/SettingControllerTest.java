@@ -3,7 +3,7 @@ package com.travelwithme.withtravel;
 import com.travelwithme.WithAccount;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Repository.AccountRepository;
-import com.travelwithme.withtravel.Service.AccountService;
+import com.travelwithme.withtravel.Account.AccountService;
 import com.travelwithme.withtravel.Settings.SettingService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package com.travelwithme.withtravel.Service;
+package com.travelwithme.withtravel.Account;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.Form.SignUpForm;
@@ -43,12 +43,11 @@ public class AccountService implements UserDetailsService {
     @Transactional
     public Account processNewAccount(SignUpForm signUpForm) {
         Account newAccount = saveNewAccount(signUpForm);
-        //newAccount.generateEmailCheckToken();
         sendSignUpConfirmEmail(newAccount);
         return newAccount;
     }
-    private Account saveNewAccount(@Valid SignUpForm signUpForm) {
 
+    private Account saveNewAccount(@Valid SignUpForm signUpForm) {
         Account account = Account.builder()
                 .email(signUpForm.getEmail())
                 .nickname(signUpForm.getNickname())

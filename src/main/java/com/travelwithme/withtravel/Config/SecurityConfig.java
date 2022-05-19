@@ -1,7 +1,6 @@
 package com.travelwithme.withtravel.Config;
 
-import com.travelwithme.withtravel.Account.Account;
-import com.travelwithme.withtravel.Service.AccountService;
+import com.travelwithme.withtravel.Account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
