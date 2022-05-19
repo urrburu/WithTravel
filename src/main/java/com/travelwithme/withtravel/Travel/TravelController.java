@@ -2,6 +2,7 @@ package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
+import com.travelwithme.withtravel.Repository.TravelRepository;
 import com.travelwithme.withtravel.Travel.Form.TravelForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class TravelController {
     private String spotLocation = "/travel/modifySpot";
 
     private static TravelService travelService;
-
+    private static TravelRepository travelRepository;
 
     @GetMapping(travelUrl)
     public String travelView(@CurrentAccount Account account, Model model){
@@ -68,7 +69,14 @@ public class TravelController {
         return "redirect:/"+travelUrl;
     }
 
-
+    @GetMapping(spotUrl)
+    public String Spotmodify(@CurrentAccount Account account, String travelName, Model model){
+        //Todo manager가 아니라면 수정할 권한이 없기 때문에 버튼을 만들어 주지 않아야함 + 해당 포스트 입력이 들어왔을때 안된다고 확인
+        Travel travel = travelRepository.findByTravelName(travelName);
+        model.addAttribute(account);
+        model.addAttribute(travel);
+        return spotLocation;
+    }
 
 
 }
