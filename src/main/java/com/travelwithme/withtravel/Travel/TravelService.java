@@ -37,7 +37,7 @@ public class TravelService {
         return travelList;
     }
 
-    public void newTravelMake(TravelForm travelForm, Account account){
+    public Travel newTravelMake(TravelForm travelForm, Account account){
         Set<Account> accounts = new HashSet<>();
         accounts.add(account);
         Travel travel = new Travel().builder()
@@ -48,7 +48,7 @@ public class TravelService {
                 .publishedDateTime(LocalDateTime.now())
                 .closedDateTime(LocalDateTime.now().plusDays(7))
                 .build();
-        travelRepository.save(travel);
+        return travelRepository.save(travel);
     }
 
     public void addSpot(Travel travel, SpotForm spotForm) {

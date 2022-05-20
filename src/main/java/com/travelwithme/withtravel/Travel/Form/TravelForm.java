@@ -1,14 +1,12 @@
 package com.travelwithme.withtravel.Travel.Form;
 
-import com.travelwithme.withtravel.Account.Account;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -23,8 +21,10 @@ public class TravelForm {
 
     private String fullDescription;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime startTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime endTime;
 
 }
