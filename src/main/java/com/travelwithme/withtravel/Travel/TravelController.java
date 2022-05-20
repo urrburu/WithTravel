@@ -3,11 +3,14 @@ package com.travelwithme.withtravel.Travel;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Repository.TravelRepository;
+import com.travelwithme.withtravel.Spot.SpotForm;
 import com.travelwithme.withtravel.Travel.Form.TravelForm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,6 +35,7 @@ public class TravelController {
 
     @GetMapping(travelUrl)
     public String travelView(@CurrentAccount Account account, Model model){
+        /*
         //모든 여행들을 보여주는 뷰화면
         if(account==null){
         //Todo 만약 account가 없을 경우, 지금 마감에 가까운 9개의 여행을 보여줄 것
@@ -42,9 +46,22 @@ public class TravelController {
         //Todo 만약 account가 있을 경우, 등록되었지만 아직 가지 않은 여행, 사람을 구하는 여행, 다녀올 여행 순서로 보여줄 예정.
 
         }
+         */
+        List<Travel> travels = travelRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        model.addAttribute(travels);
         return travelLocation;
     }
 
+    @GetMapping("/travel/{travelName}")
+    public String viewTravel(@PathVariable String travelName, Model model, @CurrentAccount Account account){
+        Travel byTravelName = travelRepository.findByTravelName(travelName);
+        if(byTravelName == null ){
+            throw new IllegalArgumentException(travelName+"에 해당하는 사용자가 없습니다.");
+        }
+        model.addAttribute("travel", byTravelName);
+        model.addAttribute("isManager", byTravelName.getManagers().contains(account));
+        return "Profile/profile";
+    }
 
     @GetMapping(travelMakeUrl)
     public String travelMakeView(@CurrentAccount Account account, Model model){
@@ -76,6 +93,16 @@ public class TravelController {
         model.addAttribute(account);
         model.addAttribute(travel);
         return spotLocation;
+    }
+
+    @PostMapping(spotUrl)
+    public String SpotModifySubmit(@CurrentAccount Account account, Travel travel, @Valid SpotForm spotForm, RedirectAttributes attributes){
+        if(!travel.getManagers().contains(account)){
+            attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
+            return "redirect:/"+spotUrl;
+        }
+        travelService.addSpot(travel, spotForm);
+        return "redirect:/"+spotUrl;
     }
 
 

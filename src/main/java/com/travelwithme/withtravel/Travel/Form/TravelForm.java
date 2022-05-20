@@ -1,14 +1,11 @@
 package com.travelwithme.withtravel.Travel.Form;
 
-import com.travelwithme.withtravel.Account.Account;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
