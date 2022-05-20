@@ -30,8 +30,8 @@ public class TravelController {
     //Todo add 콜과 remove 콜을 별도로 만들어줄 예정
     private String spotLocation = "/travel/modifySpot";
 
-    private static TravelService travelService;
-    private static TravelRepository travelRepository;
+    private final TravelService travelService;
+    private final TravelRepository travelRepository;
 
     @GetMapping(travelUrl)
     public String travelView(@CurrentAccount Account account, Model model){
@@ -48,7 +48,8 @@ public class TravelController {
         }
          */
         List<Travel> travels = travelRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        model.addAttribute(travels);
+        if(travels.size()!=0){model.addAttribute(travels);}
+        model.addAttribute(account);
         return travelLocation;
     }
 
@@ -60,7 +61,7 @@ public class TravelController {
         }
         model.addAttribute("travel", byTravelName);
         model.addAttribute("isManager", byTravelName.getManagers().contains(account));
-        return "Profile/profile";
+        return "travel/travelPick";
     }
 
     @GetMapping(travelMakeUrl)
@@ -72,7 +73,8 @@ public class TravelController {
     }
 
     @PostMapping(travelMakeUrl)
-    public String travelMakeSubmit(@CurrentAccount Account account, Model model, @Valid TravelForm travelForm, RedirectAttributes attributes){
+    public String travelMakeSubmit(@CurrentAccount Account account, Model model, @Valid TravelForm travelForm,
+                                   RedirectAttributes attributes, Error error){
         /*
         if(account.isEmailVerified()==false){
             //이메일이 확인되지 않은 이용자에게는 서비스를 제공할 수 없음을 명시
@@ -82,8 +84,9 @@ public class TravelController {
             return "redirect:/"+travelMakeUrl;
         }
          */
-        travelService.newTravelMake(travelForm, account);
-        return "redirect:/"+travelUrl;
+        Travel travel = travelService.newTravelMake(travelForm, account);
+        model.addAttribute(account);
+        return "redirect:/travel/"+travel.getTravelName();
     }
 
     @GetMapping(spotUrl)
@@ -92,11 +95,12 @@ public class TravelController {
         Travel travel = travelRepository.findByTravelName(travelName);
         model.addAttribute(account);
         model.addAttribute(travel);
+        model.addAttribute(new SpotForm());
         return spotLocation;
     }
 
-    @PostMapping(spotUrl)
-    public String SpotModifySubmit(@CurrentAccount Account account, Travel travel, @Valid SpotForm spotForm, RedirectAttributes attributes){
+    @PostMapping(spotUrl+"/add")
+    public String SpotAddSubmit(@CurrentAccount Account account, Travel travel, @Valid SpotForm spotForm, RedirectAttributes attributes){
         if(!travel.getManagers().contains(account)){
             attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
             return "redirect:/"+spotUrl;
@@ -104,6 +108,15 @@ public class TravelController {
         travelService.addSpot(travel, spotForm);
         return "redirect:/"+spotUrl;
     }
+    @PostMapping(spotUrl+"/remove")
+    public String SpotRemoveSubmit(@CurrentAccount Account account, Travel travel, String spotName, RedirectAttributes attributes){
+        if(!travel.getManagers().contains(account)){
+            attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
+            return "redirect:/"+spotUrl;
+        }
 
+        travelService.removeSpot(travel, spotName);
+        return "redirect:/"+spotUrl;
+    }
 
 }
