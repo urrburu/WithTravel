@@ -100,6 +100,18 @@ public class TravelController {
         return spotLocation;
     }
 */
+    @GetMapping("/travel/{travelName}/new-spot")
+    public String SpotAddView(@CurrentAccount Account account, @PathVariable String travelName,Model model, RedirectAttributes attributes){
+        Travel travel = travelRepository.findByTravelName(travelName);
+        if(!travel.getManagers().contains(account)){
+            attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
+            return "redirect:/travel/"+travelName;
+        }
+        model.addAttribute(account);
+        model.addAttribute(travel);
+        model.addAttribute(new SpotForm());
+        return "travel/modifySpot";
+    }
     @PostMapping("/travel/{travelName}/new-spot")
     public String SpotAddSubmit(@CurrentAccount Account account, @PathVariable String travelName, @Valid SpotForm spotForm, RedirectAttributes attributes){
         Travel travel = travelRepository.findByTravelName(travelName);
@@ -107,7 +119,7 @@ public class TravelController {
             attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
             return "redirect:/travel/"+travelName;
         }
-        travelService.addSpot(travel, spotForm);
+        travelService.addSpot(travelName, spotForm);
         return "redirect:/travel/"+travelName;
     }
     @PostMapping("/travel/{travelName}/{spotName}/spot-remove")

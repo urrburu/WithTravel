@@ -10,7 +10,7 @@
 </div>
 <div class="container">
     <form class="col-sm-12" action="#"
-          th:action="@{/travel/spot/add}" th:object="${spotForm}" method="post" novalidate>
+          th:action="@{'/travel/'+${travel.travelName}+'/new-spot'}" th:object="${spotForm}" method="post" novalidate>
         <div class="form-group">
             <label for="spotName">장소 이름</label>
             <input id="spotName" type="text" th:field="*{spotName}" class="form-control"

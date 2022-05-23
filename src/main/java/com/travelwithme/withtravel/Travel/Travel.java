@@ -38,7 +38,7 @@ public class Travel {
     @ManyToMany
     private Set<Account> members;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Spot> spots = new ArrayList<>();
 
     @ManyToMany
