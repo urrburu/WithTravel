@@ -1,6 +1,7 @@
 package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Account.Account;
+import com.travelwithme.withtravel.Account.UserAccount;
 import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Tag.Tag;
 import lombok.*;
@@ -43,7 +44,8 @@ public class Travel {
     @ManyToMany
     private Set<Tag> tags = new HashSet<>();
 
-    private String Image;
+//    @Lob @Basic(fetch = FetchType.EAGER)
+//    private String Image;
 
     private LocalDateTime startTime;
 
@@ -70,6 +72,16 @@ public class Travel {
         endTime = spots.get(spots.size()-1).getEndTime();
     }
 
+    public Boolean isJoinable(UserAccount userAccount)  {
+        Account account = userAccount.getAccount();
+        return this.isPublished() && this.isRecruiting()
+                && !this.members.contains(account) && !this.managers.contains(account);
+    }
 
+    public Boolean isMember(UserAccount userAccount) {
+        return this.members.contains(userAccount.getAccount());
+    }
+
+    public Boolean isManager(UserAccount userAccount)  { return this.managers.contains(userAccount.getAccount());    }
 }
 

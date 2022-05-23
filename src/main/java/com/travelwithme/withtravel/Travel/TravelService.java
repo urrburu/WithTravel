@@ -47,6 +47,9 @@ public class TravelService {
                 .fullDescription(travelForm.getFullDescription())
                 .publishedDateTime(LocalDateTime.now())
                 .closedDateTime(LocalDateTime.now().plusDays(7))
+                .closed(false)
+                .published(true)
+                .recruiting(true)
                 .build();
         return travelRepository.save(travel);
     }

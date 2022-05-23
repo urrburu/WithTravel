@@ -26,7 +26,6 @@ public class TravelController {
     private String travelLocation = "/travel/allTravel";
     private final static String travelMakeUrl = "/travel/make";
     private String travelMakeLocation = "/travel/makeTravel";
-    private final static String spotUrl = "/travel/spot";
     //Todo add 콜과 remove 콜을 별도로 만들어줄 예정
     private String spotLocation = "/travel/modifySpot";
 
@@ -90,7 +89,7 @@ public class TravelController {
         model.addAttribute(account);
         return "redirect:/travel/"+travel.getTravelName();
     }
-
+    /*
     @GetMapping(spotUrl)
     public String Spotmodify(@CurrentAccount Account account, String travelName, Model model){
         //Todo manager가 아니라면 수정할 권한이 없기 때문에 버튼을 만들어 주지 않아야함 + 해당 포스트 입력이 들어왔을때 안된다고 확인
@@ -100,25 +99,27 @@ public class TravelController {
         model.addAttribute(new SpotForm());
         return spotLocation;
     }
-
-    @PostMapping(spotUrl+"/add")
-    public String SpotAddSubmit(@CurrentAccount Account account, Travel travel, @Valid SpotForm spotForm, RedirectAttributes attributes){
+*/
+    @PostMapping("/travel/{travelName}/new-spot")
+    public String SpotAddSubmit(@CurrentAccount Account account, @PathVariable String travelName, @Valid SpotForm spotForm, RedirectAttributes attributes){
+        Travel travel = travelRepository.findByTravelName(travelName);
         if(!travel.getManagers().contains(account)){
             attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
-            return "redirect:/"+spotUrl;
+            return "redirect:/travel/"+travelName;
         }
         travelService.addSpot(travel, spotForm);
-        return "redirect:/"+spotUrl;
+        return "redirect:/travel/"+travelName;
     }
-    @PostMapping(spotUrl+"/remove")
-    public String SpotRemoveSubmit(@CurrentAccount Account account, Travel travel, String spotName, RedirectAttributes attributes){
+    @PostMapping("/travel/{travelName}/{spotName}/spot-remove")
+    public String SpotRemoveSubmit(@CurrentAccount Account account, @PathVariable String travelName, @PathVariable String spotName, RedirectAttributes attributes){
+        Travel travel = travelRepository.findByTravelName(travelName);
         if(!travel.getManagers().contains(account)){
             attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
-            return "redirect:/"+spotUrl;
+            return "redirect:/travel/"+travelName;
         }
 
         travelService.removeSpot(travel, spotName);
-        return "redirect:/"+spotUrl;
+        return "redirect:/travel/"+travelName;
     }
 
 }

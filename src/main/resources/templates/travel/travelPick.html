@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row pt-4 text-left justify-content-center bg-light">
             <div class="col-6">
-                <a href="#" class="text-decotation-none" th:href="@{'/travel'+${travel.travelName}}">
+                <a href="#" class="text-decoration-none" th:href="@{'/travel'+${travel.travelName}}">
                     <span class="h2" th:text="${travel.travelName}">여행 제목</span>
                 </a>
             </div>
@@ -29,11 +29,23 @@
                     <button class="btn btn-primary btn-sm" style="pointer-events: none;"type="button" disabled>OFF</button>
                 </span>
                 <span sec:authorize="isAuthenticated()" th:if="${travel.isJoinable(#authentication.principal)}"
-                    class="btn-group" style="pointer-events: none;" type="button" disabled>
-                >
-                    <button class="btn btn-primary btn-sm" style="pointer-events: none;"type="button" disabled>DRAFT</button>
+                    class="btn-group" role="group" aria-label="Basic example">
+                    <a class="btn btn-primary" th:href="@{'/travel/'+${travel.travelName}+'/join'}">
+                        여행 함께하기</a>
+                    <a class="btn btn-outline-primary" th:href="@{'/travel/'+${travel.travelName}+'/members'}"
+                        th:text="${travel.members.size()}">1</a>
                 </span>
 
+                <span sec:authorize="isAuthenticated()" th:if="${!travel.closed && travel.isMember(#authentication.principal)}"
+                      class="btn-group" role="group" aria-label="Basic example">
+                    <a class="btn btn-primary" th:href="@{'/travel/'+${travel.travelName}+'/leave'}">
+                        여행 탈퇴하기</a>
+                    <a class="btn btn-outline-primary" th:href="@{'/travel/'+${travel.travelName}+'/members'}"
+                       th:text="${travel.members.size()}">1</a>
+                </span>
+                <span sec:authorize="isAuthenticated()" th:if="${travel.published && !travel.closed && travel.isManager(#authentication.principal)}">
+                    <a class="btn btn-outline-primary" th:href="@{'/travel/'+${travel.travelName}+'/new-spot'}"> 새 장소 추가하기 </a>
+                </span>
             </div>
 
 
