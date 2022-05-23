@@ -6,6 +6,7 @@ import com.travelwithme.withtravel.Repository.TravelRepository;
 import com.travelwithme.withtravel.Spot.SpotForm;
 import com.travelwithme.withtravel.Travel.Form.TravelForm;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -32,10 +32,12 @@ public class TravelController {
 
     private final TravelService travelService;
     private final TravelRepository travelRepository;
+    private final ModelMapper modelMapper;
+
 
     @GetMapping(travelUrl)
     public String travelView(@CurrentAccount Account account, Model model){
-        /*
+        /* 404 error
         //모든 여행들을 보여주는 뷰화면
         if(account==null){
         //Todo 만약 account가 없을 경우, 지금 마감에 가까운 9개의 여행을 보여줄 것
@@ -57,7 +59,7 @@ public class TravelController {
     public String viewTravel(@PathVariable String travelName, Model model, @CurrentAccount Account account){
         Travel byTravelName = travelRepository.findByTravelName(travelName);
         if(byTravelName == null ){
-            throw new IllegalArgumentException(travelName+"에 해당하는 사용자가 없습니다.");
+            throw new IllegalArgumentException(travelName+"에 해당하는 여행이 없습니다.");
         }
         model.addAttribute("travel", byTravelName);
         model.addAttribute("isManager", byTravelName.getManagers().contains(account));

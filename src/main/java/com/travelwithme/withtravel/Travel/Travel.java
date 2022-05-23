@@ -20,6 +20,7 @@ public class Travel {
     @Id @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String travelName;
 
     private String shortDescription;
@@ -42,8 +43,7 @@ public class Travel {
     @ManyToMany
     private Set<Tag> tags = new HashSet<>();
 
-    @Column(unique = true)
-    private String path;
+    private String Image;
 
     private LocalDateTime startTime;
 
