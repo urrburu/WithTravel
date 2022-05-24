@@ -44,8 +44,8 @@ public class Travel {
     @ManyToMany
     private Set<Tag> tags = new HashSet<>();
 
-//    @Lob @Basic(fetch = FetchType.EAGER)
-//    private String Image;
+    @Lob @Basic(fetch = FetchType.EAGER)
+    private String travelImage;
 
     private LocalDateTime startTime;
 

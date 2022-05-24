@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row pt-4 text-left justify-content-center bg-light">
             <div class="col-6">
-                <a href="#" class="text-decoration-none" th:href="@{'/travel'+${travel.travelName}}">
+                <a href="#" class="text-decoration-none" th:href="@{'/travel/'+${travel.travelName}}">
                     <span class="h2" th:text="${travel.travelName}">여행 제목</span>
                 </a>
             </div>
@@ -47,12 +47,36 @@
                     <a class="btn btn-outline-primary" th:href="@{'/travel/'+${travel.travelName}+'/new-spot'}"> 새 장소 추가하기 </a>
                 </span>
             </div>
-
-
+        </div>
+        <div class="row justify-content-center bg-light">
+            <div class="col-10">
+                <p class="lead" th:text="${travel.shortDescription}"></p>
+            </div>
 
         </div>
-
-
+        <div class="row px-3 justify-content-center bg-light">
+            <div class="col-10">
+               <span th:each="tag: ${travel.tags}"
+                     class="font-weight-light text-monospace badge badge-pill badge-info mr-3">
+                    <a th:href="@{'/search/tag/' + ${tag.tagTitle}}" class="text-decoration-none text-white">
+                        <i class="fa fa-tag"></i> <span th:text="${tag.tagTitle}">Tag</span>
+                    </a>
+                </span>
+            </div>
+        </div>
+        <div class="row px-3 justify-content-center bg-light">
+            <div class="col-10">
+               <span th:each="spot: ${travel.spots}"
+                     class="font-weight-light text-monospace badge badge-pill badge-info mr-3">
+                    <a th:href="@{'/search/spot/' + ${spot.spotName}}" class="text-decoration-none text-white">
+                        <i class="fa fa-tag"></i> <span th:text="${spot.startTime}">Spot</span><span th:text="${spot.endTime}">Spot</span>
+                    </a>
+                </span>
+            </div>
+        </div>
+        <div class="row px-3 justify-content-center">
+            <div class="col-10 pt-3" th:utext="${travel.fullDescription}"></div>
+        </div>
 
         <div th:replace="fragments.html::footer"></div>
     </div>
