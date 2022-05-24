@@ -12,7 +12,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -32,9 +34,15 @@ public class travelTest {
     @WithAccount(value = "chanhwi")
     @Test
     @DisplayName("여행 만들기 - 입력값 정상")
-    public void travelMakeTest(){
+    public void travelMakeTest() throws Exception{
         mockMvc.perform(post("/travel/make")
-                .param())
+                .param("travelName", "chanhwiTravel")
+                .param("shortDescription", "안녕하세요 위드트래블 테스트 여행입니다.")
+                .param("fullDescription", "안녕하세요 위드트래블 테스트 여행입니다. 즐거운 여행 되세요. ")
+                //.param("startTime", "")
+                //.param("endTime", "")
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection());
 
         
     }
