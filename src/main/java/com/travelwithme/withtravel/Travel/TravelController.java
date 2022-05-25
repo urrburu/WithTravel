@@ -118,7 +118,7 @@ public class TravelController {
             attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
             return "redirect:/travel/"+travelName;
         }
-        travelService.addSpot(travelName, spotForm);
+        travelService.addSpot(travel, spotForm);
         return "redirect:/travel/"+travelName;
     }
     @PostMapping("/travel/{travelName}/{spotName}/spot-remove")

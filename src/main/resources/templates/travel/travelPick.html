@@ -54,10 +54,6 @@
             </div>
 
         </div>
-
-        <div class="row px-3 justify-content-center">
-            <div class="col-10 pt-3" th:utext="${travel.fullDescription}"></div>
-        </div>
         <div class="row px-3 justify-content-center bg-light">
             <div class="col-10">
                <span th:each="tag: ${travel.tags}"
@@ -68,15 +64,21 @@
                 </span>
             </div>
         </div>
+        <div class="row px-3 justify-content-center">
+            <div class="col-10 pt-3" th:utext="${travel.fullDescription}"></div>
+        </div>
+
         <div class="row px-3 justify-content-center bg-light">
-            <div class="col-10">
-               <span th:each="spot: ${travel.spots}"
-                     class="font-weight-light text-monospace badge badge-pill badge-info mr-3">
-                    <a th:href="@{'/search/spot/' + ${spot.spotName}}" class="text-decoration-none text-white">
-                        <i class="fa fa-tag"></i> <span th:text="${spot.startTime}">Spot</span><span th:text="${spot.endTime}">Spot</span>
-                    </a>
-                </span>
-            </div>
+            <ul class="list-unstyled col-10">
+                <li th:each="spot: ${travel.spots}">
+                    <div class="media-body">
+                        <a th:href="@{'/search/spot/' + ${spot.spotName}}" ><span th:text="${spot.spotName}"></span></a>
+                        <span th:text="${spot.startTime}">Spot</span><span th:text="${spot.endTime}">Spot</span>
+                    </div>
+                </li>
+            </ul>
+
+
         </div>
         <div th:replace="fragments.html::footer"></div>
     </div>
