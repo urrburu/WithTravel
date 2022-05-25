@@ -61,7 +61,6 @@ public class TravelController {
             throw new IllegalArgumentException(travelName+"에 해당하는 여행이 없습니다.");
         }
         model.addAttribute("travel", byTravelName);
-        model.addAttribute("isManager", byTravelName.getManagers().contains(account));
         return "travel/travelPick";
     }
 
@@ -132,6 +131,14 @@ public class TravelController {
 
         travelService.removeSpot(travel, spotName);
         return "redirect:/travel/"+travelName;
+    }
+
+    @GetMapping("/travel/{travelName}/join")
+    public String memberJoin(@PathVariable String travelName, Model model, @CurrentAccount Account account){
+        Travel travel = travelRepository.findByTravelName(travelName);
+        travelService.addMember(travel, account);
+        return "redirect:"+travelUrl;
+
     }
 
 }

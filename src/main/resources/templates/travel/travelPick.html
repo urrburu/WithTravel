@@ -30,7 +30,7 @@
                 </span>
                 <span sec:authorize="isAuthenticated()" th:if="${travel.isJoinable(#authentication.principal)}"
                     class="btn-group" role="group" aria-label="Basic example">
-                    <a class="btn btn-primary" th:href="@{'/travel/'+${travel.travelName}+'/join'}">
+                    <a class="btn btn-primary" th:formmethod="POST" th:href="@{'/travel/'+${travel.travelName}+'/join'}">
                         여행 함께하기</a>
                     <a class="btn btn-outline-primary" th:href="@{'/travel/'+${travel.travelName}+'/members'}"
                         th:text="${travel.members.size()}">1</a>
@@ -54,6 +54,10 @@
             </div>
 
         </div>
+
+        <div class="row px-3 justify-content-center">
+            <div class="col-10 pt-3" th:utext="${travel.fullDescription}"></div>
+        </div>
         <div class="row px-3 justify-content-center bg-light">
             <div class="col-10">
                <span th:each="tag: ${travel.tags}"
@@ -74,10 +78,6 @@
                 </span>
             </div>
         </div>
-        <div class="row px-3 justify-content-center">
-            <div class="col-10 pt-3" th:utext="${travel.fullDescription}"></div>
-        </div>
-
         <div th:replace="fragments.html::footer"></div>
     </div>
 
