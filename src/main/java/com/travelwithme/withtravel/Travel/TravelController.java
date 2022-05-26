@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -88,17 +90,7 @@ public class TravelController {
         model.addAttribute(account);
         return "redirect:/travel/"+travel.getTravelName();
     }
-    /*
-    @GetMapping(spotUrl)
-    public String Spotmodify(@CurrentAccount Account account, String travelName, Model model){
-        //Todo manager가 아니라면 수정할 권한이 없기 때문에 버튼을 만들어 주지 않아야함 + 해당 포스트 입력이 들어왔을때 안된다고 확인
-        Travel travel = travelRepository.findByTravelName(travelName);
-        model.addAttribute(account);
-        model.addAttribute(travel);
-        model.addAttribute(new SpotForm());
-        return spotLocation;
-    }
-*/
+
     @GetMapping("/travel/{travelName}/new-spot")
     public String SpotAddView(@CurrentAccount Account account, @PathVariable String travelName,Model model, RedirectAttributes attributes){
         Travel travel = travelRepository.findByTravelName(travelName);
@@ -138,6 +130,18 @@ public class TravelController {
         Travel travel = travelRepository.findByTravelName(travelName);
         travelService.addMember(travel, account);
         return "redirect:"+travelUrl;
+
+    }
+    @GetMapping("/travel/{travelName}/members")
+    public String memberView(@PathVariable String travelName, Model model, @CurrentAccount Account account){
+        Travel travel = travelRepository.findByTravelName(travelName);
+        Set<Account> accounts = new HashSet<>();
+        for (Account account1:travel.getManagers()) {accounts.add(account1);}
+        for (Account account1:travel.getMembers()) {accounts.add(account1);}
+        model.addAttribute("accounts", accounts);
+        model.addAttribute("account", account);
+        model.addAttribute("travel", travel);
+        return "/travel/TravelMember";
 
     }
 
