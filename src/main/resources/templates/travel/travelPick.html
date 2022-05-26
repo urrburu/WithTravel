@@ -16,32 +16,25 @@
                 </a>
             </div>
             <div class="col-4 text-right justify-content-end">
-                <span th:if="${!travel.published}" class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"
-                      title="여행 공개하지 않음">
+                <span th:if="${!travel.published}" class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="여행 공개하지 않음">
                     <button class="btn btn-primary btn-sm" style="pointer-events: none;"type="button" disabled>DRAFT</button>
                 </span>
-                <span th:if="${!travel.closed}" class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"
-                      title="끝난 여행">
+                <span th:if="${!travel.closed}" class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"title="끝난 여행">
                     <button class="btn btn-primary btn-sm" style="pointer-events: none;"type="button" disabled>Closed</button>
                 </span>
-                <span th:if="${!travel.recruiting}" class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"
-                      title="팀원 모집중 아님">
+                <span th:if="${!travel.recruiting}" class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"title="팀원 모집중 아님">
                     <button class="btn btn-primary btn-sm" style="pointer-events: none;"type="button" disabled>OFF</button>
                 </span>
-                <span sec:authorize="isAuthenticated()" th:if="${travel.isJoinable(#authentication.principal)}"
-                    class="btn-group" role="group" aria-label="Basic example">
+                <span sec:authorize="isAuthenticated()" th:if="${travel.isJoinable(#authentication.principal)}"class="btn-group" role="group" aria-label="Basic example">
                     <a class="btn btn-primary" th:formmethod="POST" th:href="@{'/travel/'+${travel.travelName}+'/join'}">
                         여행 함께하기</a>
-                    <a class="btn btn-outline-primary" th:href="@{'/travel/'+${travel.travelName}+'/members'}"
-                        th:text="${travel.members.size()}">1</a>
+                    <a class="btn btn-outline-primary" th:href="@{'/travel/'+${travel.travelName}+'/members'}"th:text="${travel.members.size()}">1</a>
                 </span>
 
-                <span sec:authorize="isAuthenticated()" th:if="${!travel.closed && travel.isMember(#authentication.principal)}"
-                      class="btn-group" role="group" aria-label="Basic example">
+                <span sec:authorize="isAuthenticated()" th:if="${!travel.closed && travel.isMember(#authentication.principal)}"class="btn-group" role="group" aria-label="Basic example">
                     <a class="btn btn-primary" th:href="@{'/travel/'+${travel.travelName}+'/leave'}">
                         여행 탈퇴하기</a>
-                    <a class="btn btn-outline-primary" th:href="@{'/travel/'+${travel.travelName}+'/members'}"
-                       th:text="${travel.members.size()}">1</a>
+                    <a class="btn btn-outline-primary" th:href="@{'/travel/'+${travel.travelName}+'/members'}"th:text="${travel.members.size()}">1</a>
                 </span>
                 <span sec:authorize="isAuthenticated()" th:if="${travel.published && !travel.closed && travel.isManager(#authentication.principal)}">
                     <a class="btn btn-outline-primary" th:href="@{'/travel/'+${travel.travelName}+'/new-spot'}"> 새 장소 추가하기 </a>
@@ -73,12 +66,10 @@
                 <li th:each="spot: ${travel.spots}">
                     <div class="media-body">
                         <a th:href="@{'/search/spot/' + ${spot.spotName}}" ><span th:text="${spot.spotName}"></span></a>
-                        <span th:text="${spot.startTime}">Spot</span><span th:text="${spot.endTime}">Spot</span>
+                        <span th:text="${spot.startTime}"></span> <span>부터 </span> <span th:text="${spot.endTime}"></span> <span>까지</span>
                     </div>
                 </li>
             </ul>
-
-
         </div>
         <div th:replace="fragments.html::footer"></div>
     </div>

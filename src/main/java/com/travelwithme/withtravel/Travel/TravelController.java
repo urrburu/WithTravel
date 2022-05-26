@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -85,9 +86,14 @@ public class TravelController {
             attributes.addFlashAttribute("message", "이메일 인증이 되지 않은 유저에게는 위드 트래블의 서비스를 제공할 수 없습니다.");
             return "redirect:/"+travelMakeUrl;
         }
-         */
+        */
+        if(travelForm.getStartTime().isAfter(travelForm.getEndTime()) || LocalDateTime.now().isAfter(travelForm.getStartTime())){
+            attributes.addFlashAttribute("message", "잘못된 시간입력입니다. 다시 입력해주세요.");
+            return "redirect:"+travelMakeUrl;
+        }
         Travel travel = travelService.newTravelMake(travelForm, account);
         model.addAttribute(account);
+
         return "redirect:/travel/"+travel.getTravelName();
     }
 
@@ -110,6 +116,12 @@ public class TravelController {
             attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
             return "redirect:/travel/"+travelName;
         }
+
+        if(spotForm.getStartTime().isBefore(travel.getStartTime())||spotForm.getEndTime().isAfter(travel.getEndTime())){
+            attributes.addFlashAttribute("error", "잘못된 시간입력 입니다. 다시 입력해주세요.");
+            return "redirect:/travel/"+travelName+"new-spot";
+        }
+
         travelService.addSpot(travel, spotForm);
         return "redirect:/travel/"+travelName;
     }
