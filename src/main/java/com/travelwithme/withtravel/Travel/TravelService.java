@@ -57,9 +57,10 @@ public class TravelService {
     public void addSpot(Travel travel, SpotForm spotForm) {
         Spot spot = spotRepository.findBySpotName(spotForm.getSpotName());
         if(spot ==null){
-            spot = spotRepository.save(new Spot(spotForm.getSpotName(), spotForm.getStartTime(), spotForm.getEndTime()));
+            spot = spotRepository.save(new Spot(spotForm.getSpotName(), spotForm.getStartTime(), spotForm.getEndTime(),spotForm.getShortDescription(), spotForm.getCost()));
         }
         travel.getSpots().add(spot);
+        travel.costCalculate();
     }
 
     public void removeSpot(Travel travel, String spotName){

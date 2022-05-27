@@ -25,13 +25,15 @@ public class Spot implements Comparable<Spot>{
 
     private LocalDateTime endTime;
 
-    private Long cost;
+    private Integer cost;
 
     private String shortDescription;
 
-    public Spot(String spotName, LocalDateTime startTime, LocalDateTime endTime){
-        this.spotName = spotName;this.startTime = startTime; this.endTime = endTime;
+    //Todo 위도, 경도를 입력하게 해서 kakao 지도를 이용해 지리를 보여줄 예정.
 
+    public Spot(String spotName, LocalDateTime startTime, LocalDateTime endTime, String shortDescription, Integer cost){
+        this.spotName = spotName;this.startTime = startTime; this.endTime = endTime;
+        this.shortDescription = shortDescription; this.cost = cost;
     }
 
 

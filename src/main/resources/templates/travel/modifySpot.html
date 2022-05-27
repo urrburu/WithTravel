@@ -9,7 +9,10 @@
     이메일 인증이 되지 않으면 위드 트래블의 서비스를 이용할 수 없습니다! <a href="#" th:href="@{/check-email}"class = "alert-lint">계정인증 이메일</a>을 확인하세요!
 </div>
 <div class="container">
-    <form class="col-sm-12" action="#"
+    <div th:if="${error}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+        <span th:text="${error}">완료</span>
+    </div>
+    <form class="col-sm-8" action="#"
           th:action="@{'/travel/'+${travel.travelName}+'/new-spot'}" th:object="${spotForm}" method="post" novalidate>
         <div class="form-group">
             <label for="spotName">장소 이름</label>
@@ -26,7 +29,7 @@
             <label for="startTime">이 장소를 언제부터 여행하실 건가요?</label>
             <input id="startTime" type="datetime-local" th:field="*{startTime}" class="form-control"
                    placeholder="여행에 대해서 255자 이내로 설명해주세요." aria-describedby="startTimeHelp" required>
-            <small id="shortDescriptionHelp" class="form-text text-muted">
+            <small id="startTimeHelp" class="form-text text-muted">
                 시작시간을 입력해주세요.
             </small>
             <small class="form-text text-danger" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}">
@@ -35,15 +38,31 @@
         </div>
 
         <div class="form-group">
-            <label for="endTime">이 장소를 언제부터 여행하실 건가요?</label>
+            <label for="endTime">이 장소를 언제까지 여행하실 건가요?</label>
             <input id="endTime" type="datetime-local" th:field="*{endTime}" class="form-control"
                    placeholder="여행에 대해서 255자 이내로 설명해주세요." aria-describedby="endTimeHelp" required>
             <small id="endTimeHelp" class="form-text text-muted">
-                시작시간을 입력해주세요.
+                마무리 시간을 입력해주세요.
             </small>
             <small class="form-text text-danger" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}">
                 적절하지 않은 설명입니다.
             </small>
+        </div>
+        <div class="form-group">
+            <label for="shortDescriptionCheck">이 장소에 대해서 간략하게 설명해주세요.</label>
+            <input id="shortDescriptionCheck" type="text" th:field="*{shortDescription}" class="form-control"
+                   placeholder="장소에 대해서 50자 이내로 설명해주세요." aria-describedby="shortDescriptionHelp" required>
+            <small id="shortDescriptionHelp" class="form-text text-muted">                뭘 하는 장소인가요? 무엇을 볼 건가요?            </small>
+            <small class="form-text text-danger" th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}">
+                적절하지 않은 설명입니다.
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="cost">여기를 여행하는데 얼마나 들까요?</label>
+            <input id="cost" type="number" th:field="*{cost}" class="form-control"
+                   placeholder="0" aria-describedby="endTimeHelp" required>
+            <small id="costHelp" class="form-text text-muted">                이 장소를 여행하는데 얼마가 들까요?            </small>
+            <small class="form-text text-danger" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">                적절하지 않은 입력입니다.            </small>
         </div>
 
         <div class="form-group">

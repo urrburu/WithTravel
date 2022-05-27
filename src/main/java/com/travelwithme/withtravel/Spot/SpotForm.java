@@ -18,5 +18,7 @@ public class SpotForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime endTime;
 
+    private Integer cost;
 
+    private String shortDescription;
 }

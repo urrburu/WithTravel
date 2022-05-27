@@ -116,11 +116,11 @@ public class TravelController {
             attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
             return "redirect:/travel/"+travelName;
         }
-
+        /*
         if(spotForm.getStartTime().isBefore(travel.getStartTime())||spotForm.getEndTime().isAfter(travel.getEndTime())){
             attributes.addFlashAttribute("error", "잘못된 시간입력 입니다. 다시 입력해주세요.");
             return "redirect:/travel/"+travelName+"new-spot";
-        }
+        }*/
 
         travelService.addSpot(travel, spotForm);
         return "redirect:/travel/"+travelName;

@@ -65,9 +65,8 @@ public class Travel {
 
     private boolean useBanner;
 
-    private Long totalCost;
-
-
+    private Integer totalCost;
+    
     public void timeSetting(){
         startTime = spots.get(0).getStartTime();
         endTime = spots.get(spots.size()-1).getEndTime();
@@ -84,5 +83,8 @@ public class Travel {
     }
 
     public Boolean isManager(UserAccount userAccount)  { return this.managers.contains(userAccount.getAccount());    }
+    
+    public void costCalculate(){this.totalCost = 0;for (Spot spot:spots){this.totalCost += spot.getCost();}    }
+
 }
 
