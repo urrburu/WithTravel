@@ -65,6 +65,7 @@ public class Travel {
 
     private boolean useBanner;
 
+    private Long totalCost;
 
 
     public void timeSetting(){

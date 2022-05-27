@@ -55,23 +55,18 @@ public class TravelService {
     }
 
     public void addSpot(Travel travel, SpotForm spotForm) {
-        Spot spot = spotRepository.save(new Spot(spotForm.getSpotName(), spotForm.getStartTime(), spotForm.getEndTime()));
+        Spot spot = spotRepository.findBySpotName(spotForm.getSpotName());
+        if(spot ==null){
+            spot = spotRepository.save(new Spot(spotForm.getSpotName(), spotForm.getStartTime(), spotForm.getEndTime()));
+        }
         travel.getSpots().add(spot);
     }
 
     public void removeSpot(Travel travel, String spotName){
         travel = travelRepository.findByTravelName(travel.getTravelName());
-        if(travel != null){
-            List<Spot> spots = travel.getSpots();
-            Spot spot = spotRepository.findBySpotName(spotName);
-            spots.remove(spot);
-            travel.setSpots(spots);
-            travelRepository.save(travel);
-        }
+        Spot spot = spotRepository.findBySpotName(spotName);
+        if(travel != null && spot != null){travel.getSpots().remove(spot);        }
     }
 
-    public void addMember(Travel travel, Account account) {
-        travel.getMembers().add(account);
-
-    }
+    public void addMember(Travel travel, Account account) {travel.getMembers().add(account);}
 }

@@ -12,69 +12,72 @@
     <div th:if="${message}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
         <span th:text="${message}">완료</span>
     </div>
-    <form class="col-sm-12" action="#"
-          th:action="@{/travel/make}" th:object="${travelForm}" method="post" novalidate>
-        <div class="form-group">
-            <label for="travelName">여행 이름</label>
-            <input id="travelName" type="text" th:field="*{travelName}" class="form-control"
-                   placeholder="여행에 이름을 붙여 주세요." aria-describedby="travelNameHelp" required>
-            <small id="travelNameHelp" class="form-text text-muted">
-                15자 이하로 입력해주세요.
-            </small>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('travelName')}" th:errors="*{travelName}">
-                15자를 초과하는 여행 이름입니다.
-            </small>
-        </div>
-        <div class="form-group">
-            <label for="shortDescriptionCheck">갈 여행에 대해서 간략하게 설명해주세요.</label>
-            <input id="shortDescriptionCheck" type="text" th:field="*{shortDescription}" class="form-control"
-                   placeholder="여행에 대해서 255자 이내로 설명해주세요." aria-describedby="shortDescriptionHelp" required>
-            <small id="shortDescriptionHelp" class="form-text text-muted">
-                어떤 목적의 여행인가요? 어디로 가실건가요? 어떤 사람들과 가고 싶나요?
-            </small>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}">
-                적절하지 않은 설명입니다.
-            </small>
-        </div>
+    <div class="py-5 text-center">
+        <h2>여행 계획 세우기</h2>
+    </div>
+    <div class="row justify-content-center">
+        <form class="needs-validation col-sm-8" action="#"
+              th:action="@{/travel/make}" th:object="${travelForm}" method="post" novalidate>
+            <div class="form-group">
+                <label for="travelName">여행 이름</label>
+                <input id="travelName" type="text" th:field="*{travelName}" class="form-control"
+                       placeholder="여행에 이름을 붙여 주세요." aria-describedby="travelNameHelp" required>
+                <small id="travelNameHelp" class="form-text text-muted">
+                    15자 이하로 입력해주세요.
+                </small>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('travelName')}" th:errors="*{travelName}">
+                    15자를 초과하는 여행 이름입니다.
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="shortDescriptionCheck">갈 여행에 대해서 간략하게 설명해주세요.</label>
+                <input id="shortDescriptionCheck" type="text" th:field="*{shortDescription}" class="form-control"
+                       placeholder="여행에 대해서 50자 이내로 설명해주세요." aria-describedby="shortDescriptionHelp" required>
+                <small id="shortDescriptionHelp" class="form-text text-muted">
+                    어떤 목적의 여행인가요? 어디로 가실건가요? 어떤 사람들과 가고 싶나요?
+                </small>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}">
+                    적절하지 않은 설명입니다.
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="startTimeCheck">여행을 언제 시작할지 알려주세요. </label>
+                <input id="startTimeCheck" type="datetime-local" th:field="*{startTime}" class="form-control"
+                       placeholder="여행에 대해서 한 번 더 설명해주세요." aria-describedby="startTimeHelp" required>
+                <small id="startTimeHelp" class="form-text text-muted">
+                    여행을 언제 떠나실건가요?
+                </small>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}">
+                    적절하지 않은 설명입니다.
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="endTime">여행이 끝나는 시간을 알려주세요. </label>
+                <input id="endTime" type="datetime-local" th:field="*{endTime}" class="form-control"
+                       placeholder="여행에 대해서 한 번 더 설명해주세요." aria-describedby="endTimeHelp" required>
+                <small id="endTimeHelp" class="form-text text-muted">
+                    여행을 언제 마무리 하실 건가요?
+                </small>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}">
+                    적절하지 않은 설명입니다.
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="fullDescription">상세 소개</label>
+                <textarea id="fullDescription" type="textarea" th:field="*{fullDescription}" class="editor form-control"
+                          placeholder="스터디를 자세히 설명해 주세요." aria-describedby="fullDescriptionHelp" required></textarea>
+                <small id="fullDescriptionHelp" class="form-text text-muted">
+                    스터디의 목표, 일정, 진행 방식, 사용할 교재 또는 인터넷 강좌 그리고 모집중인 스터디원 등 스터디에 대해 자세히 적어 주세요.
+                </small>
+                <small class="invalid-feedback">상세 소개를 입력하세요.</small>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('fullDescription')}" th:errors="*{fullDescription}">FullDescription Error</small>
+            </div>
 
-        <div class="form-group">
-            <label for="fullDescriptionCheck">갈 여행에 대해서 진지하게 설명해주세요.</label>
-            <input id="fullDescriptionCheck" type="text" th:field="*{fullDescription}" class="form-control"
-                   placeholder="여행에 대해서 한 번 더 설명해주세요." aria-describedby="shortDescriptionHelp" required>
-            <small id="fullDescriptionHelp" class="form-text text-muted">
-                짧은 설명을 더 자세하게 표현해주세요.
-            </small>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('fullDescription')}" th:errors="*{fullDescription}">
-                적절하지 않은 설명입니다.
-            </small>
-        </div>
-        <div class="form-group">
-            <label for="startTimeCheck">여행을 언제 시작할지 알려주세요. </label>
-            <input id="startTimeCheck" type="datetime-local" th:field="*{startTime}" class="form-control"
-                   placeholder="여행에 대해서 한 번 더 설명해주세요." aria-describedby="startTimeHelp" required>
-            <small id="startTimeHelp" class="form-text text-muted">
-                짧은 설명을 더 자세하게 표현해주세요.
-            </small>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}">
-                적절하지 않은 설명입니다.
-            </small>
-        </div>
-        <div class="form-group">
-            <label for="endTime">여행이 끝나는 시간을 알려주세요. </label>
-            <input id="endTime" type="datetime-local" th:field="*{endTime}" class="form-control"
-                   placeholder="여행에 대해서 한 번 더 설명해주세요." aria-describedby="endTimeHelp" required>
-            <small id="endTimeHelp" class="form-text text-muted">
-                짧은 설명을 더 자세하게 표현해주세요.
-            </small>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}">
-                적절하지 않은 설명입니다.
-            </small>
-        </div>
-
-        <div class="form-group">
-            <button class="btn btn-primary btn-block" type="submit"aria-describedby="submitHelp">여행 시작하기!</button>
-        </div>
-    </form>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit"aria-describedby="submitHelp">여행 시작하기!</button>
+            </div>
+        </form>
+    </div>
 </div>
 <div th:fragment="editor-script">
     <script src="/node_modules/summernote/dist/summernote-bs4.js"></script>
@@ -82,22 +85,14 @@
         $(function () {
             $('.editor').summernote({
                 fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Noto Sans KR', 'Merriweather'],
-                placeholder: '여행의 목표, 일정, 진행 방식, 사용할 교재 또는 인터넷 강좌 그리고 모집중인 스터디원 등 스터디에 대해 자세히 적어 주세요.',
+                placeholder: '여행의 목표, 일정, 진행 방식, 참고자료에 대해 자세히 적어 주세요.',
                 tabsize: 2,
                 height: 300
             });
         });
     </script>
 </div>
-<script type="application/javascript" th:inline="javascript">
-    $(function() {
-        var csrfToken = /*[[${_csrf.token}]]*/ null;
-        var csrfHeader = /*[[${_csrf.headerName}]]*/ null;
-        $(document).ajaxSend(function (e, xhr, options) {
-            xhr.setRequestHeader(csrfHeader, csrfToken);
-        });
-    });
-</script>
+
 
 
 </body>

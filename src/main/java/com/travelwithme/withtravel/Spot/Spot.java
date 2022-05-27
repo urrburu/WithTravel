@@ -25,6 +25,10 @@ public class Spot implements Comparable<Spot>{
 
     private LocalDateTime endTime;
 
+    private Long cost;
+
+    private String shortDescription;
+
     public Spot(String spotName, LocalDateTime startTime, LocalDateTime endTime){
         this.spotName = spotName;this.startTime = startTime; this.endTime = endTime;
 
