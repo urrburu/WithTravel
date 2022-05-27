@@ -45,6 +45,8 @@ public class TravelService {
                 .travelName(travelForm.getTravelName())
                 .shortDescription(travelForm.getShortDescription())
                 .fullDescription(travelForm.getFullDescription())
+                .startTime(travelForm.getStartTime())
+                .endTime(travelForm.getEndTime())
                 .publishedDateTime(LocalDateTime.now())
                 .closedDateTime(LocalDateTime.now().plusDays(7))
                 .closed(false)

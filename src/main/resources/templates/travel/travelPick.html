@@ -69,6 +69,8 @@
                     <div class="media-body">
                         <a th:href="@{'/search/spot/' + ${spot.spotName}}" ><span th:text="${spot.spotName}"></span></a>
                         <span th:text="${spot.startTime}"></span> <span>부터 </span> <span th:text="${spot.endTime}"></span> <span>까지</span>
+                        <span>       소요 예상 비용 : </span><span th:text="${spot.cost}"></span>
+                        <br><span>  이 장소는 </span><span th:text="${spot.shortDescription}"></span>
                     </div>
                 </li>
             </ul>
