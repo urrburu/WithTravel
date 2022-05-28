@@ -22,7 +22,7 @@ public class SpotForm {
 
     private String shortDescription;
 
-    private Double latitude;
+    private String latitude;
 
-    private Double longitude;
+    private String longitude;
 }

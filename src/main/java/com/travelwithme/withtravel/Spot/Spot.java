@@ -30,17 +30,17 @@ public class Spot implements Comparable<Spot>{
 
     private String shortDescription;
 
-    //Todo 위도, 경도를 입력하게 해서 kakao 지도를 이용해 지리를 보여줄 예정.
+
     //Todo 장소를 저장하는 이 엔티티와 여행 한번 한번의 계획을 저장하는 Plan이라는 공간은 별도로 활용해야함 그렇기에 수정 필요.
 
     private Point point;
 
 
     public Spot(String spotName, LocalDateTime startTime, LocalDateTime endTime, String shortDescription, Integer cost,
-    Double latitude, Double longitude){
+    String latitude, String longitude){
         this.spotName = spotName;this.startTime = startTime; this.endTime = endTime;
         this.shortDescription = shortDescription; this.cost = cost;
-        this.point = new Point(latitude, longitude);
+        this.point = new Point(Double.parseDouble(latitude), Double.parseDouble(longitude));
     }
 
 
