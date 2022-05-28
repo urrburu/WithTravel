@@ -21,4 +21,8 @@ public class SpotForm {
     private Integer cost;
 
     private String shortDescription;
+
+    private Double latitude;
+
+    private Double longitude;
 }
