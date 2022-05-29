@@ -8,6 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface SpotRepository extends JpaRepository<Spot, Long> {
 
-
     Spot findBySpotName(String spotName);
 }

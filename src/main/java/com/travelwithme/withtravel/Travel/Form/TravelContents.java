@@ -4,6 +4,8 @@ import com.travelwithme.withtravel.Travel.Travel;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDateTime;
+
 
 @Data
 public class TravelContents {
@@ -11,13 +13,22 @@ public class TravelContents {
 
     private Long id;
 
-    @Length(max = 255)
+    @Length(max = 50)
     private String shortDescription;
 
     private String fullDescription;
 
-    public TravelContents(Travel travel){
+    private LocalDateTime startTime;
 
+    private LocalDateTime endTime;
+
+    private LocalDateTime publishedDateTime;
+
+    private LocalDateTime closedDateTime;
+
+    public TravelContents(Travel travel){
+        this.startTime = travel.getStartTime();
+        this.endTime = travel.getEndTime();
         this.shortDescription = travel.getShortDescription();
         this.fullDescription = travel.getFullDescription();
 
