@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -25,9 +26,16 @@ public class TravelSettingsController {
         Travel travel = travelRepository.findByTravelName(path);
         model.addAttribute(account);
         model.addAttribute(travel);
-        model.addAttribute(new TravelContents(travel));
+        model.addAttribute("travelForm", new TravelContents(travel));
         return "/travel/settings/TravelContents";
     }
 
+    @PostMapping("/description")
+    public String viewTravelSubmit(@CurrentAccount Account account, @PathVariable String path, Model model){
+        Travel travel = travelRepository.findByTravelName(path);
+
+
+        return "redirect:/travel/"+travel.getTravelName();
+    }
 
 }
