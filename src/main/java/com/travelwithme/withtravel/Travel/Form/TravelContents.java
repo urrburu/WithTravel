@@ -18,19 +18,9 @@ public class TravelContents {
 
     private String fullDescription;
 
-    private LocalDateTime startTime;
-
-    private LocalDateTime endTime;
-
-    private LocalDateTime publishedDateTime;
-
-    private LocalDateTime closedDateTime;
 
     public TravelContents(Travel travel){
-        this.startTime = travel.getStartTime();
-        this.endTime = travel.getEndTime();
         this.shortDescription = travel.getShortDescription();
         this.fullDescription = travel.getFullDescription();
-
     }
 }

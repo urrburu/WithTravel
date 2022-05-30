@@ -1,5 +1,7 @@
 package com.travelwithme.withtravel.Spot;
 
+import java.time.LocalDateTime;
+
 public class Plan{
 
     private Spot spot;
@@ -7,5 +9,12 @@ public class Plan{
     //그런 Plan에서 Spot을 끌어와서 저장하는 걸로
 
     private String longDescription;
+
+    private LocalDateTime startTime;
+
+    private LocalDateTime endTime;
+
+    private Integer cost;
+
 
 }

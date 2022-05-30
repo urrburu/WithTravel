@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/travel/{path}/settings")
 @RequiredArgsConstructor
@@ -20,6 +22,7 @@ public class TravelSettingsController {
 
     private final TravelRepository travelRepository;
     private final ModelMapper modelMapper;
+    private final TravelSettingService travelSettingService;
 
     @GetMapping("/description")
     public String viewTravelSetting(@CurrentAccount Account account, @PathVariable String path, Model model){
@@ -31,10 +34,11 @@ public class TravelSettingsController {
     }
 
     @PostMapping("/description")
-    public String viewTravelSubmit(@CurrentAccount Account account, @PathVariable String path, Model model){
+    public String viewTravelSubmit(@CurrentAccount Account account, @PathVariable String path, @Valid TravelContents travelContents, Model model){
         Travel travel = travelRepository.findByTravelName(path);
-
-
+        if(travel.getManagers().contains(account)){
+            travelSettingService.modifyTravel(travel, travelContents);
+        }
         return "redirect:/travel/"+travel.getTravelName();
     }
 

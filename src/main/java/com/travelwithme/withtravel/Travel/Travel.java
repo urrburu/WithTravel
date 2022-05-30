@@ -5,6 +5,7 @@ import com.travelwithme.withtravel.Account.UserAccount;
 import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Tag.Tag;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,6 +24,10 @@ public class Travel {
 
     @Column(unique = true)
     private String travelName;
+
+    @Column(unique = true)
+    @Length(max = 30, min = 3)
+    private String path;
 
     private String shortDescription;
 
@@ -84,7 +89,7 @@ public class Travel {
 
     public Boolean isManager(UserAccount userAccount)  { return this.managers.contains(userAccount.getAccount());    }
     
-    public void costCalculate(){this.totalCost = 0;for (Spot spot:spots){this.totalCost += spot.getCost();}    }
+    public void costCalculate(){this.totalCost = 0;for(Spot spot:spots){this.totalCost += spot.getCost();}    }
 
 }
 
