@@ -16,7 +16,7 @@ public class Profile {
     @Length(max=50)
     private String url;
 
-    @Length(max = 50)
+    @Length(max=20)
     private String occupation;
 
     @Length(max = 10)

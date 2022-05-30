@@ -46,7 +46,7 @@
                     <input id="startTimeCheck" type="datetime-local" th:field="*{startTime}" class="form-control"
                            placeholder="여행에 대해서 한 번 더 설명해주세요." aria-describedby="startTimeHelp" required>
                     <small id="startTimeHelp" class="form-text text-muted">
-                        여행을 언제 떠나실건가요?
+                        여행을 언제 떠나실건가요? 한번 설정하시면 고칠 수 없어요.
                     </small>
                     <small class="form-text text-danger" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}">
                         적절하지 않은 설명입니다.
@@ -57,7 +57,7 @@
                     <input id="endTime" type="datetime-local" th:field="*{endTime}" class="form-control"
                            placeholder="여행에 대해서 한 번 더 설명해주세요." aria-describedby="endTimeHelp" required>
                     <small id="endTimeHelp" class="form-text text-muted">
-                        여행을 언제 마무리 하실 건가요?
+                        여행을 언제 마무리 하실 건가요? 한번 설정하시면 고칠 수 없어요.
                     </small>
                     <small class="form-text text-danger" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}">
                         적절하지 않은 설명입니다.

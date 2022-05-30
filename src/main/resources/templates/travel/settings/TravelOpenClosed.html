@@ -16,6 +16,7 @@
         <h2>여행 계획 세우기</h2>
     </div>
     <div class="row justify-content-center">
+        <div th:replace="fragments.html::travel-menu (travelMenu = 'open-closed')"></div>
         <form class="needs-validation col-sm-8" action="#"
               th:action="@{/travel/make}" th:object="${travelForm}" method="post" novalidate>
             <div class="form-group">
