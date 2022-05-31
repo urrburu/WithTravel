@@ -16,7 +16,7 @@ public class TravelForm {
     @Length(max = 15)
     private String travelName;
 
-    @Length(max = 255)
+    @Length(max = 50)
     private String shortDescription;
 
     private String fullDescription;
