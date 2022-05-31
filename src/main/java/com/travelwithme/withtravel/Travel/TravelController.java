@@ -87,10 +87,14 @@ public class TravelController {
             return "redirect:/"+travelMakeUrl;
         }
         */
-        if(travelForm.getStartTime().isAfter(travelForm.getEndTime()) || LocalDateTime.now().isAfter(travelForm.getStartTime())){
-            attributes.addFlashAttribute("message", "잘못된 시간입력입니다. 다시 입력해주세요.");
-            return "redirect:"+travelMakeUrl;
+        if(travelForm.getStartTime()!=null && travelForm.getEndTime() != null){
+            if(travelForm.getStartTime().isAfter(travelForm.getEndTime()) || LocalDateTime.now().isAfter(travelForm.getStartTime())){
+                attributes.addFlashAttribute("message", "잘못된 시간입력입니다. 다시 입력해주세요.");
+                return "redirect:"+travelMakeUrl;
+            }
         }
+
+
         Travel travel = travelService.newTravelMake(travelForm, account);
         model.addAttribute(account);
 

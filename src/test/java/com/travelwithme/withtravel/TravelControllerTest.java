@@ -36,10 +36,10 @@ public class TravelControllerTest {
         Account account = accountRepository.findByNickname("chanhwi");
         mockMvc.perform(post("/travel/make")
                         .param("travelName", "forBusan")
-                        .param("shortDescription", "aaaaaaaaaaaaaaaaaaa")
-                        .param("fullDescription", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-                        .param("startTime", LocalDateTime.now().plusMonths(1).toString())
-                        .param("endTime",LocalDateTime.now().plusMonths(2).toString())
+                        .param("shortDescription", "short description of a travel")
+                        .param("fullDescription", "full description of a travel")
+                        //.param("startTime", "2022-06-07T17:03:27")
+                        //.param("endTime","2022-06-25T17:03")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection());
         Travel travel = travelRepository.findByTravelName("forBusan");
