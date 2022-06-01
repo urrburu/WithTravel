@@ -38,10 +38,10 @@ public class Travel {
     private String image;
 
     @ManyToMany
-    private Set<Account> managers;
+    private Set<Account> managers = new HashSet<>();
 
     @ManyToMany
-    private Set<Account> members;
+    private Set<Account> members = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Spot> spots = new ArrayList<>();
