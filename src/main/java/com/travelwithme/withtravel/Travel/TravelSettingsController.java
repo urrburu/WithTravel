@@ -42,4 +42,42 @@ public class TravelSettingsController {
         return "redirect:/travel/"+travel.getTravelName();
     }
 
+    @GetMapping("/open-closed")
+    public String viewTravelPublish(@CurrentAccount Account account, @PathVariable String path, Model model){
+        Travel travel = travelRepository.findByTravelName(path);
+        model.addAttribute(account);
+        model.addAttribute(travel);
+        model.addAttribute("travelForm", new TravelContents(travel));
+        return "/travel/settings/TravelContents";
+    }
+
+    @PostMapping("/open-closed")
+    public String viewTravelPublishModify(@CurrentAccount Account account, @PathVariable String path, @Valid TravelContents travelContents, Model model){
+        Travel travel = travelRepository.findByTravelName(path);
+        if(travel.getManagers().contains(account)){
+            travelSettingService.modifyTravel(travel, travelContents);
+        }
+        return "redirect:/travel/"+travel.getTravelName();
+    }
+
+    @GetMapping("/tag")
+    public String viewTravelModifyTag(@CurrentAccount Account account, @PathVariable String path, Model model){
+        Travel travel = travelRepository.findByTravelName(path);
+        model.addAttribute(account);
+        model.addAttribute(travel);
+        model.addAttribute("travelForm", new TravelContents(travel));
+        return "/travel/settings/TravelContents";
+    }
+
+    @PostMapping("/tag")
+    public String viewTravelModifyTagSubmit(@CurrentAccount Account account, @PathVariable String path, @Valid TravelContents travelContents, Model model){
+        Travel travel = travelRepository.findByTravelName(path);
+        if(travel.getManagers().contains(account)){
+            travelSettingService.modifyTravel(travel, travelContents);
+        }
+        return "redirect:/travel/"+travel.getTravelName();
+    }
+
+
+
 }
