@@ -25,13 +25,12 @@ public class TravelSettingService {
     }
 
     public void modifyTravelPublish(Travel travel, TravelRecruiting travelRecruiting) {
+        if(travel.isRecruiting()==false && travelRecruiting.isRecruiting()==true){ travel.setRecruitingUpdatedDate(LocalDateTime.now()); }
+        if(travel.isPublished()==false && travelRecruiting.isPublished()==true){ travel.setPublishedDateTime(LocalDateTime.now()); }
+        if(travel.isClosed()==false && travelRecruiting.isClosed()==true){ travel.setClosedDateTime(LocalDateTime.now()); }
         travel.setRecruiting(travelRecruiting.isRecruiting());
-
         travel.setPublished(travelRecruiting.isPublished());
-
         travel.setClosed(travelRecruiting.isClosed());
-
-        travel.setRecruitingUpdatedDate(LocalDateTime.now());
-
+        travelRepository.save(travel);
     }
 }

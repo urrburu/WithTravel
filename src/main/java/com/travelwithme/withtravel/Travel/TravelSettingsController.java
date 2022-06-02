@@ -30,7 +30,7 @@ public class TravelSettingsController {
         Travel travel = travelRepository.findByTravelName(path);
         model.addAttribute(account);
         model.addAttribute(travel);
-        model.addAttribute("travelPublishForm", new TravelRecruiting(travel));
+        model.addAttribute("travelForm", new TravelContents(travel));
         return "/travel/settings/TravelContents";
     }
 
@@ -49,7 +49,7 @@ public class TravelSettingsController {
         model.addAttribute(account);
         model.addAttribute(travel);
         model.addAttribute("travelForm", new TravelRecruiting(travel));
-        return "/travel/settings/TravelContents";
+        return "/travel/settings/TravelOpenClosed";
     }
 
     @PostMapping("/open-closed")

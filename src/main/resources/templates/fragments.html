@@ -97,9 +97,11 @@
     <a class="list-group-item list-group-item-action list-group-item-danger" th:classappend="${currentMenu =='account'}? active" href="#" th:href="@{/settings/account}">계정관리</a>
 </div>
 
-<div th:fragment="setting-menu (TravelMenu)" class="list-group">
-    <a class="list-group-item list-group-item-action" th:classappend="${travelMenu =='description'}? active" href="#" th:href="@{travel/settings/profile}">여행 수정</a>
-    <a class="list-group-item list-group-item-action" th:classappend="${travelMenu =='open-closed'}? active" href="#" th:href="@{/travel/settings/open-closed}">공개여부 수정</a>
+<div th:fragment="travelsetting-menu (travelMenu)" class="list-group">
+    <a class="list-group-item list-group-item-action" th:classappend="${travelMenu =='description'}? active"
+       href="#" th:href="@{${travel.travelName}+'/description'}">여행 수정</a>
+    <a class="list-group-item list-group-item-action" th:classappend="${travelMenu =='open-closed'}? active"
+       href="#" th:href="@{${travel.travelName}+'/open-closed'}">공개여부 수정</a>
     <a class="list-group-item list-group-item-action" th:classappend="${travelMenu =='member'}? active" href="#" th:href="@{travel/settings/member}">멤버 관리</a>
     <a class="list-group-item list-group-item-action" th:classappend="${travelMenu =='tags'}? active" href="#" th:href="@{/travel/settings/tags}">관심 주제</a>
 </div>
@@ -113,7 +115,7 @@
             <i class="fa fa-user"></i> 구성원
         </a>
         <a class="nav-item nav-link" th:classappend="${travelMenu == 'events'}? active" href="#" th:href="@{'/travel/' + ${travel.travelName} + '/events'}">
-            <i class="fa fa-calendar"></i> 모임
+            <i class="fa fa-calendar"></i> 계획
         </a>
         <a sec:authorize="isAuthenticated()" th:if="${travel.isManager(#authentication.principal)}"
            class="nav-item nav-link" th:classappend="${travelMenu == 'settings'}? active" href="#" th:href="@{'/travel/' + ${travel.travelName} + '/settings/description'}">
