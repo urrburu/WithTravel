@@ -4,6 +4,7 @@ import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Repository.TravelRepository;
 import com.travelwithme.withtravel.Travel.Form.TravelContents;
+import com.travelwithme.withtravel.Travel.Form.TravelRecruiting;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class TravelSettingsController {
         Travel travel = travelRepository.findByTravelName(path);
         model.addAttribute(account);
         model.addAttribute(travel);
-        model.addAttribute("travelForm", new TravelContents(travel));
+        model.addAttribute("travelPublishForm", new TravelRecruiting(travel));
         return "/travel/settings/TravelContents";
     }
 
@@ -47,15 +48,15 @@ public class TravelSettingsController {
         Travel travel = travelRepository.findByTravelName(path);
         model.addAttribute(account);
         model.addAttribute(travel);
-        model.addAttribute("travelForm", new TravelContents(travel));
+        model.addAttribute("travelForm", new TravelRecruiting(travel));
         return "/travel/settings/TravelContents";
     }
 
     @PostMapping("/open-closed")
-    public String viewTravelPublishModify(@CurrentAccount Account account, @PathVariable String path, @Valid TravelContents travelContents, Model model){
+    public String viewTravelPublishModify(@CurrentAccount Account account, @PathVariable String path, @Valid TravelRecruiting travelRecruiting, Model model){
         Travel travel = travelRepository.findByTravelName(path);
         if(travel.getManagers().contains(account)){
-            travelSettingService.modifyTravel(travel, travelContents);
+            travelSettingService.modifyTravelPublish(travel, travelRecruiting);
         }
         return "redirect:/travel/"+travel.getTravelName();
     }
@@ -71,6 +72,24 @@ public class TravelSettingsController {
 
     @PostMapping("/tag")
     public String viewTravelModifyTagSubmit(@CurrentAccount Account account, @PathVariable String path, @Valid TravelContents travelContents, Model model){
+        Travel travel = travelRepository.findByTravelName(path);
+        if(travel.getManagers().contains(account)){
+            travelSettingService.modifyTravel(travel, travelContents);
+        }
+        return "redirect:/travel/"+travel.getTravelName();
+    }
+
+    @GetMapping("/member")
+    public String viewTravelModifyMember(@CurrentAccount Account account, @PathVariable String path, Model model){
+        Travel travel = travelRepository.findByTravelName(path);
+        model.addAttribute(account);
+        model.addAttribute(travel);
+        model.addAttribute("travelForm", new TravelContents(travel));
+        return "/travel/settings/TravelContents";
+    }
+
+    @PostMapping("/member")
+    public String viewTravelModifyMemberSubmit(@CurrentAccount Account account, @PathVariable String path, @Valid TravelContents travelContents, Model model){
         Travel travel = travelRepository.findByTravelName(path);
         if(travel.getManagers().contains(account)){
             travelSettingService.modifyTravel(travel, travelContents);
