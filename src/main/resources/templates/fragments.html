@@ -102,8 +102,10 @@
        href="#" th:href="@{'description'}">여행 수정</a>
     <a class="list-group-item list-group-item-action" th:classappend="${travelMenu =='open-closed'}? active"
        href="#" th:href="@{'open-closed'}">공개여부 수정</a>
-    <a class="list-group-item list-group-item-action" th:classappend="${travelMenu =='member'}? active" href="#" th:href="@{travel/settings/member}">멤버 관리</a>
-    <a class="list-group-item list-group-item-action" th:classappend="${travelMenu =='tags'}? active" href="#" th:href="@{/travel/settings/tags}">관심 주제</a>
+    <a class="list-group-item list-group-item-action" th:classappend="${travelMenu =='member'}? active"
+       href="#" th:href="@{'member'}">멤버 관리</a>
+    <a class="list-group-item list-group-item-action" th:classappend="${travelMenu =='tags'}? active"
+       href="#" th:href="@{'tags'}">관심 주제</a>
 </div>
 
 <div th:fragment="travel-menu (travelMenu)" class="row px-3 justify-content-center bg-light">
