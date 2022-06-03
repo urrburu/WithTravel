@@ -71,13 +71,19 @@ public class TravelSettingsController {
         return "/travel/settings/TravelTag";
     }
 
-    @PostMapping("/tag")
+    @PostMapping("/tag/add")
     public String viewTravelModifyTagSubmit(@CurrentAccount Account account, @PathVariable String path, @Valid TagForm tagForm, Model model){
         Travel travel = travelRepository.findByTravelName(path);
         if(travel.getManagers().contains(account)){
 
         }
-        return "redirect:/travel/"+travel.getTravelName();
+        return "redirect:/travel/"+travel.getTravelName()+"/settings/tag/";
+    }
+    @PostMapping("/tag/delete/{tagName}")
+    public String TravelTagDelete(@CurrentAccount Account account, @PathVariable String path, @PathVariable String tagName, Model model){
+        Travel travel = travelRepository.findByTravelName(path);
+
+        return "redirect:/travel/"+travel.getTravelName()+"/settings/tag/";
     }
 
     @GetMapping("/member")
