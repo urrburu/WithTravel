@@ -3,6 +3,7 @@ package com.travelwithme.withtravel.Travel;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Repository.TravelRepository;
+import com.travelwithme.withtravel.Tag.TagForm;
 import com.travelwithme.withtravel.Travel.Form.TravelContents;
 import com.travelwithme.withtravel.Travel.Form.TravelRecruiting;
 import lombok.RequiredArgsConstructor;
@@ -67,14 +68,14 @@ public class TravelSettingsController {
         model.addAttribute(account);
         model.addAttribute(travel);
         model.addAttribute("travelForm", new TravelContents(travel));
-        return "/travel/settings/TravelContents";
+        return "/travel/settings/TravelTag";
     }
 
     @PostMapping("/tag")
-    public String viewTravelModifyTagSubmit(@CurrentAccount Account account, @PathVariable String path, @Valid TravelContents travelContents, Model model){
+    public String viewTravelModifyTagSubmit(@CurrentAccount Account account, @PathVariable String path, @Valid TagForm tagForm, Model model){
         Travel travel = travelRepository.findByTravelName(path);
         if(travel.getManagers().contains(account)){
-            travelSettingService.modifyTravel(travel, travelContents);
+
         }
         return "redirect:/travel/"+travel.getTravelName();
     }

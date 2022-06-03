@@ -24,18 +24,18 @@
               th:action="@{'/travel/'+${travel.travelName}+'/settings/open-closed'}" th:object="${travelForm}" method="post" novalidate>
             <div th:replace="fragments.html :: travel-menu(travelMenu='settings')"></div>
             <div class="form-group">
-                <label for="recruiting">여행 이름</label>
+                <label for="recruiting">새 멤버를 모집해볼래요?</label>
                 <input id="recruiting" type="checkbox" th:field="*{recruiting}" aria-describedby="recruitingHelp" required>
                 <br>
                 <small id="recruitingHelp" class="form-text text-muted">
-
+                    체크를 하실 경우 여행을 같이 떠날 새로운 사람을 만날 수 있습니다.
                 </small>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('recruiting')}" th:errors="*{recruiting}">
-                    15자를 초과하는 여행 이름입니다.
+                    오류가 발생했습니다.
                 </small>
             </div>
             <div class="form-group">
-                <label for="published">갈 여행에 대해서 간략하게 설명해주세요.</label>
+                <label for="published">여행을 다른 사람들에게 공개하실래요?</label>
                 <input id="published" type="checkbox" th:field="*{published}" aria-describedby="publishedHelp" required>
                 <br>
                 <small id="publishedHelp" class="form-text text-muted">
@@ -46,13 +46,13 @@
                 </small>
             </div>
             <div class="form-group">
-                <label for="closed">여행 종료</label>
+                <label for="closed">여행 종료여부 선택</label>
                 <input id="closed" type="checkbox" th:field="*{closed}" aria-describedby="closedHelp" required>
                 <br>
                 <small id="closedHelp" class="form-text text-muted">
 
                 </small>
-                <small class="invalid-feedback">여행 폐쇄 여부를 결정해주세요.</small>
+                <small class="invalid-feedback">여행 종료여부를 결정해주세요. 여행 종료를 선택하시면 공개와 모집이 불가능합니다.</small>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('closed')}" th:errors="*{closed}">closed Error</small>
             </div>
 

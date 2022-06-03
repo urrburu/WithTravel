@@ -31,6 +31,10 @@ public class TravelSettingService {
         travel.setRecruiting(travelRecruiting.isRecruiting());
         travel.setPublished(travelRecruiting.isPublished());
         travel.setClosed(travelRecruiting.isClosed());
+        if(travelRecruiting.isClosed()==true){
+            travel.setRecruiting(false);
+            travel.setPublished(false);
+        }
         travelRepository.save(travel);
     }
 }
