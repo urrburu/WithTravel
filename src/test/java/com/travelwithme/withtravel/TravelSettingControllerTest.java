@@ -24,6 +24,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TravelSettingControllerTest {
@@ -65,12 +70,26 @@ public class TravelSettingControllerTest {
         *
         */
     }
+    @WithAccount(value = "chanhwi")
+    @Test
+    @DisplayName("여행 본문 변경 화면 호출")
+    private void DescriptionChangeView() throws Exception {
+        mockMvc.perform(get("/travel/forBusan/settings/description"))
+                .andExpect(status().is2xxSuccessful());
+
+    }
 
     @WithAccount(value = "chanhwi")
     @Test
     @DisplayName("여행 본문 변경 예시")
-    private void DescriptionChange(){
-
+    private void DescriptionChange() throws Exception {
+        mockMvc.perform(post("/travel/forBusan/settings/description")
+                .param("","")
+                .param("","")
+                .param("","")
+                .param("","")
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection());
 
     }
 }
