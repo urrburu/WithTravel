@@ -29,4 +29,12 @@ public class TravelContents {
         this.fullDescription = travel.getFullDescription();
 
     }
+
+    public TravelContents(String shortDescription, String fullDescription){
+        //It's for test builder
+        this.shortDescription = shortDescription;
+        this.fullDescription = fullDescription;
+        this.startTime = LocalDateTime.now().plusMonths(1);
+        this.endTime = LocalDateTime.now().plusMonths(2);
+    }
 }

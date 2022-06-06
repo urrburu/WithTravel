@@ -54,7 +54,7 @@ public class TravelSettingsController {
     }
 
     @PostMapping("/open-closed")
-    public String viewTravelPublishModify(@CurrentAccount Account account, @PathVariable String path, @Valid TravelRecruiting travelRecruiting, Model model){
+    public String viewTravelPublishModify(@CurrentAccount Account account, @PathVariable String path, @Valid TravelRecruiting travelRecruiting){
         Travel travel = travelRepository.findByTravelName(path);
         if(travel.getManagers().contains(account)){
             travelSettingService.modifyTravelPublish(travel, travelRecruiting);
@@ -75,7 +75,7 @@ public class TravelSettingsController {
     public String viewTravelModifyTagSubmit(@CurrentAccount Account account, @PathVariable String path, @Valid TagForm tagForm, Model model){
         Travel travel = travelRepository.findByTravelName(path);
         if(travel.getManagers().contains(account)){
-
+            travelSettingService.addTag(travel, tagForm);
         }
         return "redirect:/travel/"+travel.getTravelName()+"/settings/tag/";
     }

@@ -27,4 +27,5 @@ public class TravelForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime endTime;
 
+
 }
