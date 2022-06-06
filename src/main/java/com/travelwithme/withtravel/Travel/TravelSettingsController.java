@@ -82,7 +82,7 @@ public class TravelSettingsController {
     @PostMapping("/tag/delete/{tagName}")
     public String TravelTagDelete(@CurrentAccount Account account, @PathVariable String path, @PathVariable String tagName, Model model){
         Travel travel = travelRepository.findByTravelName(path);
-
+        travelSettingService.removeTag(travel, tagName);
         return "redirect:/travel/"+travel.getTravelName()+"/settings/tag/";
     }
 

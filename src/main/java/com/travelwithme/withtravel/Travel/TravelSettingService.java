@@ -50,10 +50,15 @@ public class TravelSettingService {
                     .tagTitle(tagForm.getTagTitle())
                     .build());
             Tag newTag = tagRepository.findByTagTitle(tagForm.getTagTitle());
-            travelService.addTag(travel, newTag);
+            travel.getTags().add(newTag);
         }
         else{
-            travelService.addTag(travel, tag);
+            travel.getTags().add(tag);
         }
+    }
+
+    public void removeTag(Travel travel, String tagName) {
+        Tag tag = tagRepository.findByTagTitle(tagName);
+        travel.getTags().remove(tag);
     }
 }
