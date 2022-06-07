@@ -143,7 +143,7 @@ public class TravelController {
     }
 
     @GetMapping("/travel/{travelName}/join")
-    public String memberJoin(@PathVariable String travelName, Model model, @CurrentAccount Account account){
+    public String memberJoin(@PathVariable String travelName, @CurrentAccount Account account){
         Travel travel = travelRepository.findByTravelName(travelName);
         travelService.addMember(travel, account);
         return "redirect:"+travelUrl;

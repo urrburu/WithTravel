@@ -5,6 +5,7 @@ import com.travelwithme.withtravel.Repository.TravelRepository;
 import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Spot.SpotForm;
 import com.travelwithme.withtravel.Spot.SpotRepository;
+import com.travelwithme.withtravel.Tag.Tag;
 import com.travelwithme.withtravel.Travel.Form.TravelForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -73,4 +74,6 @@ public class TravelService {
     }
 
     public void addMember(Travel travel, Account account) {travel.getMembers().add(account);}
+
+    public void addTag(Travel travel, Tag newTag) {  travel.getTags().add(newTag);  }
 }
