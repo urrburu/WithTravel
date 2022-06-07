@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -24,12 +25,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .mvcMatchers("/", "/login", "/sign-up", "/check-email", "/check-email-token","/emailLogin","/login-by-email",
-                        "/email-login", "/check-email-login", "/login-link","/h2-console","/error","/findPassword").permitAll()
-                .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
-                .mvcMatchers(HttpMethod.GET, "/travel/*").permitAll()
-                .anyRequest().authenticated();
+        http
+                .cors().and()
+                .csrf().disable()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
+                .authorizeRequests()
+                    .mvcMatchers("/", "/login", "/sign-up", "/check-email", "/check-email-token","/emailLogin","/login-by-email",
+                        "/email-login", "/check-email-login", "/login-link","/h2-console","/error","/findPassword","/api").permitAll()
+                    .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
+                    .mvcMatchers(HttpMethod.GET, "/travel/*").permitAll()
+                .antMatchers("/api/v1/account/new").permitAll()
+                .anyRequest().permitAll();
         http.formLogin()
                 .loginPage("/login").permitAll();
 
