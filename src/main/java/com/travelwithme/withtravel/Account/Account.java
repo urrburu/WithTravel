@@ -90,3 +90,9 @@ public class Account {
         this.loginCheckToken = UUID.randomUUID().toString();
     }
 }
+/*
+* 엔티티를 변경한다고 해서 api까지 변경되어서는 안된다
+* 엔티티를 그대로 외부에 노출하는 것은 안 좋은 설계이고
+*
+* 따라서 별도의 DTO를 만들어 반환하는 작업이 유리하다.
+* */

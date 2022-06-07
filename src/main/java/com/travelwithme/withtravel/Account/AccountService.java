@@ -120,4 +120,8 @@ public class AccountService implements UserDetailsService {
         account.getTags().remove(tag);
         accountRepository.save(account);
     }
+
+    public List<Account> findAccounts() {
+        return accountRepository.findAll();
+    }
 }
