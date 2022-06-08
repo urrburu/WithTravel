@@ -1,6 +1,8 @@
 package com.travelwithme.withtravel.Spot;
 
 import javax.persistence.Lob;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Comment {
     //Todo 장소에 대한 댓글을 저장하는 모듈이 될 예정.
@@ -9,5 +11,7 @@ public class Comment {
 
     @Lob
     private String description;
+
+    List<Comment> nextComment = new ArrayList<>();
 
 }

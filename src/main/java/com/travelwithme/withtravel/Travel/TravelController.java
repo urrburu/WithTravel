@@ -137,7 +137,6 @@ public class TravelController {
             attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
             return "redirect:/travel/"+travelName;
         }
-
         travelService.removeSpot(travel, spotName);
         return "redirect:/travel/"+travelName;
     }
@@ -160,6 +159,20 @@ public class TravelController {
         model.addAttribute("travel", travel);
         return "/travel/TravelMember";
 
+    }
+
+    @GetMapping("/travel/{travelName}/newPlan")
+    public String makePlan(@PathVariable String travelName, Model model, @CurrentAccount Account account){
+        Travel travel = travelRepository.findByTravelName(travelName);
+        model.addAttribute(account);
+        model.addAttribute(travel);
+        return"/travel/makePlan";
+    }
+
+    @PostMapping("/travel/{travelName}/newPlan")
+    public String appendPlan(@PathVariable String travelName){
+
+        return "redirect:/"+"travel/"+travelName+"/newPlan";
     }
 
 }
