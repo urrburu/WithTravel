@@ -3,6 +3,7 @@ package com.travelwithme.withtravel.Travel;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Repository.TravelRepository;
+import com.travelwithme.withtravel.Spot.PlanForm;
 import com.travelwithme.withtravel.Spot.SpotForm;
 import com.travelwithme.withtravel.Travel.Form.TravelForm;
 import lombok.RequiredArgsConstructor;
@@ -166,11 +167,14 @@ public class TravelController {
         Travel travel = travelRepository.findByTravelName(travelName);
         model.addAttribute(account);
         model.addAttribute(travel);
+        model.addAttribute(new PlanForm());
         return"/travel/makePlan";
     }
 
     @PostMapping("/travel/{travelName}/newPlan")
-    public String appendPlan(@PathVariable String travelName){
+    public String appendPlan(@PathVariable String travelName, @Valid PlanForm planForm){
+        Travel travel = travelRepository.findByTravelName(travelName);
+
 
         return "redirect:/"+"travel/"+travelName+"/newPlan";
     }

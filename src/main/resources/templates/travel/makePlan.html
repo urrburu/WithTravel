@@ -12,8 +12,23 @@
     <div th:if="${error}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
         <span th:text="${error}">완료</span>
     </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <li th:each="plan: ${travel.plans}">
+                <div class="media-body">
+                    <a th:href="@{'/search/spot/' + ${plan.spot.spotName}}" ><span th:text="${plan.spot.spotName}"></span></a>
+                    <span th:text="${plan.startTime}"></span> <span>부터 </span> <span th:text="${plan.endTime}"></span> <span>까지</span>
+                    <span>       소요 예상 비용 : </span><span th:text="${plan.cost}"></span>
+                    <br><span>  이 장소는 </span><span th:text="${plan.longDescription}"></span>
+                </div>
+            </li>
+        </div>
+    </div>
+
+
+
     <form class="col-sm-8" action="#"
-          th:action="@{'/travel/'+${travel.travelName}+'/new-spot'}" th:object="${spotForm}" method="post" novalidate>
+          th:action="@{'/travel/'+${travel.travelName}+'/newPlan'}" th:object="${planForm}" method="post" novalidate>
         <div class="form-group">
             <label for="spotName">장소 이름</label>
             <input id="spotName" type="text" th:field="*{spotName}" class="form-control"

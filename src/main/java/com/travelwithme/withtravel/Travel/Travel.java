@@ -2,6 +2,7 @@ package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.UserAccount;
+import com.travelwithme.withtravel.Spot.Plan;
 import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Tag.Tag;
 import lombok.*;
@@ -45,6 +46,9 @@ public class Travel {
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Spot> spots = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private List<Plan> plans = new ArrayList<>();
 
     @ManyToMany
     private Set<Tag> tags = new HashSet<>();

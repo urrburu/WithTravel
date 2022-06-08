@@ -36,10 +36,10 @@ public class Spot implements Comparable<Spot>{
     private Point point;
 
 
-    public Spot(String spotName, LocalDateTime startTime, LocalDateTime endTime, String shortDescription, Integer cost,
+    public Spot(String spotName, LocalDateTime startTime, LocalDateTime endTime, String shortDescription,
     String latitude, String longitude){
         this.spotName = spotName;this.startTime = startTime; this.endTime = endTime;
-        this.shortDescription = shortDescription; this.cost = cost;
+        this.shortDescription = shortDescription;
         this.point = new Point(Double.parseDouble(latitude), Double.parseDouble(longitude));
     }
 
