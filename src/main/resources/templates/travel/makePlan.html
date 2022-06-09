@@ -12,13 +12,12 @@
     <div th:if="${error}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
         <span th:text="${error}">완료</span>
     </div>
+
     <div class="row">
         <div class="col-sm-8">
             <ul th:replace="fragments.html::planList"></ul>
         </div>
     </div>
-
-
 
     <form class="col-sm-8" action="#"
           th:action="@{'/travel/'+${travel.travelName}+'/newPlan'}" th:object="${planForm}" method="post" novalidate>

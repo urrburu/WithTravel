@@ -1,4 +1,6 @@
-package com.travelwithme.withtravel.Spot;
+package com.travelwithme.withtravel.Plan;
+
+import com.travelwithme.withtravel.Spot.Spot;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

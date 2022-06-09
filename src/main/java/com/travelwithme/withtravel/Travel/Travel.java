@@ -2,7 +2,7 @@ package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.UserAccount;
-import com.travelwithme.withtravel.Spot.Plan;
+import com.travelwithme.withtravel.Plan.Plan;
 import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Tag.Tag;
 import lombok.*;
