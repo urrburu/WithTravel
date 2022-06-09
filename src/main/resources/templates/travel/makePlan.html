@@ -14,14 +14,7 @@
     </div>
     <div class="row">
         <div class="col-sm-8">
-            <li th:each="plan: ${travel.plans}">
-                <div class="media-body">
-                    <a th:href="@{'/search/spot/' + ${plan.spot.spotName}}" ><span th:text="${plan.spot.spotName}"></span></a>
-                    <span th:text="${plan.startTime}"></span> <span>부터 </span> <span th:text="${plan.endTime}"></span> <span>까지</span>
-                    <span>       소요 예상 비용 : </span><span th:text="${plan.cost}"></span>
-                    <br><span>  이 장소는 </span><span th:text="${plan.longDescription}"></span>
-                </div>
-            </li>
+            <ul th:replace="fragments.html::planList"></ul>
         </div>
     </div>
 
@@ -79,19 +72,7 @@
             <small id="costHelp" class="form-text text-muted">                이 장소를 여행하는데 얼마가 들까요?            </small>
             <small class="form-text text-danger" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">                적절하지 않은 입력입니다.            </small>
         </div>
-        <div class="form-group">
-            <label for="latitude">이 장소의 위도를 입력해주세요</label>
-            <input id="latitude" type="text" th:field="*{latitude}" class="form-control"
-                   placeholder="0" aria-describedby="latitudeHelp" required>
 
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}">적절하지 않은 입력입니다.            </small>
-        </div>
-        <div class="form-group">
-            <label for="longitude">이 장소의 경도를 입력해주세요</label>
-            <input id="longitude" type="text" th:field="*{longitude}" class="form-control"
-                   placeholder="0" aria-describedby="longitudeHelp" required>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('longitude')}" th:errors="*{longitude}">                적절하지 않은 입력입니다.            </small>
-        </div>
         <div class="form-group">
             <button class="btn btn-primary btn-block" type="submit"aria-describedby="submitHelp">여행 장소 추가!</button>
         </div>
