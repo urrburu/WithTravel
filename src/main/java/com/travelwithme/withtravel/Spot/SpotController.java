@@ -21,5 +21,4 @@ public class SpotController {
         model.addAttribute(spot);
         return "Spot/spotView";
     }
-
 }
