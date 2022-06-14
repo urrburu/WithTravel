@@ -40,20 +40,7 @@ public class TravelController {
 
     @GetMapping(travelUrl)
     public String travelView(@CurrentAccount Account account, Model model){
-        /* 404 error
-        //모든 여행들을 보여주는 뷰화면
-        if(account==null){
-        //Todo 만약 account가 없을 경우, 지금 마감에 가까운 9개의 여행을 보여줄 것
-            List<Travel> travels = travelService.findNineTravel(LocalDateTime.now());
-            model.addAttribute(account);
-            model.addAttribute(travels);
-        }else{
-        //Todo 만약 account가 있을 경우, 등록되었지만 아직 가지 않은 여행, 사람을 구하는 여행, 다녀올 여행 순서로 보여줄 예정.
 
-        }
-         */
-        List<Travel> travels = travelRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        if(travels.size()!=0){model.addAttribute(travels);}
         model.addAttribute(account);
         return travelLocation;
     }

@@ -24,8 +24,6 @@ public class TravelSettingService {
     public void modifyTravel(Travel travel, TravelContents travelContents) {
         travel.setFullDescription(travelContents.getFullDescription());
         travel.setShortDescription(travelContents.getShortDescription());
-        if(travelContents.getStartTime()!= null)travel.setStartTime(travelContents.getStartTime());
-        if(travelContents.getEndTime()!= null)travel.setEndTime(travelContents.getEndTime());
         travelRepository.save(travel);
     }
 

@@ -31,7 +31,7 @@ public class TravelSettingsController {
         Travel travel = travelRepository.findByTravelName(path);
         model.addAttribute(account);
         model.addAttribute(travel);
-        model.addAttribute("travelForm", new TravelContents(travel));
+        model.addAttribute(new TravelContents(travel));
         return "/travel/settings/TravelContents";
     }
 
@@ -49,7 +49,7 @@ public class TravelSettingsController {
         Travel travel = travelRepository.findByTravelName(path);
         model.addAttribute(account);
         model.addAttribute(travel);
-        model.addAttribute("travelForm", new TravelRecruiting(travel));
+        model.addAttribute(new TravelRecruiting(travel));
         return "/travel/settings/TravelOpenClosed";
     }
 
@@ -67,7 +67,7 @@ public class TravelSettingsController {
         Travel travel = travelRepository.findByTravelName(path);
         model.addAttribute(account);
         model.addAttribute(travel);
-        model.addAttribute("travelForm", new TravelContents(travel));
+        model.addAttribute("travelForm", new TagForm());
         return "/travel/settings/TravelTag";
     }
 

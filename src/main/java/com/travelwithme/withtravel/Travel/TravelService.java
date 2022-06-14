@@ -26,17 +26,6 @@ public class TravelService {
     private final TravelRepository travelRepository;
     private final SpotRepository spotRepository;
 
-    public List<Travel> findNineTravel(LocalDateTime now) {
-        List<Travel> travels = travelRepository.findAll();
-        List<Travel> travelList = new ArrayList<Travel>();
-        for(int i=0;i<travels.size();++i){
-            if(now.isAfter(travels.get(i).getStartTime()))travelList.add(travels.get(i));
-            //Todo 이거 정렬하는 로직을 좀 생각해 봐야함 현재는 travelList에서 아직 출발하지 않은
-            // Todo 출발하지 않은 여행 9개를 리스트 순서에 따라서 갖고 오는건데
-            if(travelList.size()==9)break;
-        }
-        return travelList;
-    }
 
     public Travel newTravelMake(TravelForm travelForm, Account account){
         Set<Account> accounts = new HashSet<>();
