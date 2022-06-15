@@ -1,10 +1,12 @@
 package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Account.Account;
+import com.travelwithme.withtravel.Plan.PlanRepository;
 import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Spot.SpotForm;
 import com.travelwithme.withtravel.Spot.SpotRepository;
 import com.travelwithme.withtravel.Tag.Tag;
+import com.travelwithme.withtravel.Tag.TagRepository;
 import com.travelwithme.withtravel.Travel.Form.TravelForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class TravelService {
 
     private final TravelRepository travelRepository;
     private final SpotRepository spotRepository;
+    private final TagRepository tagRepository;
+    private final PlanRepository planRepository;
 
 
     public Travel newTravelMake(TravelForm travelForm, Account account){
@@ -49,14 +53,14 @@ public class TravelService {
             spot = spotRepository.save(new Spot(spotForm.getSpotName(), spotForm.getStartTime(), spotForm.getEndTime(),spotForm.getShortDescription(),
                      spotForm.getLatitude(), spotForm.getLongitude()));
         }
-        travel.getSpots().add(spot);
+        //travel.getPlans().add(spot);
         travel.costCalculate();
     }
 
     public void removeSpot(Travel travel, String spotName){
         travel = travelRepository.findByTravelName(travel.getTravelName());
         Spot spot = spotRepository.findBySpotName(spotName);
-        if(travel != null && spot != null){travel.getSpots().remove(spot);        }
+        //if(travel != null && spot != null){travel.getPlans().remove(plan);        }
     }
 
     public void addMember(Travel travel, Account account) {travel.getMembers().add(account);}

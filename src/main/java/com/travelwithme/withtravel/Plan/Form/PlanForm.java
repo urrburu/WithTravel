@@ -1,11 +1,13 @@
-package com.travelwithme.withtravel.Plan;
+package com.travelwithme.withtravel.Plan.Form;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
 public class PlanForm {
 
     private String spotName;

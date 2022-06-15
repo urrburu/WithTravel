@@ -61,47 +61,7 @@ public class TravelSettingsController {
         return "redirect:/travel/"+travel.getTravelName();
     }
 
-    @GetMapping("/tag")
-    public String viewTravelModifyTag(@CurrentAccount Account account, @PathVariable String path, Model model){
-        Travel travel = travelRepository.findByTravelName(path);
-        model.addAttribute(account);
-        model.addAttribute(travel);
-        model.addAttribute("travelForm", new TagForm());
-        return "/travel/settings/TravelTag";
-    }
 
-    @PostMapping("/tag/add")
-    public String viewTravelModifyTagSubmit(@CurrentAccount Account account, @PathVariable String path, @Valid TagForm tagForm, Model model){
-        Travel travel = travelRepository.findByTravelName(path);
-        if(travel.getManagers().contains(account)){
-            travelSettingService.addTag(travel, tagForm);
-        }
-        return "redirect:/travel/"+travel.getTravelName()+"/settings/tag/";
-    }
-    @PostMapping("/tag/delete/{tagName}")
-    public String TravelTagDelete(@CurrentAccount Account account, @PathVariable String path, @PathVariable String tagName, Model model){
-        Travel travel = travelRepository.findByTravelName(path);
-        travelSettingService.removeTag(travel, tagName);
-        return "redirect:/travel/"+travel.getTravelName()+"/settings/tag/";
-    }
-
-    @GetMapping("/member")
-    public String viewTravelModifyMember(@CurrentAccount Account account, @PathVariable String path, Model model){
-        Travel travel = travelRepository.findByTravelName(path);
-        model.addAttribute(account);
-        model.addAttribute(travel);
-        model.addAttribute("travelForm", new TravelContents(travel));
-        return "/travel/settings/TravelContents";
-    }
-
-    @PostMapping("/member")
-    public String viewTravelModifyMemberSubmit(@CurrentAccount Account account, @PathVariable String path, @Valid TravelContents travelContents, Model model){
-        Travel travel = travelRepository.findByTravelName(path);
-        if(travel.getManagers().contains(account)){
-            travelSettingService.modifyTravel(travel, travelContents);
-        }
-        return "redirect:/travel/"+travel.getTravelName();
-    }
 
 
 
