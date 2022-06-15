@@ -1,4 +1,4 @@
-package com.travelwithme.withtravel.Spot;
+package com.travelwithme.withtravel.Plan;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;

@@ -1,5 +1,6 @@
-package com.travelwithme.withtravel.Spot;
+package com.travelwithme.withtravel.Plan;
 
+import com.travelwithme.withtravel.Spot.Spot;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

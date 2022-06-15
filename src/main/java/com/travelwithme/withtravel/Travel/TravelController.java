@@ -2,7 +2,7 @@ package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
-import com.travelwithme.withtravel.Spot.PlanForm;
+import com.travelwithme.withtravel.Plan.PlanForm;
 import com.travelwithme.withtravel.Spot.SpotForm;
 import com.travelwithme.withtravel.Travel.Form.TravelForm;
 import lombok.RequiredArgsConstructor;
