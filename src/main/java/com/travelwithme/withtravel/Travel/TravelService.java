@@ -1,7 +1,6 @@
 package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Account.Account;
-import com.travelwithme.withtravel.Repository.TravelRepository;
 import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Spot.SpotForm;
 import com.travelwithme.withtravel.Spot.SpotRepository;
@@ -12,9 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 

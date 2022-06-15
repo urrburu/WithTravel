@@ -4,7 +4,6 @@ package com.travelwithme.withtravel.Account;
 import com.travelwithme.withtravel.Account.Form.SignUpForm;
 import com.travelwithme.withtravel.Account.Validator.SignUpFormValidator;
 
-import com.travelwithme.withtravel.Repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

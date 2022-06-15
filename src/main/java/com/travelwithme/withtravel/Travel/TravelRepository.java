@@ -1,4 +1,4 @@
-package com.travelwithme.withtravel.Repository;
+package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Travel.Travel;

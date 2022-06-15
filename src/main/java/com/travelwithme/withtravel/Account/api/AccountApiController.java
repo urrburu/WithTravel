@@ -3,7 +3,7 @@ package com.travelwithme.withtravel.Account.api;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.AccountService;
 import com.travelwithme.withtravel.Account.Form.SignUpForm;
-import com.travelwithme.withtravel.Repository.AccountRepository;
+import com.travelwithme.withtravel.Account.AccountRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

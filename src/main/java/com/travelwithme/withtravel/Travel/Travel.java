@@ -45,9 +45,6 @@ public class Travel {
     private Set<Account> members = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    private List<Spot> spots = new ArrayList<>();
-
-    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Plan> plans = new ArrayList<>();
 
     @ManyToMany
@@ -75,11 +72,7 @@ public class Travel {
     private boolean useBanner;
 
     private Integer totalCost;
-    
-    public void timeSetting(){
-        startTime = spots.get(0).getStartTime();
-        endTime = spots.get(spots.size()-1).getEndTime();
-    }
+
 
     public Boolean isJoinable(UserAccount userAccount)  {
         Account account = userAccount.getAccount();
@@ -93,7 +86,7 @@ public class Travel {
 
     public Boolean isManager(UserAccount userAccount)  { return this.managers.contains(userAccount.getAccount());    }
     
-    public void costCalculate(){this.totalCost = 0;for(Spot spot:spots){this.totalCost += spot.getCost();}    }
+    public void costCalculate(){this.totalCost = 0;for(Plan plan: plans){this.totalCost += plan.getCost();}    }
 
 }
 

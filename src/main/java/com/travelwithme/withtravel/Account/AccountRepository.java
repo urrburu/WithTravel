@@ -1,4 +1,4 @@
-package com.travelwithme.withtravel.Repository;
+package com.travelwithme.withtravel.Account;
 
 import com.travelwithme.withtravel.Account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;

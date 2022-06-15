@@ -2,8 +2,8 @@ package com.travelwithme.withtravel.Settings;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.Address;
-import com.travelwithme.withtravel.Repository.AccountRepository;
-import com.travelwithme.withtravel.Repository.TagRepository;
+import com.travelwithme.withtravel.Account.AccountRepository;
+import com.travelwithme.withtravel.Tag.TagRepository;
 import com.travelwithme.withtravel.Account.AccountService;
 import com.travelwithme.withtravel.Settings.Form.NicknameForm;
 import com.travelwithme.withtravel.Settings.Form.Notification;

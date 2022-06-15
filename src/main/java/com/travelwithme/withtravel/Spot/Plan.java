@@ -1,10 +1,15 @@
 package com.travelwithme.withtravel.Spot;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
-@Entity
+@Entity@Getter@Setter
+@EqualsAndHashCode(of="id")
 public class Plan{
 
     @Id @GeneratedValue

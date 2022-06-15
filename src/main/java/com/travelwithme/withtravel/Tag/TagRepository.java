@@ -1,4 +1,4 @@
-package com.travelwithme.withtravel.Repository;
+package com.travelwithme.withtravel.Tag;
 
 import com.travelwithme.withtravel.Tag.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;

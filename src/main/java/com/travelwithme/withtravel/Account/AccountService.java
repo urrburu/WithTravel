@@ -1,10 +1,7 @@
 package com.travelwithme.withtravel.Account;
 
-import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.Form.SignUpForm;
-import com.travelwithme.withtravel.Account.UserAccount;
 
-import com.travelwithme.withtravel.Repository.AccountRepository;
 import com.travelwithme.withtravel.Tag.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

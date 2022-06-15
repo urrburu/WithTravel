@@ -1,7 +1,6 @@
 package com.travelwithme.withtravel.Travel;
 
-import com.travelwithme.withtravel.Repository.TagRepository;
-import com.travelwithme.withtravel.Repository.TravelRepository;
+import com.travelwithme.withtravel.Tag.TagRepository;
 import com.travelwithme.withtravel.Tag.Tag;
 import com.travelwithme.withtravel.Tag.TagForm;
 import com.travelwithme.withtravel.Travel.Form.TravelContents;

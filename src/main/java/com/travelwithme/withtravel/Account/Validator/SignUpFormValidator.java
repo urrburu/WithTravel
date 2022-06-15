@@ -1,7 +1,7 @@
 package com.travelwithme.withtravel.Account.Validator;
 
 import com.travelwithme.withtravel.Account.Form.SignUpForm;
-import com.travelwithme.withtravel.Repository.AccountRepository;
+import com.travelwithme.withtravel.Account.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
