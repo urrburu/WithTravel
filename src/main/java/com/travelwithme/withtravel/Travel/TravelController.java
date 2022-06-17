@@ -26,7 +26,6 @@ import java.util.Set;
 public class TravelController {
 
     private String travelLocation = "/travel/allTravel";
-    private final static String travelMakeUrl = "/travel/make";
     private String travelPick = "/travel/travelPick";
     private String travelMakeLocation = "/travel/makeTravel";
     //Todo add 콜과 remove 콜을 별도로 만들어줄 예정

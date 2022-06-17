@@ -17,7 +17,7 @@
     </div>
     <div class="row justify-content-center">
         <form class="needs-validation col-sm-8" action="#"
-              th:action="@{/travel/make}" th:object="${travelForm}" method="post" novalidate>
+              th:action="@{/travel/newtravel}" th:object="${travelForm}" method="post" novalidate>
             <div class="form-group">
                 <label for="travelName">여행 이름</label>
                 <input id="travelName" type="text" th:field="*{travelName}" class="form-control"
@@ -27,6 +27,17 @@
                 </small>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('travelName')}" th:errors="*{travelName}">
                     15자를 초과하는 여행 이름입니다.
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="Path">여행 경로</label>
+                <input id="Path" type="text" th:field="*{Path}" class="form-control"
+                       placeholder="여행에 이름을 붙여 주세요." aria-describedby="PathHelp" required>
+                <small id="PathHelp" class="form-text text-muted">
+                    15자 이하의 영문, 숫자 조합으로 입력해주세요. 여행을 찾을 수 있는 경로가 됩니다.
+                </small>
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('Path')}" th:errors="*{Path}">
+                    15자를 초과하는 여행 경로입니다.
                 </small>
             </div>
             <div class="form-group">
