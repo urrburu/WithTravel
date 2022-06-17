@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -20,12 +21,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Controller
+@RequestMapping("/travel/")
 @RequiredArgsConstructor
 public class TravelController {
 
-    private final static String travelUrl = "/travel/";
     private String travelLocation = "/travel/allTravel";
     private final static String travelMakeUrl = "/travel/make";
+    private String travelPick = "/travel/travelPick";
     private String travelMakeLocation = "/travel/makeTravel";
     //Todo add 콜과 remove 콜을 별도로 만들어줄 예정
     private String spotLocation = "/travel/modifySpot";
@@ -35,132 +37,22 @@ public class TravelController {
     private final ModelMapper modelMapper;
 
 
-    @GetMapping(travelUrl)
-    public String travelView(@CurrentAccount Account account, Model model){
-
-        model.addAttribute(account);
-        return travelLocation;
-    }
-
-    @GetMapping("/travel/{travelName}")
-    public String viewTravel(@PathVariable String travelName, Model model, @CurrentAccount Account account){
-        Travel byTravelName = travelRepository.findByTravelName(travelName);
-        if(byTravelName == null ){
-            throw new IllegalArgumentException(travelName+"에 해당하는 여행이 없습니다.");
-        }
-        model.addAttribute("travel", byTravelName);
-        return "travel/travelPick";
-    }
-
-    @GetMapping(travelMakeUrl)
-    public String travelMakeView(@CurrentAccount Account account, Model model){
-        //새로운 여행을 만드는 뷰화면을 보여주는 Get call
+   @GetMapping("/newTravel")
+   public String newTravel(Model model, @CurrentAccount Account account){
         model.addAttribute(account);
         model.addAttribute(new TravelForm());
-        return travelMakeLocation;
-    }
+       return travelLocation;
+   }
 
-    @PostMapping(travelMakeUrl)
-    public String travelMakeSubmit(@CurrentAccount Account account, Model model, @Valid TravelForm travelForm,
-                                   RedirectAttributes attributes, Error error){
-        /*
-        if(account.isEmailVerified()==false){
-            //이메일이 확인되지 않은 이용자에게는 서비스를 제공할 수 없음을 명시
-            model.addAttribute(account);
-            model.addAttribute(new TravelForm());
-            attributes.addFlashAttribute("message", "이메일 인증이 되지 않은 유저에게는 위드 트래블의 서비스를 제공할 수 없습니다.");
-            return "redirect:/"+travelMakeUrl;
-        }
-        */
-        if(travelForm.getStartTime()!=null && travelForm.getEndTime() != null){
-            if(travelForm.getStartTime().isAfter(travelForm.getEndTime()) || LocalDateTime.now().isAfter(travelForm.getStartTime())){
-                attributes.addFlashAttribute("message", "잘못된 시간입력입니다. 다시 입력해주세요.");
-                return "redirect:"+travelMakeUrl;
-            }
-        }
+   @PostMapping("/newTravel")
+    public String newTravelSubmit( @CurrentAccount Account account, Model model, @Valid TravelForm travelForm){
 
+       return "redirect:/travel/"+travelForm.getTravelName();
+   }
+   @GetMapping("/{travelName}")
+    public String TravelOne(@CurrentAccount Account account, Model model, @PathVariable String travelName){
 
-        Travel travel = travelService.newTravelMake(travelForm, account);
-        model.addAttribute(account);
-
-        return "redirect:/travel/"+travel.getTravelName();
-    }
-
-    @GetMapping("/travel/{travelName}/new-spot")
-    public String SpotAddView(@CurrentAccount Account account, @PathVariable String travelName,Model model, RedirectAttributes attributes){
-        Travel travel = travelRepository.findByTravelName(travelName);
-        if(!travel.getManagers().contains(account)){
-            attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
-            return "redirect:/travel/"+travelName;
-        }
-        model.addAttribute(account);
-        model.addAttribute(travel);
-        model.addAttribute(new SpotForm());
-        return "travel/modifySpot";
-    }
-    @PostMapping("/travel/{travelName}/new-spot")
-    public String SpotAddSubmit(@CurrentAccount Account account, @PathVariable String travelName, @Valid SpotForm spotForm, RedirectAttributes attributes){
-        Travel travel = travelRepository.findByTravelName(travelName);
-        if(!travel.getManagers().contains(account)){
-            attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
-            return "redirect:/travel/"+travelName;
-        }
-        LocalDateTime startTime = travel.getStartTime();
-        LocalDateTime endTime = travel.getEndTime();
-        if(startTime.isAfter(spotForm.getStartTime())||endTime.isBefore(spotForm.getEndTime())){
-            attributes.addFlashAttribute("error", "잘못된 시간입력 입니다. 다시 입력해주세요.");
-            return "redirect:/travel/"+travelName+"/new-spot";
-        }
-
-        travelService.addSpot(travel, spotForm);
-        return "redirect:/travel/"+travelName;
-    }
-    @PostMapping("/travel/{travelName}/{spotName}/spot-remove")
-    public String SpotRemoveSubmit(@CurrentAccount Account account, @PathVariable String travelName, @PathVariable String spotName, RedirectAttributes attributes){
-        Travel travel = travelRepository.findByTravelName(travelName);
-        if(!travel.getManagers().contains(account)){
-            attributes.addFlashAttribute("error", "이 여행을 수정할 권한이 없습니다.");
-            return "redirect:/travel/"+travelName;
-        }
-        travelService.removeSpot(travel, spotName);
-        return "redirect:/travel/"+travelName;
-    }
-
-    @GetMapping("/travel/{travelName}/join")
-    public String memberJoin(@PathVariable String travelName, @CurrentAccount Account account){
-        Travel travel = travelRepository.findByTravelName(travelName);
-        travelService.addMember(travel, account);
-        return "redirect:"+travelUrl;
-
-    }
-    @GetMapping("/travel/{travelName}/members")
-    public String memberView(@PathVariable String travelName, Model model, @CurrentAccount Account account){
-        Travel travel = travelRepository.findByTravelName(travelName);
-        Set<Account> accounts = new HashSet<>();
-        for (Account account1:travel.getManagers()) {accounts.add(account1);}
-        for (Account account1:travel.getMembers()) {accounts.add(account1);}
-        model.addAttribute("accounts", accounts);
-        model.addAttribute("account", account);
-        model.addAttribute("travel", travel);
-        return "/travel/TravelMember";
-
-    }
-
-    @GetMapping("/travel/{travelName}/newPlan")
-    public String makePlan(@PathVariable String travelName, Model model, @CurrentAccount Account account){
-        Travel travel = travelRepository.findByTravelName(travelName);
-        model.addAttribute(account);
-        model.addAttribute(travel);
-        model.addAttribute(new PlanForm());
-        return"/travel/makePlan";
-    }
-
-    @PostMapping("/travel/{travelName}/newPlan")
-    public String appendPlan(@PathVariable String travelName, @Valid PlanForm planForm){
-        Travel travel = travelRepository.findByTravelName(travelName);
-
-
-        return "redirect:/"+"travel/"+travelName+"/newPlan";
-    }
+       return travelPick;
+   }
 
 }

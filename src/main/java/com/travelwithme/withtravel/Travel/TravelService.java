@@ -28,42 +28,4 @@ public class TravelService {
     private final PlanRepository planRepository;
 
 
-    public Travel newTravelMake(TravelForm travelForm, Account account){
-        Set<Account> accounts = new HashSet<>();
-        accounts.add(account);
-        Travel travel = new Travel().builder()
-                .managers(accounts)
-                .travelName(travelForm.getTravelName())
-                .shortDescription(travelForm.getShortDescription())
-                .fullDescription(travelForm.getFullDescription())
-                .startTime(travelForm.getStartTime())
-                .endTime(travelForm.getEndTime())
-                .publishedDateTime(LocalDateTime.now())
-                .closedDateTime(LocalDateTime.now().plusDays(7))
-                .closed(false)
-                .published(true)
-                .recruiting(true)
-                .build();
-        return travelRepository.save(travel);
-    }
-
-    public void addSpot(Travel travel, SpotForm spotForm) {
-        Spot spot = spotRepository.findBySpotName(spotForm.getSpotName());
-        if(spot ==null){
-            spot = spotRepository.save(new Spot(spotForm.getSpotName(), spotForm.getStartTime(), spotForm.getEndTime(),spotForm.getShortDescription(),
-                     spotForm.getLatitude(), spotForm.getLongitude()));
-        }
-        //travel.getPlans().add(spot);
-        travel.costCalculate();
-    }
-
-    public void removeSpot(Travel travel, String spotName){
-        travel = travelRepository.findByTravelName(travel.getTravelName());
-        Spot spot = spotRepository.findBySpotName(spotName);
-        //if(travel != null && spot != null){travel.getPlans().remove(plan);        }
-    }
-
-    public void addMember(Travel travel, Account account) {travel.getMembers().add(account);}
-
-    public void addTag(Travel travel, Tag newTag) {  travel.getTags().add(newTag);  }
 }
