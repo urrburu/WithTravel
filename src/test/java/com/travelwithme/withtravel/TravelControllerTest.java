@@ -1,10 +1,9 @@
 package com.travelwithme.withtravel;
 
 import com.travelwithme.WithAccount;
-import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.AccountService;
-import com.travelwithme.withtravel.Repository.AccountRepository;
-import com.travelwithme.withtravel.Repository.TravelRepository;
+import com.travelwithme.withtravel.Account.AccountRepository;
+import com.travelwithme.withtravel.Travel.TravelRepository;
 import com.travelwithme.withtravel.Settings.SettingService;
 import com.travelwithme.withtravel.Travel.Travel;
 import org.junit.jupiter.api.AfterEach;

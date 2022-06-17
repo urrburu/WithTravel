@@ -2,7 +2,6 @@ package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
-import com.travelwithme.withtravel.Repository.TravelRepository;
 import com.travelwithme.withtravel.Tag.TagForm;
 import com.travelwithme.withtravel.Travel.Form.TravelContents;
 import com.travelwithme.withtravel.Travel.Form.TravelRecruiting;

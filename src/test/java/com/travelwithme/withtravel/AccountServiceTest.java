@@ -1,7 +1,7 @@
 package com.travelwithme.withtravel;
 
 import com.travelwithme.withtravel.Account.Account;
-import com.travelwithme.withtravel.Repository.AccountRepository;
+import com.travelwithme.withtravel.Account.AccountRepository;
 import com.travelwithme.withtravel.Account.AccountService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

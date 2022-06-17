@@ -3,11 +3,10 @@ package com.travelwithme.withtravel;
 import com.travelwithme.WithAccount;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.AccountService;
-import com.travelwithme.withtravel.Repository.AccountRepository;
-import com.travelwithme.withtravel.Repository.TravelRepository;
+import com.travelwithme.withtravel.Account.AccountRepository;
+import com.travelwithme.withtravel.Travel.TravelRepository;
 import com.travelwithme.withtravel.Settings.SettingService;
 import com.travelwithme.withtravel.Travel.Form.TravelForm;
-import com.travelwithme.withtravel.Travel.Travel;
 import com.travelwithme.withtravel.Travel.TravelService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,10 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
