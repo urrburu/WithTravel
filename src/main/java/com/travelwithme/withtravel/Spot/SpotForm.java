@@ -12,12 +12,6 @@ public class SpotForm {
 
     private String spotName;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime startTime;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime endTime;
-
     private String shortDescription;
 
     private String latitude;

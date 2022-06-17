@@ -28,4 +28,17 @@ public class TravelService {
     private final PlanRepository planRepository;
 
 
+    public void newTravel(Account account, TravelForm travelForm) {
+        Travel travel = Travel.builder().build();
+        travel.setPath(travelForm.getPath());
+        travel.setTravelName(travelForm.getTravelName());
+        travel.setStartTime(travelForm.getStartTime());
+        travel.setEndTime(travelForm.getEndTime());
+        travel.setShortDescription(travelForm.getShortDescription());
+        travel.setFullDescription(travelForm.getFullDescription());
+        travel.setRecruiting(false);
+        travel.setPublished(false);
+        travel.setClosed(true);
+        travelRepository.save(travel);
+    }
 }

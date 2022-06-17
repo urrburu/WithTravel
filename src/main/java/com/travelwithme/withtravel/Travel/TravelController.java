@@ -46,12 +46,14 @@ public class TravelController {
 
    @PostMapping("/newTravel")
     public String newTravelSubmit( @CurrentAccount Account account, Model model, @Valid TravelForm travelForm){
-
-       return "redirect:/travel/"+travelForm.getTravelName();
+       travelService.newTravel(account, travelForm);
+       return "redirect:/travel/"+travelForm.getPath();
    }
-   @GetMapping("/{travelName}")
-    public String TravelOne(@CurrentAccount Account account, Model model, @PathVariable String travelName){
-
+   @GetMapping("/{Path}")
+    public String TravelOne(@CurrentAccount Account account, Model model, @PathVariable String Path){
+        Travel travel = travelRepository.findByPath(Path);
+        model.addAttribute(account);
+        model.addAttribute(travel);
        return travelPick;
    }
 

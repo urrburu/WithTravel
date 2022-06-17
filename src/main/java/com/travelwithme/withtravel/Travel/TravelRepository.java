@@ -15,4 +15,6 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
     Travel findByMembers(Account account);
 
     Travel findByTravelName(String travelName);
+
+    Travel findByPath(String Path);
 }

@@ -16,6 +16,10 @@ public class TravelForm {
     @Length(max = 15)
     private String travelName;
 
+    @NotNull(message = "여행을 찾는 경로는 비워둘 수 없습니다.")
+    @Length(max = 15)
+    private String path;
+
     @Length(max = 50)
     private String shortDescription;
 
