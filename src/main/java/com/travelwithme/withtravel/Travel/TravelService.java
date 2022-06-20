@@ -2,9 +2,11 @@ package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Plan.PlanRepository;
+import com.travelwithme.withtravel.Plan.PlanService;
 import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Spot.SpotForm;
 import com.travelwithme.withtravel.Spot.SpotRepository;
+import com.travelwithme.withtravel.Spot.SpotService;
 import com.travelwithme.withtravel.Tag.Tag;
 import com.travelwithme.withtravel.Tag.TagRepository;
 import com.travelwithme.withtravel.Travel.Form.TravelForm;
@@ -24,13 +26,16 @@ public class TravelService {
 
     private final TravelRepository travelRepository;
     private final SpotRepository spotRepository;
+    private final SpotService spotService;
     private final TagRepository tagRepository;
     private final PlanRepository planRepository;
+    private final PlanService planService;
 
 
     public void newTravel(Account account, TravelForm travelForm) {
         Travel travel = Travel.builder().build();
         travel.setPath(travelForm.getPath());
+        travel.getManagers().add(account);
         travel.setTravelName(travelForm.getTravelName());
         travel.setStartTime(travelForm.getStartTime());
         travel.setEndTime(travelForm.getEndTime());

@@ -3,8 +3,6 @@ package com.travelwithme.withtravel.Travel;
 import com.travelwithme.withtravel.Tag.TagRepository;
 import com.travelwithme.withtravel.Tag.Tag;
 import com.travelwithme.withtravel.Tag.TagForm;
-import com.travelwithme.withtravel.Travel.Form.TravelContents;
-import com.travelwithme.withtravel.Travel.Form.TravelRecruiting;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

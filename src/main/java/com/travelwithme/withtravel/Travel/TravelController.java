@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -35,12 +36,18 @@ public class TravelController {
     private final TravelRepository travelRepository;
     private final ModelMapper modelMapper;
 
+    @GetMapping("/allTravel")
+    public String allTravel(Model model){
+        List<Travel> travelList = travelRepository.findAll();
+        model.addAttribute(travelList);
+        return "/travel/allTravel";
+    }
 
    @GetMapping("/newTravel")
    public String newTravel(Model model, @CurrentAccount Account account){
         model.addAttribute(account);
         model.addAttribute(new TravelForm());
-       return travelLocation;
+       return travelMakeLocation;
    }
 
    @PostMapping("/newTravel")

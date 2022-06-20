@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class SpotController {
@@ -20,5 +22,11 @@ public class SpotController {
         }
         model.addAttribute(spot);
         return "Spot/spotView";
+    }
+    @GetMapping("/spot/all")
+    public String spotView(Model model){
+        List<Spot> spots = spotRepository.findAll();
+        model.addAttribute(spots);
+        return "Spot/allView";
     }
 }

@@ -2,9 +2,8 @@ package com.travelwithme.withtravel.Travel;
 
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
-import com.travelwithme.withtravel.Tag.TagForm;
-import com.travelwithme.withtravel.Travel.Form.TravelContents;
-import com.travelwithme.withtravel.Travel.Form.TravelRecruiting;
+import com.travelwithme.withtravel.Travel.Form.TravelSettingDescription;
+import com.travelwithme.withtravel.Travel.Form.TravelSettingOpenClosed;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -25,40 +24,31 @@ public class TravelSettingsController {
     private final ModelMapper modelMapper;
     private final TravelSettingService travelSettingService;
 
+    private String travelSettingDesc = "/travel/settings/TravelSettingDescription";
+    private String travelSettingOpCl = "/travel/settings/TravelSettingOpenClosed";
+
     @GetMapping("/description")
     public String viewTravelSetting(@CurrentAccount Account account, @PathVariable String path, Model model){
-        Travel travel = travelRepository.findByTravelName(path);
-        model.addAttribute(account);
-        model.addAttribute(travel);
-        model.addAttribute(new TravelContents(travel));
-        return "/travel/settings/TravelContents";
+
+        return travelSettingDesc;
     }
 
     @PostMapping("/description")
-    public String viewTravelSubmit(@CurrentAccount Account account, @PathVariable String path, @Valid TravelContents travelContents, Model model){
-        Travel travel = travelRepository.findByTravelName(path);
-        if(travel.getManagers().contains(account)){
-            travelSettingService.modifyTravel(travel, travelContents);
-        }
-        return "redirect:/travel/"+travel.getTravelName();
+    public String viewTravelSubmit(@CurrentAccount Account account, @PathVariable String path, Model model, @Valid TravelSettingDescription travelSettingDescription){
+
+        return "redirect:/travel/"+path+"/settings/description";
     }
 
     @GetMapping("/open-closed")
     public String viewTravelPublish(@CurrentAccount Account account, @PathVariable String path, Model model){
-        Travel travel = travelRepository.findByTravelName(path);
-        model.addAttribute(account);
-        model.addAttribute(travel);
-        model.addAttribute(new TravelRecruiting(travel));
-        return "/travel/settings/TravelOpenClosed";
+
+        return travelSettingOpCl;
     }
 
     @PostMapping("/open-closed")
-    public String viewTravelPublishModify(@CurrentAccount Account account, @PathVariable String path, @Valid TravelRecruiting travelRecruiting){
-        Travel travel = travelRepository.findByTravelName(path);
-        if(travel.getManagers().contains(account)){
-            travelSettingService.modifyTravelPublish(travel, travelRecruiting);
-        }
-        return "redirect:/travel/"+travel.getTravelName();
+    public String viewTravelPublishModify(@CurrentAccount Account account, @PathVariable String path, Model model, @Valid TravelSettingOpenClosed travelSettingOpenClosed){
+
+        return "redirect:/travel/"+path+"/settings/open-closed";
     }
 
 
