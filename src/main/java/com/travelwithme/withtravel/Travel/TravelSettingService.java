@@ -3,6 +3,8 @@ package com.travelwithme.withtravel.Travel;
 import com.travelwithme.withtravel.Tag.TagRepository;
 import com.travelwithme.withtravel.Tag.Tag;
 import com.travelwithme.withtravel.Tag.TagForm;
+import com.travelwithme.withtravel.Travel.Form.TravelSettingDescription;
+import com.travelwithme.withtravel.Travel.Form.TravelSettingOpenClosed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,25 +20,6 @@ public class TravelSettingService {
     private final TagRepository tagRepository;
     private final TravelService travelService;
 
-    public void modifyTravel(Travel travel, TravelContents travelContents) {
-        travel.setFullDescription(travelContents.getFullDescription());
-        travel.setShortDescription(travelContents.getShortDescription());
-        travelRepository.save(travel);
-    }
-
-    public void modifyTravelPublish(Travel travel, TravelRecruiting travelRecruiting) {
-        if(travel.isRecruiting()==false && travelRecruiting.isRecruiting()==true){ travel.setRecruitingUpdatedDate(LocalDateTime.now()); }
-        if(travel.isPublished()==false && travelRecruiting.isPublished()==true){ travel.setPublishedDateTime(LocalDateTime.now()); }
-        if(travel.isClosed()==false && travelRecruiting.isClosed()==true){ travel.setClosedDateTime(LocalDateTime.now()); }
-        travel.setRecruiting(travelRecruiting.isRecruiting());
-        travel.setPublished(travelRecruiting.isPublished());
-        travel.setClosed(travelRecruiting.isClosed());
-        if(travelRecruiting.isClosed()==true){
-            travel.setRecruiting(false);
-            travel.setPublished(false);
-        }
-        travelRepository.save(travel);
-    }
 
     public void addTag(Travel travel, TagForm tagForm) {
         Tag tag = tagRepository.findByTagTitle(tagForm.getTagTitle());
@@ -55,5 +38,22 @@ public class TravelSettingService {
     public void removeTag(Travel travel, String tagName) {
         Tag tag = tagRepository.findByTagTitle(tagName);
         travel.getTags().remove(tag);
+    }
+
+    public void modifyDescription(Travel travel, TravelSettingDescription travelSettingDescription) {
+        travel.setShortDescription(travelSettingDescription.getShortDescription());
+        travel.setFullDescription(travelSettingDescription.getFullDescription());
+        travelRepository.save(travel);
+    }
+
+    public void modifyOpenClosed(Travel travel, TravelSettingOpenClosed travelSettingOpenClosed) {
+        travel.setRecruiting(travelSettingOpenClosed.isRecruiting());
+        travel.setPublished(travelSettingOpenClosed.isPublished());
+        travel.setClosed(travelSettingOpenClosed.isClosed());
+        if(travel.isClosed()){
+            travel.setRecruiting(false);
+            travel.setPublished(false);
+        }
+        travelRepository.save(travel);
     }
 }

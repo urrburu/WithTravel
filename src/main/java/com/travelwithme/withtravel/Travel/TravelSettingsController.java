@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -37,8 +38,13 @@ public class TravelSettingsController {
     }
 
     @PostMapping("/description")
-    public String viewTravelSubmit(@CurrentAccount Account account, @PathVariable String path, Model model, @Valid TravelSettingDescription travelSettingDescription){
-
+    public String viewTravelSubmit(@CurrentAccount Account account, @PathVariable String path, Model model, Error error,
+                                   @Valid TravelSettingDescription travelSettingDescription,RedirectAttributes attributes ){
+        Travel travel = travelRepository.findByPath(path);
+        if(travel.getManagers().contains(account))travelSettingService.modifyDescription(travel, travelSettingDescription);
+        else{
+            attributes.addFlashAttribute("error", "수정 권한이 없습니다.");
+        }
         return "redirect:/travel/"+path+"/settings/description";
     }
 
@@ -52,8 +58,13 @@ public class TravelSettingsController {
     }
 
     @PostMapping("/open-closed")
-    public String viewTravelPublishModify(@CurrentAccount Account account, @PathVariable String path, Model model, @Valid TravelSettingOpenClosed travelSettingOpenClosed){
-
+    public String viewTravelPublishModify(@CurrentAccount Account account, @PathVariable String path, Model model,
+                                          @Valid TravelSettingOpenClosed travelSettingOpenClosed ,RedirectAttributes attributes){
+        Travel travel = travelRepository.findByPath(path);
+        if(travel.getManagers().contains(account))travelSettingService.modifyOpenClosed(travel, travelSettingOpenClosed);
+        else{
+            attributes.addFlashAttribute("error", "수정 권한이 없습니다.");
+        }
         return "redirect:/travel/"+path+"/settings/open-closed";
     }
 
