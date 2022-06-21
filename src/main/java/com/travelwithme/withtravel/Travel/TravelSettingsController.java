@@ -29,7 +29,10 @@ public class TravelSettingsController {
 
     @GetMapping("/description")
     public String viewTravelSetting(@CurrentAccount Account account, @PathVariable String path, Model model){
-
+        Travel travel = travelRepository.findByPath(path);
+        model.addAttribute(account);
+        model.addAttribute(travel);
+        model.addAttribute(new TravelSettingDescription(travel));
         return travelSettingDesc;
     }
 
@@ -41,7 +44,10 @@ public class TravelSettingsController {
 
     @GetMapping("/open-closed")
     public String viewTravelPublish(@CurrentAccount Account account, @PathVariable String path, Model model){
-
+        Travel travel = travelRepository.findByPath(path);
+        model.addAttribute(account);
+        model.addAttribute(travel);
+        model.addAttribute(new TravelSettingOpenClosed(travel));
         return travelSettingOpCl;
     }
 

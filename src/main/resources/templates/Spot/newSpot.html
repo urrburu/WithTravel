@@ -36,7 +36,7 @@
                 <input id="shortDescriptionCheck" type="text" th:field="*{shortDescription}" class="form-control"
                        placeholder="여행에 대해서 50자 이내로 설명해주세요." aria-describedby="shortDescriptionHelp" required>
                 <small id="shortDescriptionHelp" class="form-text text-muted">
-                    어떤 목적의 여행인가요? 어디로 가실건가요? 어떤 사람들과 가고 싶나요?
+                    어떤 장소인가요? 다 설명하지 못해도 괜찮아요. 다른 분들이 설명해줄거에요. 부담없이 작성해주세요.
                 </small>
                 <small class="form-text text-danger" th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}">
                     적절하지 않은 설명입니다.

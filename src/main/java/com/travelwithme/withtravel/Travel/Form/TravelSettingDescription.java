@@ -1,5 +1,6 @@
 package com.travelwithme.withtravel.Travel.Form;
 
+import com.travelwithme.withtravel.Travel.Travel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +19,8 @@ public class TravelSettingDescription {
     @Basic(fetch = FetchType.EAGER)
     private String fullDescription;
 
+    public TravelSettingDescription(Travel travel){
+        this.shortDescription = travel.getShortDescription();
+        this.fullDescription = travel.getFullDescription();
+    }
 }
