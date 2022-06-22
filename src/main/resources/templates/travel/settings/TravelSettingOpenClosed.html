@@ -13,11 +13,11 @@
         <span th:text="${message}">완료</span>
     </div>
     <div class="py-5 text-center">
-        <h2>여행 계획 세우기</h2>
+        <h2>여행 상태 수정</h2>
     </div>
     <div class="row justify-content-center">
         <div class="col-2">
-            <div th:replace="fragments.html::travelsetting-menu (travelMenu = 'description')"></div>
+            <div th:replace="fragments.html::travelsetting-menu (travelMenu = 'open-closed')"></div>
         </div>
         <form class="needs-validation col-sm-8" action="#"
               th:action="@{'/travel/'+${travel.travelName}+'/settings/description'}" th:object="${travelForm}" method="post" novalidate>

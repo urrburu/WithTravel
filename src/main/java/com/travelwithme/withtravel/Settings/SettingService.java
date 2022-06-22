@@ -96,8 +96,5 @@ public class SettingService {
 
     }
 
-    public List<String> getWhiteList(Account account) {
-        List<String> allTags = tagRepository.findAll().stream().map(Tag::getTagTitle).collect(Collectors.toList());
-        return allTags;
-    }
+
 }

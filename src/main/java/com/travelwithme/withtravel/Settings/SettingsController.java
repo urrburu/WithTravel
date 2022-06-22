@@ -12,6 +12,7 @@ import com.travelwithme.withtravel.Settings.Validator.NicknameValidator;
 import com.travelwithme.withtravel.Settings.Validator.PasswordFormValidator;
 import com.travelwithme.withtravel.Tag.Tag;
 import com.travelwithme.withtravel.Tag.TagForm;
+import com.travelwithme.withtravel.Tag.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 public class SettingsController {
 
     private final SettingService settingService;
+    private final TagService tagService;
     private static final String SETTING_PROFILE_URL = "/settings/profile";
     private static final String SETTING_NOTIFICATIONS_URL = "/settings/notification";
     private static final String SETTING_NOTIFICATIONS_Location = "Profile/modifyNotification";
@@ -134,7 +136,7 @@ public class SettingsController {
         model.addAttribute(account);
         Set<Tag> tags = settingService.getTags(account);
         model.addAttribute("tags", tags.stream().map(Tag::getTagTitle).collect(Collectors.toList()));
-        List<String> allTag = settingService.getWhiteList(account);
+        List<String> allTag = tagService.getWhiteList();
         model.addAttribute("whitelist", objectMapper.writeValueAsString(allTag));
         return SETTING_TAGS_Location;
     }
@@ -143,8 +145,6 @@ public class SettingsController {
     public String tagSubmit(@CurrentAccount Account account, @RequestBody TagForm tagForm, Model model){
         String title = tagForm.getTagTitle();
         settingService.appendTag(account, title);
-
-
         return "redirect:/"+SETTING_TAGS_URL;
     }
     @PostMapping("/settings/tags/remove")

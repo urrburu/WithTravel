@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -55,5 +58,10 @@ public class TravelSettingService {
             travel.setPublished(false);
         }
         travelRepository.save(travel);
+    }
+
+
+    public Set<Tag> getTags(Travel travel) {
+        return travel.getTags();
     }
 }
