@@ -1,6 +1,6 @@
-#With Travel Project
+# With Travel Project
 
-##중점을 두고 개발할 부분
+## 중점을 두고 개발할 부분
  - JPA에 대해서 공부한 부분 반영해보기
 
  - DB를 정규화해서 사용하기
