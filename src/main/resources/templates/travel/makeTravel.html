@@ -17,7 +17,7 @@
     </div>
     <div class="row justify-content-center">
         <form class="needs-validation col-sm-8" action="#"
-              th:action="@{/travel/newtravel}" th:object="${travelForm}" method="post" novalidate>
+              th:action="@{/travel/newTravel}" th:object="${travelForm}" method="post" novalidate>
             <div class="form-group">
                 <label for="travelName">여행 이름</label>
                 <input id="travelName" type="text" th:field="*{travelName}" class="form-control"

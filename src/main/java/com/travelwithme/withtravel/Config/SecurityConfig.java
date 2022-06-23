@@ -28,15 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors().and()
                 .csrf().disable()
-                .sessionManagement()
-                    //.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
                 .authorizeRequests()
                     .mvcMatchers("/", "/login", "/sign-up", "/check-email", "/check-email-token","/emailLogin","/login-by-email",
                         "/email-login", "/check-email-login", "/login-link","/h2-console","/error","/findPassword").permitAll()
                     .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
-                    .mvcMatchers(HttpMethod.GET, "/travel/*").permitAll()
-                .antMatchers("/api/v1/account/new").permitAll()
                 .anyRequest().authenticated();
         http.formLogin()
                 .loginPage("/login").permitAll();

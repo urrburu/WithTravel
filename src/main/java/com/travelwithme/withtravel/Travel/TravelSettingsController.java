@@ -34,7 +34,7 @@ public class TravelSettingsController {
 
     private String travelSettingDesc = "/travel/settings/TravelSettingDescription";
     private String travelSettingOpCl = "/travel/settings/TravelSettingOpenClosed";
-    private String travelSettingTag = "/travel/settings/TravelTag";
+    private String travelSettingTag = "/travel/settings/TravelSettingTag";
 
     @GetMapping("/description")
     public String viewTravelSetting(@CurrentAccount Account account, @PathVariable String path, Model model){

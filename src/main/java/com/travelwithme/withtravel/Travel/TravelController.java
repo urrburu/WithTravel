@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,9 +52,12 @@ public class TravelController {
    }
 
    @PostMapping("/newTravel")
-    public String newTravelSubmit( @CurrentAccount Account account, Model model, @Valid TravelForm travelForm){
-       travelService.newTravel(account, travelForm);
-       return "redirect:/travel/"+travelForm.getPath();
+    public String newTravelSubmit(@CurrentAccount Account account, @Valid TravelForm travelForm, Errors errors){
+       if (errors.hasErrors()) {
+           return travelMakeLocation;
+       }
+       Travel travel = travelService.newTravel(account, travelForm);
+       return "redirect:/travel/"+travel.getPath();
    }
    @GetMapping("/{Path}")
     public String TravelOne(@CurrentAccount Account account, Model model, @PathVariable String Path){

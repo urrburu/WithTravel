@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,18 +33,20 @@ public class TravelService {
     private final PlanService planService;
 
 
-    public void newTravel(Account account, TravelForm travelForm) {
-        Travel travel = Travel.builder().build();
-        travel.setPath(travelForm.getPath());
+    @Transactional
+    public Travel newTravel(Account account,@Valid TravelForm travelForm) {
+        Travel travel = Travel.builder()
+                .path(travelForm.getPath())
+                .travelName(travelForm.getTravelName())
+                .shortDescription(travelForm.getShortDescription())
+                .fullDescription(travelForm.getFullDescription())
+                .recruiting(false)
+                .published(false)
+                .closed(false)
+                .build();
         travel.getManagers().add(account);
-        travel.setTravelName(travelForm.getTravelName());
         travel.setStartTime(travelForm.getStartTime());
         travel.setEndTime(travelForm.getEndTime());
-        travel.setShortDescription(travelForm.getShortDescription());
-        travel.setFullDescription(travelForm.getFullDescription());
-        travel.setRecruiting(false);
-        travel.setPublished(false);
-        travel.setClosed(true);
-        travelRepository.save(travel);
+        return travelRepository.save(travel);
     }
 }

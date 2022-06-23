@@ -8,21 +8,22 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@Entity
+@Entity@Builder
 @Getter@Setter
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Travel {
 
     @Id @GeneratedValue
     private Long id;
 
     @Column(unique = true)
+    @NotNull
     private String travelName;
 
     @Column(unique = true)
