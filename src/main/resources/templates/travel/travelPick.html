@@ -12,7 +12,7 @@
 
         <div class="row pt-4 text-left justify-content-center bg-light">
             <div class="col-6">
-                <a href="#" class="text-decoration-none" th:href="@{'/travel/'+${travel.travelName}}">
+                <a href="#" class="text-decoration-none" th:href="@{'/travel/'+${travel.Path}}">
                     <span class="h2" th:text="${travel.travelName}">여행 제목</span>
                 </a>
             </div>
@@ -63,7 +63,7 @@
             <div class="col-10 pt-3" th:utext="${travel.fullDescription}"></div>
         </div>
 
-        <div class="row px-3 justify-content-center bg-light">
+        <!--<div class="row px-3 justify-content-center bg-light">
             <ul class="list-unstyled col-10">
                 <li th:each="spot: ${travel.spots}">
                     <div class="media-body">
@@ -74,7 +74,7 @@
                     </div>
                 </li>
             </ul>
-        </div>
+        </div>-->
         <div th:replace="fragments.html::footer"></div>
     </div>
 

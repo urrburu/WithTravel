@@ -35,18 +35,22 @@ public class TravelService {
 
     @Transactional
     public Travel newTravel(Account account,@Valid TravelForm travelForm) {
+        Set<Account> accounts = new HashSet<>();
+        accounts.add(account);
         Travel travel = Travel.builder()
                 .path(travelForm.getPath())
                 .travelName(travelForm.getTravelName())
+                .managers(accounts)
+                .startTime(travelForm.getStartTime())
+                .endTime(travelForm.getEndTime())
                 .shortDescription(travelForm.getShortDescription())
                 .fullDescription(travelForm.getFullDescription())
                 .recruiting(false)
                 .published(false)
                 .closed(false)
                 .build();
-        travel.getManagers().add(account);
-        travel.setStartTime(travelForm.getStartTime());
-        travel.setEndTime(travelForm.getEndTime());
+        //빋드되고 나서 save로 반영되기 전에는 set함수를 쓸 수 없다.
+        //널 포인터 익셉션이 발생한다.
         return travelRepository.save(travel);
     }
 }
