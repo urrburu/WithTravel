@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -42,12 +43,16 @@ public class TravelSettingsController {
         model.addAttribute(account);
         model.addAttribute(travel);
         model.addAttribute("travelDescription", new TravelSettingDescription(travel));
-        return "travel/settings/TravelSettingDescription";
+        return travelSettingDesc;
     }
 
     @PostMapping("/description")
-    public String viewTravelSubmit(@CurrentAccount Account account, @PathVariable String path, Model model, Error error,
+    public String viewTravelSubmit(@CurrentAccount Account account, @PathVariable String path, Model model, Errors errors,
                                    @Valid TravelSettingDescription travelSettingDescription,RedirectAttributes attributes ){
+        if (errors.hasErrors()) {
+            attributes.addFlashAttribute("error", "수정안에 문제가 있습니다.");
+            return "redirect:/travel/"+path+"/settings/description";
+        }
         Travel travel = travelRepository.findByPath(path);
         if(travel.getManagers().contains(account))travelSettingService.modifyDescription(travel, travelSettingDescription);
         else{
@@ -61,7 +66,7 @@ public class TravelSettingsController {
         Travel travel = travelRepository.findByPath(path);
         model.addAttribute(account);
         model.addAttribute(travel);
-        model.addAttribute(new TravelSettingOpenClosed(travel));
+        model.addAttribute("travelOpenClose",new TravelSettingOpenClosed(travel));
         return travelSettingOpCl;
     }
 
