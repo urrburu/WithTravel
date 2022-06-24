@@ -16,12 +16,11 @@
         <h2>여행 계획 수정</h2>
     </div>
     <div class="row justify-content-center">
+        <div th:replace="fragments.html :: travel-menu(travelMenu='settings')"></div>
         <div class="col-2">
             <div th:replace="fragments.html::travelsetting-menu (travelMenu = 'description')"></div>
         </div>
-        <form class="needs-validation col-sm-8" action="#"
-              th:action="@{'/travel/'+${travel.travelName}+'/settings/description'}" th:object="${travelForm}" method="post" novalidate>
-            <div th:replace="fragments.html :: travel-menu(travelMenu='settings')"></div>
+        <form class=" col-sm-6" action="#" th:action="@{'/travel/'+${travel.path}+'/settings/description'}" method="post" th:object="${travelDescription} novalidate>
             <div class="form-group">
                 <label for="shortDescriptionCheck">갈 여행에 대해서 간략하게 설명해주세요.</label>
                 <input id="shortDescriptionCheck" type="text" th:field="*{shortDescription}" class="form-control"

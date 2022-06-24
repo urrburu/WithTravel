@@ -32,17 +32,17 @@ public class TravelSettingsController {
     private final ObjectMapper objectMapper;
     private final TagService tagService;
 
-    private String travelSettingDesc = "/travel/settings/TravelSettingDescription";
-    private String travelSettingOpCl = "/travel/settings/TravelSettingOpenClosed";
-    private String travelSettingTag = "/travel/settings/TravelSettingTag";
+    private String travelSettingDesc = "travel/settings/TravelSettingDescription";
+    private String travelSettingOpCl = "travel/settings/TravelSettingOpenClosed";
+    private String travelSettingTag = "travel/settings/TravelSettingTag";
 
     @GetMapping("/description")
     public String viewTravelSetting(@CurrentAccount Account account, @PathVariable String path, Model model){
         Travel travel = travelRepository.findByPath(path);
         model.addAttribute(account);
         model.addAttribute(travel);
-        model.addAttribute(new TravelSettingDescription(travel));
-        return travelSettingDesc;
+        model.addAttribute("travelDescription", new TravelSettingDescription(travel));
+        return "travel/settings/TravelSettingDescription";
     }
 
     @PostMapping("/description")
