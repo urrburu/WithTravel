@@ -11,6 +11,7 @@ import com.travelwithme.withtravel.Travel.Form.TravelSettingDescription;
 import com.travelwithme.withtravel.Travel.Form.TravelSettingOpenClosed;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -35,6 +36,7 @@ public class TravelSettingsController {
 
     private String travelSettingDesc = "travel/settings/TravelSettingDescription";
     private String travelSettingOpCl = "travel/settings/TravelSettingOpenClosed";
+    private String travelSettingMember = "travel/settings/TravelSettingMember";
     private String travelSettingTag = "travel/settings/TravelSettingTag";
 
     @GetMapping("/description")
@@ -79,6 +81,17 @@ public class TravelSettingsController {
             attributes.addFlashAttribute("error", "수정 권한이 없습니다.");
         }
         return "redirect:/travel/"+path+"/settings/open-closed";
+    }
+
+    @GetMapping("/member")
+    public String modifyMember(@CurrentAccount Account account, @PathVariable String path, Model model){
+
+        return travelSettingMember;
+    }
+
+    @GetMapping("/member/{memberName}/remove")
+    public String modifyMemberSubmit(@CurrentAccount Account account,@PathVariable String path, Model model, @PathVariable String memberName){
+        return "redirect:/travel/"+path+"/settings/member";
     }
 
     @GetMapping("/tag")
