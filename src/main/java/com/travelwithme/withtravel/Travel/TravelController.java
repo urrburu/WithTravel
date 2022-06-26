@@ -31,7 +31,7 @@ public class TravelController {
     private String travelPick = "travel/travelPick";
     private String travelMakeLocation = "/travel/makeTravel";
     //Todo add 콜과 remove 콜을 별도로 만들어줄 예정
-    private String spotLocation = "/travel/modifySpot";
+    private String travelMembers = "/travel/TravelMember";
 
     private final TravelService travelService;
     private final TravelRepository travelRepository;
@@ -66,5 +66,12 @@ public class TravelController {
         model.addAttribute(travel);
        return travelPick;
    }
+    @GetMapping("/{Path}/members")
+    public String TravelMembers(@CurrentAccount Account account, Model model, @PathVariable String Path){
+        Travel travel = travelRepository.findByPath(Path);
+        model.addAttribute(account);
+        model.addAttribute(travel);
+        return travelMembers;
+    }
 
 }

@@ -17,8 +17,9 @@
         <div th:replace="fragments.html :: travel-menu(travelMenu='members')"></div>
     </div>
     <div class="row justify-content-center">
-        <ul class="needs-validation col-sm-8" action="#">
 
+        <ul class="needs-validation col-sm-8">
+            <p> 관리자 </p>
             <li th:each="member: ${travel.managers}">
                 <div class="media-body">
                     <a th:href="@{'/profile/' + ${member.nickname}}" ><span th:text="${member.nickname}"></span></a>
@@ -29,7 +30,9 @@
             </li>
 
         </ul>
+
         <ul class="needs-validation col-sm-8" action="#">
+            <p> 참가자 </p>
             <li th:each="member: ${travel.members}">
                 <div class="media-body">
                     <a th:href="@{'/profile/' + ${member.nickname}}" ><span th:text="${member.nickname}"></span></a>
