@@ -1,5 +1,7 @@
 package com.travelwithme.withtravel.Travel;
 
+import com.travelwithme.withtravel.Account.Account;
+import com.travelwithme.withtravel.Account.AccountRepository;
 import com.travelwithme.withtravel.Tag.TagRepository;
 import com.travelwithme.withtravel.Tag.Tag;
 import com.travelwithme.withtravel.Tag.TagForm;
@@ -21,6 +23,7 @@ public class TravelSettingService {
 
     private final TravelRepository travelRepository;
     private final TagRepository tagRepository;
+    private final AccountRepository accountRepository;
     private final TravelService travelService;
 
 
@@ -63,5 +66,12 @@ public class TravelSettingService {
 
     public Set<Tag> getTags(Travel travel) {
         return travel.getTags();
+    }
+
+    public Travel removeMember(String path, String memberName) {
+        Account account = accountRepository.findByNickname(memberName);
+        Travel travel = travelRepository.findByPath(path);
+        travel.getMembers().remove(account);
+        return travelRepository.save(travel);
     }
 }

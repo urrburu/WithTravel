@@ -85,12 +85,16 @@ public class TravelSettingsController {
 
     @GetMapping("/member")
     public String modifyMember(@CurrentAccount Account account, @PathVariable String path, Model model){
-
+        Travel travel = travelRepository.findByPath(path);
+        model.addAttribute(account);
+        model.addAttribute(travel);
         return travelSettingMember;
     }
 
     @GetMapping("/member/{memberName}/remove")
-    public String modifyMemberSubmit(@CurrentAccount Account account,@PathVariable String path, Model model, @PathVariable String memberName){
+    public String modifyMemberSubmit(@CurrentAccount Account account,@PathVariable String path, @PathVariable String memberName){
+        Travel travel = travelRepository.findByPath(path);
+        if(travel.getManagers().contains(account))travelSettingService.removeMember(path, memberName);
         return "redirect:/travel/"+path+"/settings/member";
     }
 
@@ -107,6 +111,9 @@ public class TravelSettingsController {
 
     @PostMapping("/tag/add")
     public String addTravelTag(@CurrentAccount Account account, @PathVariable String path, Model model, @RequestBody TagForm tagForm){
+        Travel travel = travelRepository.findByPath(path);
+
+
         return travelSettingTag;
     }
 

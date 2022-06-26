@@ -13,9 +13,10 @@
         <span th:text="${message}">완료</span>
     </div>
     <div class="py-5 text-center">
-        <h2>여행 계획 세우기</h2>
+        <h2>여행 태그 관리</h2>
     </div>
     <div class="row justify-content-center">
+        <div th:replace="fragments.html :: travel-menu(travelMenu='settings')"></div>
         <div class="col-2">
             <div th:replace="fragments.html::travelsetting-menu (travelMenu = 'tag')"></div>
         </div>

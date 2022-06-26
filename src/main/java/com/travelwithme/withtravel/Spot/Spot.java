@@ -3,10 +3,7 @@ package com.travelwithme.withtravel.Spot;
 import com.travelwithme.withtravel.Account.Account;
 import lombok.*;
 import org.springframework.data.geo.Point;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Comparator;
 
 @Entity
 @Getter
