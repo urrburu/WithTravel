@@ -33,10 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .authorizeRequests()
                     .mvcMatchers("/", "/login", "/sign-up", "/check-email", "/check-email-token","/emailLogin","/login-by-email",
-                        "/email-login", "/check-email-login", "/login-link","/h2-console","/error","/findPassword").permitAll()
+                        "/email-login", "/check-email-login", "/login-link","/h2-console","/error","/findPassword", "/api").permitAll()
                     .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
                     .mvcMatchers(HttpMethod.GET, "/travel/*").permitAll()
                 .antMatchers("/api/v1/account/new").permitAll()
+                .antMatchers("/api/v2/account/all").permitAll()
                 .anyRequest().authenticated();
         http.formLogin()
                 .loginPage("/login").permitAll();

@@ -42,13 +42,15 @@ public class AccountApiController {
     }
 
     @GetMapping("/api/v2/account/all")
-    public Result accountListV2(){
+    public List<MemberDto> accountListV2(){
         List<Account> accounts = accountService.findAccounts();
         List<MemberDto> accountList = accounts.stream()
                 .map(m->new MemberDto(m.getNickname()))
                 .collect(Collectors.toList());
-        return new Result(accountList);
+        return accountList;
     }
+
+
 
     @Data
     @AllArgsConstructor
