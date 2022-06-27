@@ -20,6 +20,6 @@ public class PlanForm {
 
     private Integer cost;
 
-    private String shortDescription;
+    private String longDescription;
 
 }

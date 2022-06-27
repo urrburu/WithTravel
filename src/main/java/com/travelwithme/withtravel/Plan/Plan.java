@@ -1,6 +1,7 @@
 package com.travelwithme.withtravel.Plan;
 
 import com.travelwithme.withtravel.Spot.Spot;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
-@Entity@Getter@Setter
+@Entity@Getter@Setter@Builder
 @EqualsAndHashCode(of="id")
 public class Plan{
 
