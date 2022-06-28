@@ -24,13 +24,6 @@ public class PlanController {
     private final PlanRepository planRepository;
     private final PlanService planService;
 
-    @GetMapping("/allPlan")
-    public String AllPlanView(@CurrentAccount Account account, @PathVariable String travelPath, Model model){
-        List<Plan> planList = planService.findAllPlan(travelPath);
-        model.addAttribute(planList);
-        model.addAttribute(account);
-        return "/plan/planAll";
-    }
 
     @GetMapping("/newPlan")
     public String makePlan(@CurrentAccount Account account, @PathVariable String travelPath, Model model)
@@ -45,4 +38,6 @@ public class PlanController {
         planService.addPlan(account, travelPath, plan);
         return "redirect:/travel"+travelPath+"/plan";
     }
+
+
 }

@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments.html :: head"/>
 
+<body class="bg-light">
+<nav th:replace="fragments.html :: mainNavbar"/>
+<div class="alert alert-warning" role="alert" th:if="${account != null && !account.emailVerified}">
+    이메일 인증이 되지 않으면 위드 트래블의 서비스를 이용할 수 없습니다! <a href="#" th:href="@{/check-email}"class = "alert-lint">계정인증 이메일</a>을 확인하세요!
+</div>
+<div class="container">
+    <div th:if="${message}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+        <span th:text="${message}">완료</span>
+    </div>
+    <div class="py-5 text-center">
+        <h2>여행 멤버 관리</h2>
+        <div th:replace="fragments.html :: travel-menu(travelMenu='members')"></div>
+    </div>
+    <div class="row justify-content-center">
+
+        <ul class="needs-validation col-sm-8">
+            <p> 관리자 </p>
+            <li th:each="plan: ${travel.plans}">
+                <div class="media-body">
+                    <a th:href="@{'/profile/' + ${member.nickname}}" ><span th:text="${member.nickname}"></span></a>
+                    <span>       Email : </span><span th:text="${member.email}">입니다.</span>
+                    <br><span>  전화번호는 </span><span>추후 전화번호 삽입 예정 입니다.</span>
+
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+</div>
 </body>
 </html>

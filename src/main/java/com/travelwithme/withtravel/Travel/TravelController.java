@@ -3,6 +3,7 @@ package com.travelwithme.withtravel.Travel;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Plan.Form.PlanForm;
+import com.travelwithme.withtravel.Plan.Plan;
 import com.travelwithme.withtravel.Spot.SpotForm;
 import com.travelwithme.withtravel.Travel.Form.TravelForm;
 import lombok.RequiredArgsConstructor;
@@ -72,6 +73,14 @@ public class TravelController {
         model.addAttribute(account);
         model.addAttribute(travel);
         return travelMembers;
+    }
+
+    @GetMapping("/plans")
+    public String AllPlanView(@CurrentAccount Account account, @PathVariable String Path, Model model){
+        Travel travel = travelRepository.findByPath(Path);
+        model.addAttribute(travel);
+        model.addAttribute(account);
+        return "/plan/planAll";
     }
 
 }

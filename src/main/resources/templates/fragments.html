@@ -9,7 +9,7 @@
     <link rel="stylesheet" href ="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/node_modules/@yaireo/tagify/dist/tagify.css">
-
+    <link rel="stylesheet" href="/node_modules/summernote/dist/summernote-bs4.css">
     <style>
         .container {
             max-width: 100%;
@@ -18,6 +18,7 @@
             border: 0;
         }
     </style>
+
 
 
 </head>
@@ -116,7 +117,7 @@
         <a class="nav-item nav-link" href="#" th:classappend="${travelMenu == 'members'}? active" th:href="@{'/travel/' + ${travel.Path} + '/members'}">
             <i class="fa fa-user"></i> 구성원
         </a>
-        <a class="nav-item nav-link" th:classappend="${travelMenu == 'events'}? active" href="#" th:href="@{'/travel/' + ${travel.Path} + '/events'}">
+        <a class="nav-item nav-link" th:classappend="${travelMenu == 'plans'}? active" href="#" th:href="@{'/travel/' + ${travel.Path} + '/plans'}">
             <i class="fa fa-calendar"></i> 계획
         </a>
         <a sec:authorize="isAuthenticated()" th:if="${travel.isManager(#authentication.principal)}"
