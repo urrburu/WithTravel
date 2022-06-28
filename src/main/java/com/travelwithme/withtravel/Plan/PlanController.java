@@ -5,6 +5,7 @@ import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Plan.Form.PlanForm;
 import com.travelwithme.withtravel.Travel.Travel;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -22,11 +24,12 @@ public class PlanController {
     private final PlanRepository planRepository;
     private final PlanService planService;
 
-    @GetMapping("/")
-    public String planList(){
-
-
-        return "plan/planAll";
+    @GetMapping("/allPlan")
+    public String AllPlanView(@CurrentAccount Account account, @PathVariable String travelPath, Model model){
+        List<Plan> planList = planService.findAllPlan(travelPath);
+        model.addAttribute(planList);
+        model.addAttribute(account);
+        return "/plan/planAll";
     }
 
     @GetMapping("/newPlan")
@@ -38,7 +41,6 @@ public class PlanController {
     }
     @PostMapping("/newPlan")
     public String addonPlan(@CurrentAccount Account account, @PathVariable String travelPath, @Valid PlanForm planForm){
-
         Plan plan = planService.makeNewPlan(planForm);
         planService.addPlan(account, travelPath, plan);
         return "redirect:/travel"+travelPath+"/plan";
