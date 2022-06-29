@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments.html :: head"/>
 
+<body class="bg-light">
+<nav th:replace="fragments.html :: mainNavbar"/>
+<div class="alert alert-warning" role="alert" th:if="${account != null && !account.emailVerified}">
+    이메일 인증이 되지 않으면 위드 트래블의 서비스를 이용할 수 없습니다! <a href="#" th:href="@{/check-email}"class = "alert-lint">계정인증 이메일</a>을 확인하세요!
+</div>
+<div class="container">
+    <div th:if="${message}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+        <span th:text="${message}">완료</span>
+    </div>
+    <div class="py-5 text-center">
+        <h2>여행 계획 관리</h2>
+        <div th:replace="fragments.html :: travel-menu(travelMenu='plans')"></div>
+    </div>
+    <div class="row justify-content-center">
+
+        <ul class="needs-validation col-sm-8">
+            <p th:if="${travel.isPlanEmpty()}">
+                <a th:href="'/travel/'+${travel.path}+'/plan/newPlan'">지금은 계획이 없습니다. 이 여행의 매니저라면 계획을 채워주세요.</a>
+            </p>
+            <p th:if="${!travel.isPlanEmpty()}">
+                <a th:href="'/travel/'+${travel.path}+'/plan/newPlan'">이 여행의 매니저라면 계획을 추가해주세요.</a>
+            </p>
+            <li th:each="plan: ${travel.plans}">
+                <div class="media-body">
+                    <a th:href="@{'/profile/' + ${plan.spot.spotName}}" ><span th:text="${plan.spot.spotName}"></span></a>
+                    <span>  이 장소에 책정된 예산은    </span><span th:text="${plan.cost}">원 입니다.</span>
+                    <br><span>  전화번호는 </span><span>추후 전화번호 삽입 예정 입니다.</span><span>  전화번호는 </span><span>추후 전화번호 삽입 예정 입니다.</span>
+                    <br><span>  설명 :  </span><span th:text = "${plan.longDescription}"></span>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+</div>
 </body>
 </html>

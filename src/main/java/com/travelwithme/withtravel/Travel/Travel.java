@@ -88,5 +88,7 @@ public class Travel {
     
     public void costCalculate(){this.totalCost = 0;for(Plan plan: plans){this.totalCost += plan.getCost();}    }
 
+    public Boolean isPlanEmpty() {return this.getPlans().size()==0;}
+
 }
 

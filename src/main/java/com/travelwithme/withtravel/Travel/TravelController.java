@@ -75,7 +75,7 @@ public class TravelController {
         return travelMembers;
     }
 
-    @GetMapping("/plans")
+    @GetMapping("/{Path}/plans")
     public String AllPlanView(@CurrentAccount Account account, @PathVariable String Path, Model model){
         Travel travel = travelRepository.findByPath(Path);
         model.addAttribute(travel);
