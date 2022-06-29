@@ -6,6 +6,9 @@ import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -20,5 +23,10 @@ public class SpotService {
         spot.setPoint( new Point(Double.parseDouble(spotForm.getLatitude()), Double.parseDouble(spotForm.getLongitude())));
         spot.setShortDescription(spotForm.getShortDescription());
         return spotRepository.save(spot);
+    }
+
+    public List<String> getWhiteList() {
+        List<String> allSpots = spotRepository.findAll().stream().map(Spot::getSpotName).collect(Collectors.toList());
+        return allSpots;
     }
 }

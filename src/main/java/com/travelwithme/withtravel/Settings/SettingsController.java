@@ -142,13 +142,13 @@ public class SettingsController {
     }
 
     @PostMapping("/settings/tags/add")
-    public String tagSubmit(@CurrentAccount Account account, @RequestBody TagForm tagForm, Model model){
+    public String tagSubmit(@CurrentAccount Account account, @RequestBody TagForm tagForm){
         String title = tagForm.getTagTitle();
         settingService.appendTag(account, title);
         return "redirect:/"+SETTING_TAGS_URL;
     }
     @PostMapping("/settings/tags/remove")
-    public String tagRemove(@CurrentAccount Account account, @RequestBody TagForm tagForm, Model model){
+    public String tagRemove(@CurrentAccount Account account, @RequestBody TagForm tagForm){
         String title = tagForm.getTagTitle();
         settingService.removeTag(account, title);
         return "redirect:/"+SETTING_TAGS_URL;

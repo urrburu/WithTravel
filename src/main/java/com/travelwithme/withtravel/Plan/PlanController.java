@@ -1,20 +1,25 @@
 package com.travelwithme.withtravel.Plan;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Plan.Form.PlanForm;
+import com.travelwithme.withtravel.Spot.Spot;
+import com.travelwithme.withtravel.Spot.SpotService;
+import com.travelwithme.withtravel.Tag.Tag;
 import com.travelwithme.withtravel.Travel.Travel;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.TableGenerator;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -23,21 +28,32 @@ public class PlanController {
 
     private final PlanRepository planRepository;
     private final PlanService planService;
+    private final SpotService spotService;
+    private final ObjectMapper objectMapper;
 
+    private static final String NEW_PLAN_URL = "/newPlan";
 
-    @GetMapping("/newPlan")
-    public String makePlan(@CurrentAccount Account account, @PathVariable String travelPath, Model model)
-    {
+    @GetMapping(NEW_PLAN_URL)
+    public String makePlan(@CurrentAccount Account account, @PathVariable String travelPath, Model model) throws JsonProcessingException {
         model.addAttribute(account);
-        model.addAttribute(new PlanForm());
+        List<Spot> spots = planService.getPlans(travelPath);
+        model.addAttribute("spots", spots.stream().map(Spot::getSpotName).collect(Collectors.toList()));
+        List<String> allSpots = spotService.getWhiteList();
+        model.addAttribute("whiteList", objectMapper.writeValueAsString(allSpots));
         return "plan/newPlan";
     }
-    @PostMapping("/newPlan")
-    public String addonPlan(@CurrentAccount Account account, @PathVariable String travelPath, @Valid PlanForm planForm){
+    @PostMapping("/newPlan/add")
+    public String addonPlan(@CurrentAccount Account account, @PathVariable String travelPath, @RequestBody PlanForm planForm){
         Plan plan = planService.makeNewPlan(planForm);
         planService.addPlan(account, travelPath, plan);
-        return "redirect:/travel"+travelPath+"/plan";
+        return "redirect:/travel"+travelPath+NEW_PLAN_URL;
     }
+    @PostMapping("/newPlan/remove")
+    public String removePlan(@CurrentAccount Account account, @RequestBody PlanForm planForm, @PathVariable String travelPath){
+        planService.removePlan(account, travelPath, planForm);
+        return "redirect:/travel"+travelPath+NEW_PLAN_URL;
+    }
+
 
 
 }

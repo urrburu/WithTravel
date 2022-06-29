@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.Null;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,10 +43,11 @@ public class PlanService {
         }
     }
 
-    public void removePlan(Account account, String travelPath, Long planId) {
-        Optional<Plan> plan = planRepository.findById(planId);
+    public void removePlan(Account account, String travelPath, PlanForm planForm) {
+        Spot spot = spotRepository.findBySpotName(planForm.getSpotName());
         Travel travel = travelRepository.findByPath(travelPath);
-        if(travel.getManagers().contains(account) && plan.isPresent()){
+        Plan plan = planRepository.findByTravelAndSpot(travel, spot);
+        if(travel.getManagers().contains(account) && plan != null){
             travel.getPlans().remove(plan);
         }
     }
@@ -52,5 +55,12 @@ public class PlanService {
     public List<Plan> findAllPlan(String travelPath) {
         Travel travel = travelRepository.findByPath(travelPath);
         return travel.getPlans();
+    }
+
+    public List<Spot> getPlans(String travelPath) {
+        Travel travel = travelRepository.findByPath(travelPath);
+        List<Spot> spots = new ArrayList<>();
+        for(Plan plan: travel.getPlans()){spots.add(plan.getSpot()); }
+        return spots;
     }
 }
