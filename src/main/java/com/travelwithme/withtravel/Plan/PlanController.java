@@ -7,10 +7,7 @@ import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Plan.Form.PlanForm;
 import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Spot.SpotService;
-import com.travelwithme.withtravel.Tag.Tag;
-import com.travelwithme.withtravel.Travel.Travel;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +41,7 @@ public class PlanController {
     }
     @PostMapping("/newPlan/add")
     public String addonPlan(@CurrentAccount Account account, @PathVariable String travelPath, @RequestBody PlanForm planForm){
-        Plan plan = planService.makeNewPlan(planForm);
+        Plan plan = planService.makeNewPlan(account, travelPath, planForm);
         planService.addPlan(account, travelPath, plan);
         return "redirect:/travel"+travelPath+NEW_PLAN_URL;
     }

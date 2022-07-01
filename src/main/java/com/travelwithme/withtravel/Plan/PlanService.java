@@ -24,15 +24,17 @@ public class PlanService {
     private final SpotRepository spotRepository;
     private final PlanRepository planRepository;
 
-    public Plan makeNewPlan(PlanForm planForm) {
+    public Plan makeNewPlan(Account account,String travelPath, PlanForm planForm) {
         Spot spot = spotRepository.findBySpotName(planForm.getSpotName());
-        Plan plan = Plan.builder()
-                .cost(planForm.getCost())
-                .startTime(planForm.getStartTime())
-                .endTime(planForm.getEndTime())
-                .longDescription(planForm.getLongDescription())
-                .spot(spot)
-                .build();
+        Travel travel = travelRepository.findByPath(travelPath);
+        Plan plan = new Plan();
+        plan.setCost(planForm.getCost());
+        plan.setCreatedBy(account);
+        plan.setLongDescription(planForm.getLongDescription());
+        plan.setStartTime(planForm.getStartTime());
+        plan.setEndTime(planForm.getEndTime());
+        plan.setSpot(spot);
+        plan.setTravel(travel);
         return planRepository.save(plan);
     }
 
