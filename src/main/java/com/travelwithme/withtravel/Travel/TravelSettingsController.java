@@ -11,7 +11,6 @@ import com.travelwithme.withtravel.Travel.Form.TravelSettingDescription;
 import com.travelwithme.withtravel.Travel.Form.TravelSettingOpenClosed;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -102,6 +101,7 @@ public class TravelSettingsController {
     public String travelTag(@CurrentAccount Account account, @PathVariable String path, Model model) throws JsonProcessingException {
         Travel travel = travelRepository.findByPath(path);
         model.addAttribute(account);
+        model.addAttribute(travel);
         Set<Tag> tags = travelSettingService.getTags(travel);
         model.addAttribute("tags", tags.stream().map(Tag::getTagTitle).collect(Collectors.toList()));
         List<String> allTag = tagService.getWhiteList();
