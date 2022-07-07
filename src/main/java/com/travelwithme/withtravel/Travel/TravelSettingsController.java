@@ -6,11 +6,13 @@ import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Tag.Tag;
 import com.travelwithme.withtravel.Tag.TagForm;
+import com.travelwithme.withtravel.Tag.TagRepository;
 import com.travelwithme.withtravel.Tag.TagService;
 import com.travelwithme.withtravel.Travel.Form.TravelSettingDescription;
 import com.travelwithme.withtravel.Travel.Form.TravelSettingOpenClosed;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
 public class TravelSettingsController {
 
     private final TravelRepository travelRepository;
+    private final TagRepository tagRepository;
     private final ModelMapper modelMapper;
     private final TravelSettingService travelSettingService;
     private final ObjectMapper objectMapper;
@@ -110,6 +113,7 @@ public class TravelSettingsController {
     }
 
     @PostMapping("/tag/add")
+    @ResponseBody
     public String addTravelTag(@CurrentAccount Account account, @PathVariable String path, Model model, @RequestBody TagForm tagForm){
         Travel travel = travelRepository.findByPath(path);
 
@@ -118,8 +122,15 @@ public class TravelSettingsController {
     }
 
     @PostMapping("tag/remove")
-    public String removeTravelTag(@CurrentAccount Account account, @PathVariable String path, Model model, @RequestBody TagForm tagForm){
-        return travelSettingTag;
+    @ResponseBody
+    public ResponseEntity removeTravelTag(@CurrentAccount Account account, @PathVariable String path, Model model, @RequestBody TagForm tagForm){
+        Travel travel = travelSettingService.getTravelToUpdateTag(account, path);
+        Tag tag = tagRepository.findByTagTitle(tagForm.getTagTitle());
+        if(tag == null){
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok().build();
     }
 
 

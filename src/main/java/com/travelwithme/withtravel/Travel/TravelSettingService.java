@@ -74,4 +74,11 @@ public class TravelSettingService {
         travel.getMembers().remove(account);
         return travelRepository.save(travel);
     }
+
+    public Travel getTravelToUpdateTag(Account account, String path) {
+        Travel travel  = travelRepository.findByPath(path);
+
+
+        return travel;
+    }
 }
