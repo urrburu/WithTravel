@@ -26,8 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().and()
-                .csrf().disable()
                 .authorizeRequests()
                     .mvcMatchers("/", "/login", "/sign-up", "/check-email", "/check-email-token","/emailLogin","/login-by-email",
                         "/email-login", "/check-email-login", "/login-link","/h2-console","/error","/findPassword").permitAll()
