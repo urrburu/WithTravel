@@ -21,4 +21,7 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
 
     @EntityGraph(attributePaths = {"tags", "plans", "managers", "members"}, type = EntityGraph.EntityGraphType.LOAD)
     Travel findByPath(String Path);
+
+    @EntityGraph(value = "Travel.withTagsAndManagers", type = EntityGraph.EntityGraphType.FETCH)
+    Travel findAccountWithTagsByPath(String Path);
 }
