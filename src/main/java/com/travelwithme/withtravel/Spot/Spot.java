@@ -26,5 +26,11 @@ public class Spot {
     @JoinColumn(name = "account_id")
     private Account firstMaker;
 
+    public Hotel hotel( String spotName, String shortDescription, Point point, Account account){
+        return new Hotel(spotName, shortDescription, point, account);
+    }
 
+    public Restaurant restaurant( String spotName, String shortDescription, Point point, Account account){
+        return new Restaurant(spotName, shortDescription, point, account);
+    }
 }
