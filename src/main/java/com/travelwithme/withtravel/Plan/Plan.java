@@ -19,6 +19,8 @@ public class Plan{
     @Id @GeneratedValue
     private Long id;
 
+    private String planName;
+
     @ManyToOne
     private Travel travel;
 

@@ -65,4 +65,9 @@ public class PlanService {
         for(Plan plan: travel.getPlans()){spots.add(plan.getSpot()); }
         return spots;
     }
+
+    public Plan findPlan(Account account, String travelPath, String planName) {
+        Travel travel = travelRepository.findByPath(travelPath);
+        return planRepository.findByTravelAndPlanName(travel, planName);
+    }
 }
