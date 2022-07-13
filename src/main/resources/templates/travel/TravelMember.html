@@ -31,18 +31,21 @@
 
         </ul>
 
-        <ul class="needs-validation col-sm-8" action="#">
-            <p> 참가자 </p>
-            <li th:each="member: ${travel.members}">
-                <div class="media-body">
-                    <a th:href="@{'/profile/' + ${member.nickname}}" ><span th:text="${member.nickname}"></span></a>
-                    <span>       Email : </span><span th:text="${member.email}">입니다.</span>
-                    <br><span>  전화번호는 </span><span>추후 전화번호 삽입 예정 입니다.
-                    <br><button th:href="'/member/'+${member.nickname}+'/remove'">멤버 내보내기</button>
-                </div>
-            </li>
 
-        </ul>
+    </div>
+    <div class="row justify-content-center">
+    <ul class="needs-validation col-sm-8" action="#">
+        <p> 참가자 </p>
+        <li th:each="member: ${travel.members}">
+            <div class="media-body">
+                <a th:href="@{'/profile/' + ${member.nickname}}" ><span th:text="${member.nickname}"></span></a>
+                <span>       Email : </span><span th:text="${member.email}">입니다.</span>
+                <br><span>  전화번호는 </span><span>추후 전화번호 삽입 예정 입니다.
+                    <br><button th:href="'/member/'+${member.nickname}+'/remove'">멤버 내보내기</button>
+            </div>
+        </li>
+
+    </ul>
     </div>
 </div>
 </body>
