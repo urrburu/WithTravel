@@ -79,13 +79,35 @@ public class TravelControllerTest {
     @Test
     @DisplayName("여행화면 만들기 잘못된 이름 Post 테스트")
     public void PostWrongNameMakeTravel() throws Exception{
-
+        mockMvc.perform(post("/travel/newTravel")
+                        .param("travelName", "행부산여행부산여행부산여행부산여행부산여행부산여행부산여행부산여")
+                        .param("Path","rightNowPusan")
+                        .param("shortDescription", "짧게 설명하기")
+                        .param("fullDescription", "길게길게길게설명하기 길게길게길게설명하기 길게길게길게설명하기 길게길게길게설명하기 길게길게길게설명하기 ")
+                        .param("startTime", LocalDateTime.now().plusWeeks(1).toString())
+                        .param("endTime",LocalDateTime.now().plusWeeks(2).toString())
+                        .with(csrf()))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("/travel/makeTravel"));
+        Travel travel = travelRepository.findByPath("rightNowPusan");
+        assertTrue(travel == null);
     }
     @WithAccount(value = "chanhwi")
     @Test
     @DisplayName("여행화면 만들기 잘못된 Path Post 테스트")
     public void PostWrongPathMakeTravel() throws Exception{
-
+        mockMvc.perform(post("/travel/newTravel")
+                        .param("travelName", "부산여행")
+                        .param("Path","한글로된Path한글로된Path한글로된Path")
+                        .param("shortDescription", "짧게 설명하기")
+                        .param("fullDescription", "길게길게길게설명하기 길게길게길게설명하기 길게길게길게설명하기 길게길게길게설명하기 길게길게길게설명하기 ")
+                        .param("startTime", LocalDateTime.now().plusWeeks(1).toString())
+                        .param("endTime",LocalDateTime.now().plusWeeks(2).toString())
+                        .with(csrf()))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("/travel/makeTravel"));
+        Travel travel = travelRepository.findByPath("한글로된Path한글로된Path한글로된Path");
+        assertTrue(travel == null);
     }
 
 
