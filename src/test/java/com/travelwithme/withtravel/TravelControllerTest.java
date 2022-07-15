@@ -69,7 +69,11 @@ public class TravelControllerTest {
                 .andExpect(view().name("redirect:/travel/rightNowPusan"));
         Travel travel = travelRepository.findByPath("rightNowPusan");
         assertFalse(travel == null);
+/*
+테스트를 위해서 LocalDateTime의 포맷을 수정해서 맞춰줘야만 했다.
+만약 통합테스트 시에 오류가 일어날 경우 TravelForm을 수정하는게 좋을 듯.
 
+ */
     }
     @WithAccount(value = "chanhwi")
     @Test

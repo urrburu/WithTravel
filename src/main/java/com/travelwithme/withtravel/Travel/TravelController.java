@@ -54,10 +54,10 @@ public class TravelController {
 
    @PostMapping("/newTravel")
     public String newTravelSubmit(@CurrentAccount Account account, @Valid TravelForm travelForm, Errors errors){
-        /*
+
        if (errors.hasErrors()) {
            return travelMakeLocation;
-       }*/
+       }
        Travel travel = travelService.newTravel(account, travelForm);
        return "redirect:/travel/"+travel.getPath();
    }
