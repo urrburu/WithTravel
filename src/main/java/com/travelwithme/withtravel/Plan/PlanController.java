@@ -29,20 +29,19 @@ public class PlanController {
     private final PlanService planService;
     private final SpotService spotService;
     private final ObjectMapper objectMapper;
-
+    private final TravelRepository travelRepository;
 
     private static final String NEW_PLAN_URL = "/newPlan";
 
     @GetMapping(NEW_PLAN_URL)
     public String makePlanView(@CurrentAccount Account account, @PathVariable String travelPath, Model model) throws JsonProcessingException {
+        Travel travel = travelRepository.findByPath(travelPath);
         model.addAttribute(account);
-        List<Spot> spots = planService.getPlans(travelPath);
-        model.addAttribute("spots", spots.stream().map(Spot::getSpotName).collect(Collectors.toList()));
-        List<String> allSpots = spotService.getWhiteList();
-        model.addAttribute("whiteList", objectMapper.writeValueAsString(allSpots));
+        model.addAttribute(travel);
+        model.addAttribute(new PlanForm());
         return "plan/newPlan";
     }
-    @PostMapping(NEW_PLAN_URL+"/add")
+    @PostMapping(NEW_PLAN_URL)
     public String addonPlan(@CurrentAccount Account account, @PathVariable String travelPath, @RequestBody PlanForm planForm){
         Plan plan = planService.makeNewPlan(account, travelPath, planForm);
         planService.addPlan(account, travelPath, plan);

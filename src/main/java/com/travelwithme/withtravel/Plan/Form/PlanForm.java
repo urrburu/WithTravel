@@ -1,9 +1,11 @@
 package com.travelwithme.withtravel.Plan.Form;
 
+import com.travelwithme.withtravel.Plan.PlanType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Lob;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,6 +22,9 @@ public class PlanForm {
 
     private Integer cost;
 
+    @Lob
     private String longDescription;
+
+    private PlanType planType = PlanType.SIGHTSEEING;
 
 }
