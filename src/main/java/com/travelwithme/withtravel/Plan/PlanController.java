@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Plan.Form.PlanForm;
-import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Spot.SpotService;
 import com.travelwithme.withtravel.Travel.Travel;
 import com.travelwithme.withtravel.Travel.TravelRepository;
@@ -14,11 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.TableGenerator;
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -42,15 +37,15 @@ public class PlanController {
         return "plan/newPlan";
     }
     @PostMapping(NEW_PLAN_URL)
-    public String addonPlan(@CurrentAccount Account account, @PathVariable String travelPath, @RequestBody PlanForm planForm){
+    public String addonPlan(@CurrentAccount Account account, @PathVariable String travelPath, @Valid PlanForm planForm){
         Plan plan = planService.makeNewPlan(account, travelPath, planForm);
         planService.addPlan(account, travelPath, plan);
-        return "redirect:/travel"+travelPath+NEW_PLAN_URL;
+        return "redirect:/travel/"+travelPath+"/plans";
     }
     @PostMapping(NEW_PLAN_URL+"/remove")
     public String removePlan(@CurrentAccount Account account, @RequestBody PlanForm planForm, @PathVariable String travelPath){
         planService.removePlan(account, travelPath, planForm);
-        return "redirect:/travel"+travelPath+NEW_PLAN_URL;
+        return "redirect:/travel/"+travelPath+"/plans";
     }
 
     @GetMapping("{planName}/modifyplan")

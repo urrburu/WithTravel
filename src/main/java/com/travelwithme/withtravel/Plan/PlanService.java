@@ -28,6 +28,7 @@ public class PlanService {
         Spot spot = spotRepository.findBySpotName(planForm.getSpotName());
         Travel travel = travelRepository.findByPath(travelPath);
         Plan plan = new Plan();
+        plan.setPlanName(planForm.getSpotName());
         plan.setCost(planForm.getCost());
         plan.setCreatedBy(account);
         plan.setLongDescription(planForm.getLongDescription());
