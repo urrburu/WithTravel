@@ -1,14 +1,13 @@
 package com.travelwithme.withtravel.Account;
 
 
+import com.travelwithme.withtravel.Enrollment.Enrollment;
 import com.travelwithme.withtravel.Tag.Tag;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity@Builder
 @Getter@Setter
@@ -58,6 +57,8 @@ public class Account {
     @ManyToMany
     private Set<Tag> tags = new HashSet<>();
 
+    @OneToMany(mappedBy = "JoinWant")
+    private List<Enrollment> Enrollments = new ArrayList<>();
 
     private LocalDateTime lastSendDateTime;
 
