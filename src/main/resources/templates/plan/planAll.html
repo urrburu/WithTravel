@@ -31,6 +31,9 @@
                     <span>  이 장소에 책정된 예산은    </span><span th:text="${plan.cost}">원 입니다.</span>
                     <br><span>  전화번호는 </span><span>추후 전화번호 삽입 예정 입니다.</span><span>  전화번호는 </span><span>추후 전화번호 삽입 예정 입니다.</span>
                     <br><span>  설명 :  </span><span th:text = "${plan.longDescription}"></span>
+                    <br>
+                    <button th:href="'travel/'+${travel.path}'/plan/'+${plan.planName}+'/modify'">이 계획 수정</button>
+                    <button th:href="'travel/'+${travel.path}'/plan/'+${plan.planName}+'/remove'">이 계획 삭제</button>
                 </div>
             </li>
 

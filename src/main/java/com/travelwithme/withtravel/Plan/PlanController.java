@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Account.CurrentAccount;
 import com.travelwithme.withtravel.Plan.Form.PlanForm;
+import com.travelwithme.withtravel.Plan.Form.PlanModify;
 import com.travelwithme.withtravel.Spot.SpotService;
 import com.travelwithme.withtravel.Travel.Travel;
 import com.travelwithme.withtravel.Travel.TravelRepository;
@@ -52,9 +53,9 @@ public class PlanController {
     public String modifyPlanView(@CurrentAccount Account account, @PathVariable String travelPath,@PathVariable String planName, Model model){
         Plan plan = planService.findPlan(account, travelPath, planName);
         model.addAttribute(account);
-        model.addAttribute(plan);
+        model.addAttribute(new PlanModify(plan));
 
-        return "";
+        return "plan/modifyPlan";
     }
 
 
