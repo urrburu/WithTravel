@@ -52,6 +52,7 @@ public class AccountApiController {
 
 
 
+
     @Data
     @AllArgsConstructor
     static class Result<T>{
