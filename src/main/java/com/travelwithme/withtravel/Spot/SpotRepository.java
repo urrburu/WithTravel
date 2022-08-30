@@ -1,12 +1,26 @@
 package com.travelwithme.withtravel.Spot;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import java.util.Optional;
 
 @Repository
-@Transactional(readOnly = true)
-public interface SpotRepository extends JpaRepository<Spot, Long> {
+public class SpotRepository {
+    EntityManagerFactory entityManagerFactory;
 
-    Spot findBySpotName(String spotName);
+    @PersistenceContext
+    EntityManager entityManager;
+
+    public Spot save(Spot spot){
+        if(entityManager.contains(spot))return null;
+        entityManager.persist(spot);
+        return spot;
+    }
+
+    public Spot findBySpotName(String spotName) {
+        return entityManager.find(Spot.class, spotName);
+    }
 }
