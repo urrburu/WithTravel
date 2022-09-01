@@ -1,27 +1,39 @@
 package com.travelwithme.withtravel.Travel;
 
-import com.travelwithme.withtravel.Account.Account;
-import com.travelwithme.withtravel.Travel.Travel;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 
 @Repository
-@Transactional(readOnly = true)
-public interface TravelRepository extends JpaRepository<Travel, Long> {
+@RequiredArgsConstructor
+public class TravelRepository{
 
-    boolean existsByPath(String path);
+    private final EntityManager entityManager;
 
-    Travel findByMembers(Account account);
+    public Travel save(Travel travel){entityManager.persist(travel);return travel;}
 
-    Travel findByTravelName(String travelName);
+    public Travel findById(Long id){ return entityManager.find(Travel.class, id);}
 
-    @EntityGraph(attributePaths = {"tags", "plans", "managers", "members"}, type = EntityGraph.EntityGraphType.LOAD)
-    Travel findByPath(String Path);
+    public Travel findByPath(String travelPath) {
+        return entityManager.createQuery("select t from Travel t where t.path = :path", Travel.class)
+                .setParameter("path", travelPath)
+                .getSingleResult();
+    }
 
-    @EntityGraph(value = "Travel.withTagsAndManagers", type = EntityGraph.EntityGraphType.FETCH)
-    Travel findAccountWithTagsByPath(String Path);
+    public List<Travel> findAll() {
+        return entityManager.createQuery("select t from Travel  t", Travel.class)
+                .getResultList();
+    }
+
+    public void deleteAll() {
+        entityManager.createQuery("delete from Travel  t" );
+    }
 }

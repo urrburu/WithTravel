@@ -43,11 +43,12 @@ public class PlanController {
         planService.addPlan(account, travelPath, plan);
         return "redirect:/travel/"+travelPath+"/plans";
     }
+    /*
     @PostMapping(NEW_PLAN_URL+"/remove")
     public String removePlan(@CurrentAccount Account account, @RequestBody PlanForm planForm, @PathVariable String travelPath){
         planService.removePlan(account, travelPath, planForm);
         return "redirect:/travel/"+travelPath+"/plans";
-    }
+    }*/
 
     @GetMapping("{planName}/modifyplan")
     public String modifyPlanView(@CurrentAccount Account account, @PathVariable String travelPath,@PathVariable String planName, Model model){

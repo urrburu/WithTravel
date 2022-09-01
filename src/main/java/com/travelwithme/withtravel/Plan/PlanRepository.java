@@ -1,16 +1,23 @@
 package com.travelwithme.withtravel.Plan;
 
-import com.travelwithme.withtravel.Account.Account;
 import com.travelwithme.withtravel.Spot.Spot;
 import com.travelwithme.withtravel.Travel.Travel;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-@Transactional(readOnly = true)
-public interface PlanRepository extends JpaRepository<Plan, Long> {
+import java.util.List;
+import java.util.Optional;
 
-    Plan findByTravelAndSpot(Travel travel, Spot spot);
 
+public interface PlanRepository extends CrudRepository<Plan, Long> {
+
+    Plan save(Plan plan);
+    
+    Optional<Plan> findById(Long memberId);
+
+    List<Plan> findByTravelAndSpot(Travel travel, Spot spot);
 
     Plan findByTravelAndPlanName(Travel travel, String planName);
 }

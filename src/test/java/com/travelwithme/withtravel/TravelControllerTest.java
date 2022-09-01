@@ -6,7 +6,6 @@ import com.travelwithme.withtravel.Plan.PlanRepository;
 import com.travelwithme.withtravel.Travel.Travel;
 import com.travelwithme.withtravel.Travel.TravelController;
 import com.travelwithme.withtravel.Travel.TravelRepository;
-import com.travelwithme.withtravel.Travel.TravelService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -44,7 +43,8 @@ public class TravelControllerTest {
     @AfterEach
     public void AfterTest(){
         travelRepository.deleteAll();
-        accountRepository.deleteAll();
+        //accountRepository.deleteAll();
+        //딜리트 올 함수 작성하기 전까지는 수동으로 하나하나 테스트 할것.....
     }
     @WithAccount(value = "chanhwi")
     @Test
@@ -62,8 +62,8 @@ public class TravelControllerTest {
                 .param("Path","rightNowPusan")
                 .param("shortDescription", "짧게 설명하기")
                 .param("fullDescription", "길게길게길게설명하기 길게길게길게설명하기 길게길게길게설명하기 길게길게길게설명하기 길게길게길게설명하기 ")
-                .param("startTime", LocalDateTime.now().plusWeeks(1).toString())
-                .param("endTime",LocalDateTime.now().plusWeeks(2).toString())
+                .param("startTime", LocalDateTime.now().plusWeeks(1).toString().substring(0,16))
+                .param("endTime",LocalDateTime.now().plusWeeks(2).toString().substring(0,16))
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/travel/rightNowPusan"));
