@@ -43,7 +43,7 @@ public class TravelControllerTest {
     @AfterEach
     public void AfterTest(){
         travelRepository.deleteAll();
-        //accountRepository.deleteAll();
+        accountRepository.deleteAll();
         //딜리트 올 함수 작성하기 전까지는 수동으로 하나하나 테스트 할것.....
     }
     @WithAccount(value = "chanhwi")
@@ -106,8 +106,8 @@ public class TravelControllerTest {
                         .with(csrf()))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("/travel/makeTravel"));
-        Travel travel = travelRepository.findByPath("한글로된Path한글로된Path한글로된Path");
-        assertTrue(travel == null);
+       Travel travel = travelRepository.findByPath("한글로된Path한글로된Path한글로된Path");
+       assertTrue(travel == null);
     }
 
 
