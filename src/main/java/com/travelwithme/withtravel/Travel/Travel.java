@@ -15,7 +15,7 @@ import java.util.*;
 
 
 @Entity@Builder
-@Getter@Setter
+@Getter
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,8 +32,10 @@ public class Travel {
     @Length(max = 30, min = 3)
     private String path;
 
+    @Setter
     private String shortDescription;
 
+    @Setter
     @Lob@Basic(fetch = FetchType.EAGER)
     private String fullDescription;
 
@@ -65,10 +67,13 @@ public class Travel {
 
     private LocalDateTime closedDateTime;
 
+    @Setter
     private boolean recruiting;
 
+    @Setter
     private boolean published;
 
+    @Setter
     private boolean closed;
 
     private boolean useBanner;
