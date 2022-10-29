@@ -6,7 +6,7 @@ import org.springframework.data.geo.Point;
 import javax.persistence.*;
 
 @Entity
-@Getter@Setter
+@Getter@Builder
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,10 +17,12 @@ public class Spot {
 
     private String spotName;
 
+    @Setter
     private String shortDescription;
 
     private Point point;
 
+    @Setter
     public SpotType spotType;
 
     @ManyToOne

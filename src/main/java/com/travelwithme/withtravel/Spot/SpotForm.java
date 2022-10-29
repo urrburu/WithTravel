@@ -17,4 +17,6 @@ public class SpotForm {
     private String latitude;
 
     private String longitude;
+
+    private SpotType spotType;
 }
