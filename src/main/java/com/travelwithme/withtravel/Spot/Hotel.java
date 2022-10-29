@@ -5,10 +5,11 @@ import org.springframework.data.geo.Point;
 
 public class Hotel extends Spot{
 
-    public Hotel(String spotName, String shortDescription, Point point, Account account){
+
+    public Hotel(String spotName, Point point, Account account, SpotType spotType) {
         this.setSpotName(spotName);
-        this.setShortDescription(shortDescription);
         this.setPoint(point);
         this.setFirstMaker(account);
+        this.setSpotType(spotType);
     }
 }

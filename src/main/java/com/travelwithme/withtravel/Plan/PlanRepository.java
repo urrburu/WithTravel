@@ -34,10 +34,27 @@ public class PlanRepository {
     }
 
     public List<Plan> findByTravelAndSpot(Travel travel, Spot spot){
-        return null;
+        try{
+            return em.createQuery("select p from Plan p where p.spot = :spot and p.travel =: travel", Plan.class)
+                    .setParameter("spot", spot)
+                    .setParameter("travel", travel)
+                    .getResultList();
+
+        }finally {
+            return null;
+        }
+
     }
 
     public Plan findByTravelAndPlanName(Travel travel, String planName){
-        return null;
+        try{
+            return em.createQuery("select p from Plan p where p.planName = :planName and p.travel =: travel", Plan.class)
+                    .setParameter("planName", planName)
+                    .setParameter("travel", travel)
+                    .getSingleResult();
+
+        }catch(NoResultException e) {
+            return null;
+        }
     }
 }
