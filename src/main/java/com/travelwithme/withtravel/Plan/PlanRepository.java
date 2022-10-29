@@ -6,18 +6,38 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
+@RequiredArgsConstructor
+@Transactional
+public class PlanRepository {
 
-public interface PlanRepository extends CrudRepository<Plan, Long> {
+    private final EntityManager em;
 
-    Plan save(Plan plan);
+    public Plan save(Plan plan){
+        em.persist(plan);
+        return plan;
+    }
     
-    Optional<Plan> findById(Long memberId);
+    public Plan findById(Long planId){
+        try{
+            return em.find(Plan.class, planId);
+        }catch (NoResultException e){
+            return null;
+        }
+    }
 
-    List<Plan> findByTravelAndSpot(Travel travel, Spot spot);
+    public List<Plan> findByTravelAndSpot(Travel travel, Spot spot){
+        return null;
+    }
 
-    Plan findByTravelAndPlanName(Travel travel, String planName);
+    public Plan findByTravelAndPlanName(Travel travel, String planName){
+        return null;
+    }
 }

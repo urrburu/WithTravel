@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,16 +26,15 @@ public class PlanService {
     public Plan makeNewPlan(Account account,String travelPath, PlanForm planForm) {
         Spot spot = spotRepository.findBySpotName(planForm.getSpotName());
         Travel travel = travelRepository.findByPath(travelPath);
-        Plan plan = new Plan();
-        plan.setPlanName(planForm.getSpotName());
-        plan.setCost(planForm.getCost());
-        plan.setCreatedBy(account);
-        plan.setLongDescription(planForm.getLongDescription());
-        plan.setStartTime(planForm.getStartTime());
-        plan.setEndTime(planForm.getEndTime());
-        plan.setSpot(spot);
-        plan.setTravel(travel);
-        return planRepository.save(plan);
+        Plan plan = Plan.builder()
+                .planName(planForm.getSpotName())
+                .cost(planForm.getCost())
+                .longDescription(planForm.getLongDescription())
+                .startTime(planForm.getStartTime())
+                .endTime(planForm.getEndTime())
+                .createdBy(account)
+                .build();
+        return plan;
     }
 
     public void addPlan(Account account, String travelPath, Plan plan) {

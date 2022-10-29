@@ -1,20 +1,14 @@
 package com.travelwithme.withtravel.Travel;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.util.ProxyUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import java.util.HashMap;
-import java.util.Iterator;
+
 import java.util.List;
-import java.util.Map;
 
 
 
