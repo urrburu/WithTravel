@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,7 +24,8 @@ public class SpotController {
     public String spotDetail(@PathVariable String spotName, Model model){
         Spot spot = spotRepository.findBySpotName(spotName);
         if(spot==null){
-
+            model.addAttribute(spotName);
+            return"Spot/spotErrorPage";
         }
         model.addAttribute(spot);
         return "Spot/spotView";
@@ -35,9 +37,10 @@ public class SpotController {
         return "Spot/allView";
     }
 
-    @GetMapping("/spots/findSpot/{spotName}")
-    public String findSpot(@PathVariable String spotName, Model model){
-        List<Spot> spotList = spotService.searchBySpotName(spotName);
+    @GetMapping("/spots/findSpot/")
+    public String findSpot(@RequestParam(required = false, name = "keyWord") String keyWord,
+                           Model model){
+        List<Spot> spotList = spotService.searchBySpotName(keyWord);
         //Todo 기능 향후 추가
         model.addAttribute(spotList);
         return null;
