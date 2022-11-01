@@ -42,6 +42,8 @@ public class SpotController {
         model.addAttribute(spotList);
         return null;
     }
+
+
     @GetMapping("/spots/newSpot")
     public String newSpot(@CurrentAccount Account account, Model model){
         model.addAttribute(account);

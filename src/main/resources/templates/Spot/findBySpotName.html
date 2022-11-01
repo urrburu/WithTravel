@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments.html :: head"/>
+
+<body class="bg-light">
+<nav th:replace="fragments.html :: mainNavbar"/>
+<div class="alert alert-warning" role="alert" th:if="${account != null && !account.emailVerified}">
+    이메일 인증이 되지 않으면 위드 트래블의 서비스를 이용할 수 없습니다! <a href="#" th:href="@{/check-email}"class = "alert-lint">계정인증 이메일</a>을 확인하세요!
+</div>
+<div class="container">
+    <div th:if="${message}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+        <span th:text="${message}">완료</span>
+    </div>
+    <div class="py-5 text-center">
+        <h2>여행 장소 만들기</h2>
+        <br>
+        <h4>장소가 없다면 새로운 장소를 만들어보세요. 첫번째 등록하신 분의 닉네임이 함께 기록됩니다.</h4>
+    </div>
+    <div class="row justify-content-center">
+
+    </div>
+</div>
+<script th:replace="fragments.html::editor-script"></script>
+<div th:fragment="editor-script">
+</body>
+</html>
