@@ -23,6 +23,7 @@ public class Spot {
     private Point point;
 
     @Setter
+    @Enumerated(EnumType.STRING)
     public SpotType spotType;
 
     @ManyToOne
