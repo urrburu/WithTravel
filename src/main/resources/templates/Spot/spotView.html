@@ -17,44 +17,10 @@
     <div class="row justify-content-center bg-light">
         <div class="col-10">
             <p class="lead" th:text="${spot.shortDescription}"></p>
-
-        </div>
-
-    </div>
-    <!--
-    <div class="row px-3 justify-content-center bg-light">
-        <div class="col-10">
-               <span th:each="tag: ${travel.tags}"
-                     class="font-weight-light text-monospace badge badge-pill badge-info mr-3">
-                    <a th:href="@{'/search/tag/' + ${tag.tagTitle}}" class="text-decoration-none text-white">
-                        <i class="fa fa-tag"></i> <span th:text="${tag.tagTitle}">Tag</span>
-                    </a>
-                </span>
         </div>
     </div>
-    <div class="row px-3 justify-content-center">
-        <div class="col-10 pt-3" th:utext="${travel.fullDescription}"></div>
-    </div>
--->
-
     <div id="map" class="row justify-content-center bg-light" style="width:500px;height:400px;"></div>
 
-
-
-    <!--
-        <div class="row px-3 justify-content-center bg-light">
-            <ul class="list-unstyled col-10">
-                <li th:each="spot: ${travel.spots}">
-                    <div class="media-body">
-                        <a th:href="@{'/search/spot/' + ${spot.spotName}}" ><span th:text="${spot.spotName}"></span></a>
-                        <span th:text="${spot.startTime}"></span> <span>부터 </span> <span th:text="${spot.endTime}"></span> <span>까지</span>
-                        <span>       소요 예상 비용 : </span><span th:text="${spot.cost}"></span>
-                        <br><span>  이 장소는 </span><span th:text="${spot.shortDescription}"></span>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        -->
     <div th:replace="fragments.html::footer"></div>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey="></script>

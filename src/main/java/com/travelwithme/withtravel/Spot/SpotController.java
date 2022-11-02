@@ -33,8 +33,8 @@ public class SpotController {
     @GetMapping("/spots/all")
     public String spotView(Model model){
         List<Spot> spots = spotRepository.findAll();
-        model.addAttribute(spots);
-        return "Spot/allView";
+        model.addAttribute("spots", spots);
+        return "Spot/allSpotView";
     }
 
     @GetMapping("/spots/findSpot/")
@@ -56,6 +56,6 @@ public class SpotController {
     @PostMapping("/spots/newSpot")
     public String newSpotSubmit(@CurrentAccount Account account,  @Valid SpotForm spotForm){
         Spot spot = spotService.newSpot(account, spotForm);
-        return "redirect:/spots/newSpot";
+        return "redirect:/spots/all";
     }
 }

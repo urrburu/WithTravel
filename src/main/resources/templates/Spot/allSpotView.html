@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments.html::head"/>
+<body>
+<nav th:replace="fragments.html :: mainNavbar"/>
+<div class="container">
+
+    <div class="row pt-4 text-left justify-content-center bg-light">
+        <div class="col-6">
+            <h1>등록된 장소</h1>
+        </div>
+    </div>
+
+</div>
+<div class="row justify-content-center bg-light">
+    <ul class="needs-validation col-sm-8" action="#">
+        <p> 많이 가는 여행지 </p>
+        <li th:each="spot: ${spots}">
+            <div class="media-body">
+                <a th:href="@{'/spots/' + ${spot.spotName}}" ><span th:text="${spot.spotName}"></span></a>
+                <br><span> 장소를 처음 만든 사람 : </span><span th:text="${spot.firstMaker.getNickname()}">입니다.</span>
+                <br><span> 유형 : </span><span th:text="${spot.spotType}">입니다.</span>
+                <!--<br><button th:href="'/member/'+${member.nickname}+'/remove'">멤버 내보내기</button>-->
+            </div>
+        </li>
+
+    </ul>
+</div>
+
+
+<div th:replace="fragments.html::footer"></div>
+</body>
+</html>
