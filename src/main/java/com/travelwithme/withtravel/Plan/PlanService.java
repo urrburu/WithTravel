@@ -24,10 +24,11 @@ public class PlanService {
     private final PlanRepository planRepository;
 
     public Plan makeNewPlan(Account account,String travelPath, PlanForm planForm) {
-        Spot spot = spotRepository.findBySpotName(planForm.getSpotName());
+
         Travel travel = travelRepository.findByPath(travelPath);
         Plan plan = Plan.builder()
-                .planName(planForm.getSpotName())
+                .planName(planForm.getPlanName())
+                .travel(travel)
                 .cost(planForm.getCost())
                 .longDescription(planForm.getLongDescription())
                 .startTime(planForm.getStartTime())
@@ -62,7 +63,7 @@ public class PlanService {
     public List<Spot> getPlans(String travelPath) {
         Travel travel = travelRepository.findByPath(travelPath);
         List<Spot> spots = new ArrayList<>();
-        for(Plan plan: travel.getPlans()){spots.add(plan.getSpot()); }
+        for(Plan plan: travel.getPlans()){spots.add(plan.getTravelSpot()); }
         return spots;
     }
 

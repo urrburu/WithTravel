@@ -15,8 +15,8 @@
     <form class="col-sm-8" action="#"
           th:action="@{'/travel/'+${travel.Path}+'/plan/newPlan'}" th:object="${planForm}" method="post" novalidate>
         <div class="form-group">
-            <label for="spotName">장소 이름</label>
-            <input id="spotName" type="text" th:field="*{spotName}" class="form-control"
+            <label for="planName">장소 이름</label>
+            <input id="planName" type="text" th:field="*{planName}" class="form-control"
                    placeholder="여행갈 장소의 이름을 알려 주세요." aria-describedby="spotNameHelp" required>
 
         </div>

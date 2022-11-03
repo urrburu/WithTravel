@@ -4,97 +4,70 @@
 <head th:replace="fragments.html :: head"/>
 
 <body class="bg-light">
-<nav th:replace="fragments.html :: mainNavbar"/>
+<nav th:replace = "fragments.html :: mainNavbar "/>
 <div class="alert alert-warning" role="alert" th:if="${account != null && !account.emailVerified}">
-    이메일 인증이 되지 않으면 위드 트래블의 서비스를 이용할 수 없습니다! <a href="#" th:href="@{/check-email}"class = "alert-lint">계정인증 이메일</a>을 확인하세요!
+    이메일 인증이 되지 않으면 위드 트래블의 서비스를 이용할 수 없습니다! <a href="#" th:href="@{/check-email}" class = "alert-lint">계정인증 이메일</a>을 확인하세요!
 </div>
 <div class="container">
-    <div th:if="${error}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
-        <span th:text="${error}">완료</span>
-    </div>
-    <div class="row">
-        <div class="col-sm-8">
-            <li th:each="plan: ${travel.plans}">
-                <div class="media-body">
-                    <a th:href="@{'/search/spot/' + ${plan.spot.spotName}}" ><span th:text="${plan.spot.spotName}"></span></a>
-                    <span th:text="${plan.startTime}"></span> <span>부터 </span> <span th:text="${plan.endTime}"></span> <span>까지</span>
-                    <span>       소요 예상 비용 : </span><span th:text="${plan.cost}"></span>
-                    <br><span>  이 장소는 </span><span th:text="${plan.longDescription}"></span>
-                </div>
-            </li>
-        </div>
-    </div>
+<!--
     <form class="col-sm-8" action="#"
-          th:action="@{'/travel/'+${travel.travelName}+'/plan/newPlan'}" th:object="${planForm}" method="post" novalidate>
+          th:action="@{'/travel/'+${travel.travelName}+'/plan/newPlan'}" th:object="${plan}" method="post" novalidate>
         <div class="form-group">
-            <label for="spotName">장소 이름</label>
-            <input id="spotName" type="text" th:field="*{spotName}" class="form-control"
-                   placeholder="여행갈 장소의 이름을 알려 주세요." aria-describedby="spotNameHelp" required>
-            <small id="spotNameHelp" class="form-text text-muted">
+            <label for="planName">계획 이름</label>
+            <input id="planName" type="text" th:field="*{plan.planName}" class="form-control"
+                   placeholder="여행 계획의 이름을 지어주세요." aria-describedby="planNameHelp" required>
+            <small id="planNameHelp" class="form-text text-muted">
                 15자 이하로 입력해주세요.
             </small>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('spotName')}" th:errors="*{spotName}">
+            <small class="form-text text-danger" th:if="${#fields.hasErrors('planName')}" th:errors="*{plan.planName}">
                 15자를 초과하는 여행 이름입니다.
             </small>
         </div>
         <div class="form-group">
             <label for="startTime">이 장소를 언제부터 여행하실 건가요?</label>
-            <input id="startTime" type="datetime-local" th:field="*{startTime}" class="form-control"
+            <input id="startTime" type="datetime-local" th:field="*{plan.startTime}" class="form-control"
                    placeholder="여행에 대해서 255자 이내로 설명해주세요." aria-describedby="startTimeHelp" required>
             <small id="startTimeHelp" class="form-text text-muted">
                 시작시간을 입력해주세요.
             </small>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}">
+            <small class="form-text text-danger" th:if="${#fields.hasErrors('startTime')}" th:errors="*{plan.startTime}">
                 적절하지 않은 설명입니다.
             </small>
         </div>
 
         <div class="form-group">
             <label for="endTime">이 장소를 언제까지 여행하실 건가요?</label>
-            <input id="endTime" type="datetime-local" th:field="*{endTime}" class="form-control"
+            <input id="endTime" type="datetime-local" th:field="*{plan.endTime}" class="form-control"
                    placeholder="여행에 대해서 255자 이내로 설명해주세요." aria-describedby="endTimeHelp" required>
             <small id="endTimeHelp" class="form-text text-muted">
                 마무리 시간을 입력해주세요.
             </small>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}">
+            <small class="form-text text-danger" th:if="${#fields.hasErrors('endTime')}" th:errors="*{plan.endTime}">
                 적절하지 않은 설명입니다.
             </small>
         </div>
         <div class="form-group">
             <label for="shortDescriptionCheck">이 장소에 대해서 간략하게 설명해주세요.</label>
-            <input id="shortDescriptionCheck" type="text" th:field="*{shortDescription}" class="form-control"
+            <input id="shortDescriptionCheck" type="text" th:field="*{plan.shortDescription}" class="form-control"
                    placeholder="장소에 대해서 50자 이내로 설명해주세요." aria-describedby="shortDescriptionHelp" required>
             <small id="shortDescriptionHelp" class="form-text text-muted">                뭘 하는 장소인가요? 무엇을 볼 건가요?            </small>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}">
+            <small class="form-text text-danger" th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{plan.shortDescription}">
                 적절하지 않은 설명입니다.
             </small>
         </div>
         <div class="form-group">
             <label for="cost">여기를 여행하는데 얼마나 들까요?</label>
-            <input id="cost" type="number" th:field="*{cost}" class="form-control"
+            <input id="cost" type="number" th:field="*{plan.cost}" class="form-control"
                    placeholder="0" aria-describedby="endTimeHelp" required>
             <small id="costHelp" class="form-text text-muted">                이 장소를 여행하는데 얼마가 들까요?            </small>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">                적절하지 않은 입력입니다.            </small>
+            <small class="form-text text-danger" th:if="${#fields.hasErrors('cost')}" th:errors="*{plan.cost}">                적절하지 않은 입력입니다.            </small>
         </div>
-        <div class="form-group">
-            <label for="latitude">이 장소의 위도를 입력해주세요</label>
-            <input id="latitude" type="text" th:field="*{latitude}" class="form-control"
-                   placeholder="0" aria-describedby="latitudeHelp" required>
 
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('latitude')}" th:errors="*{latitude}">적절하지 않은 입력입니다.            </small>
-        </div>
         <div class="form-group">
-            <label for="longitude">이 장소의 경도를 입력해주세요</label>
-            <input id="longitude" type="text" th:field="*{longitude}" class="form-control"
-                   placeholder="0" aria-describedby="longitudeHelp" required>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('longitude')}" th:errors="*{longitude}">                적절하지 않은 입력입니다.            </small>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-primary btn-block" type="submit"aria-describedby="submitHelp">여행 장소 추가!</button>
+            <button class="btn btn-primary btn-block" type="submit" aria-describedby="submitHelp">여행 장소 추가!</button>
         </div>
     </form>
-
-
+-->
 </div>
 
 

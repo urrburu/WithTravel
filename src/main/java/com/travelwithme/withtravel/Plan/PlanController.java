@@ -32,8 +32,8 @@ public class PlanController {
     @GetMapping(NEW_PLAN_URL)
     public String makePlanView(@CurrentAccount Account account, @PathVariable String travelPath, Model model) throws JsonProcessingException {
         Travel travel = travelRepository.findByPath(travelPath);
-        model.addAttribute(account);
-        model.addAttribute(travel);
+        model.addAttribute("account", account);
+        model.addAttribute("travel",travel);
         model.addAttribute(new PlanForm());
         return "plan/newPlan";
     }
@@ -50,7 +50,7 @@ public class PlanController {
         return "redirect:/travel/"+travelPath+"/plans";
     }*/
 
-    @GetMapping("{planName}/modifyplan")
+    @GetMapping("{planName}/modifyPlan")
     public String modifyPlanView(@CurrentAccount Account account, @PathVariable String travelPath,@PathVariable String planName, Model model){
         Plan plan = planService.findPlan(account, travelPath, planName);
         model.addAttribute(account);

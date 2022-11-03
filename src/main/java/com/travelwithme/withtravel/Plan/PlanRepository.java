@@ -35,7 +35,7 @@ public class PlanRepository {
 
     public List<Plan> findByTravelAndSpot(Travel travel, Spot spot){
         try{
-            return em.createQuery("select p from Plan p where p.spot = :spot and p.travel =: travel", Plan.class)
+            return em.createQuery("select p from Plan p where p.travelSpot = :spot and p.travel =: travel", Plan.class)
                     .setParameter("spot", spot)
                     .setParameter("travel", travel)
                     .getResultList();
