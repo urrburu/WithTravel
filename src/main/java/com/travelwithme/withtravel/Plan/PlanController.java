@@ -9,7 +9,8 @@ import com.travelwithme.withtravel.Plan.Form.PlanModify;
 import com.travelwithme.withtravel.Spot.SpotService;
 import com.travelwithme.withtravel.Travel.Travel;
 import com.travelwithme.withtravel.Travel.TravelRepository;
-import lombok.AllArgsConstructor;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("travel/{travelPath}/plan")
 public class PlanController {
 
