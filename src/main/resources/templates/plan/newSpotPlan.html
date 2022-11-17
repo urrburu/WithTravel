@@ -1,11 +1,68 @@
+<!--   Todo 1. 여기에 spot 검색 기능을 구현 , 2. spot 검색 이후 이를 이용한 새로운 Plan 작성이 가능하도록 URL을 넘겨줄 것-->
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-  <!--   Todo 1. 여기에 spot 검색 기능을 구현 , 2. spot 검색 이후 이를 이용한 새로운 Plan 작성이 가능하도록 URL을 넘겨줄 것-->
-    <title>Title</title>
-</head>
-<body>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments.html :: head"/>
+
+<body class="bg-light">
+<nav th:replace="fragments.html :: mainNavbar"/>
+
+<div class="container">
+    <div th:if="${error}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+        <span th:text="${error}">완료</span>
+    </div>
+    <div th:text = "${spot.getSpotName()}"></div>
+    <form class="col-sm-8" action="#"
+          th:action="@{'/travel/'+${travel.Path}+'/plan/newPlan'}" th:object="${planForm}" method="post" novalidate>
+        <div class="form-group">
+            <label for="planName">장소 이름</label>
+            <input id="planName" type="text" th:field="*{planName}" class="form-control"
+                   placeholder="여행갈 장소의 이름을 알려 주세요." aria-describedby="spotNameHelp" required>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="startTime">시작 시간</label>
+                <input id="startTime" type="datetime-local" th:field="*{startTime}" class="form-control"
+                       aria-describedby="startTimeHelp" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="endTime">끝나는 시간</label>
+                <input id="endTime" type="datetime-local" th:field="*{endTime}" class="form-control"
+                       aria-describedby="endTimeHelp" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="cost">예산</label>
+                <input id="cost" type="number" th:field="*{cost}" class="form-control"
+                       aria-describedby="costHelp" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="planType">여기서 뭘 할 건가요?</label>
+            <select th:field="*{planType}" class="custom-select mr-sm-2" id="planType"aria-describedby="planTypeHelp">
+                <option th:value="SLEEPING">숙소</option>
+                <option th:value="EATING">식사</option>
+                <option th:value="SIGHTSEEING">관광</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="longDescription">설명</label>
+                <input id="longDescription" type="text" th:field="*{longDescription}" class="form-control"
+                       aria-describedby="longDescriptionHelp" required>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit"aria-describedby="submitHelp">계획 추가하기 </button>
+        </div>
+    </form>
+
+
+
+</div>
+
+
 
 </body>
 </html>

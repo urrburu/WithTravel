@@ -42,7 +42,7 @@ public class PlanController {
         return "plan/newPlan";
     }
     @PostMapping(NEW_PLAN_URL)
-    public String addonPlan(@CurrentAccount Account account, @PathVariable String travelPath, @Valid PlanForm planForm){
+    public String addPlan(@CurrentAccount Account account, @PathVariable String travelPath, @Valid PlanForm planForm){
         Plan plan = planService.makeNewPlan(account, travelPath, planForm);
         planService.addPlan(account, travelPath, plan);
         return "redirect:/travel/"+travelPath+"/plans";
@@ -74,7 +74,7 @@ public class PlanController {
 
     @GetMapping("{planName}/modifyPlan")
     public String modifyPlanView(@CurrentAccount Account account, @PathVariable String travelPath,@PathVariable String planName, Model model){
-        Plan plan = planService.findPlan(account, travelPath, planName);
+        Plan plan = planService.findPlan(travelPath, planName);
         model.addAttribute(account);
         model.addAttribute(new PlanModify(plan));
 

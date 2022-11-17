@@ -22,7 +22,7 @@
                 <a th:href="@{'/spots/' + ${spot.spotName}}" ><span th:text="${spot.spotName}"></span></a>
                 <br><span> 장소를 처음 만든 사람 : </span><span th:text="${spot.firstMaker.getNickname()}">입니다.</span>
                 <br><span> 유형 : </span><span th:text="${spot.spotType}">입니다.</span>
-                <!--<br><button th:href="'/member/'+${member.nickname}+'/remove'">멤버 내보내기</button>-->
+                <!--<br><button th:href="'/member/'+${member.nickname}+'/remove'">이 장소로 가는 새 계획 추가하기</button>-->
             </div>
         </li>
 
